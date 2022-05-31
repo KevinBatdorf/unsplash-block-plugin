@@ -1,26 +1,33 @@
-import { registerBlockType } from '@wordpress/blocks'
 import { useBlockProps as blockProps } from '@wordpress/block-editor'
+import { registerBlockType } from '@wordpress/blocks'
 import { __ } from '@wordpress/i18n'
-import { TheBlock } from './front/TheBlock'
-import { Controls } from './editor/Controls'
 import blockConfig from './block.json'
+import { Controls } from './editor/Controls'
+import { TheBlock } from './front/TheBlock'
 
 export type Attributes = {
-    text: string
+    images: UnsplashImage[]
 }
 
-registerBlockType<Attributes>('kevinbatdorf/rust-starter', {
+type UnsplashImage = {
+    id: string
+    urls: {
+        small: string
+    }
+}
+
+registerBlockType<Attributes>('kevinbatdorf/unlimited-photos', {
     ...blockConfig,
     icon: undefined,
     // Types seem to be mismatched if importing these from block.json
     attributes: {
-        text: {
-            type: 'string',
-            default: 'Loading...',
+        images: {
+            type: 'array',
+            default: [],
         },
     },
 
-    title: __('Rust Starter', 'rust-starter'),
+    title: __('Unlimited Photos', 'unlimited-photos'),
     edit: ({ attributes, setAttributes }) => (
         <>
             <Controls attributes={attributes} setAttributes={setAttributes} />

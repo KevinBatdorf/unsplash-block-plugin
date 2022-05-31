@@ -1,11 +1,14 @@
 import type { Attributes } from '..'
 import './style.css'
 
-export const TheBlock = ({ text }: Attributes) => {
+export const TheBlock = ({ images }: Attributes) => {
+    console.log({ images })
     return (
-        <div className="rust-starter">
+        <div className="unlimited-photos">
             <div className="p-4 py-8 text-xl text-white bg-indigo-500 shadow-lg">
-                {text}
+                {images?.map((image) => (
+                    <img key={image.id} alt="" src={image.urls.small} />
+                ))}
             </div>
         </div>
     )

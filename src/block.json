@@ -1,9 +1,9 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 2,
-    "name": "kevinbatdorf/rust-starter",
+    "name": "kevinbatdorf/unlimited-photos",
     "version": "0.1.0",
-    "title": "Rust Starter",
+    "title": "Unlimited Photos",
     "category": "common",
     "description": "My amazing block",
     "attributes": {
@@ -15,7 +15,7 @@
     "supports": {
         "html": false
     },
-    "textdomain": "rust-starter",
+    "textdomain": "unlimited-photos",
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css"
