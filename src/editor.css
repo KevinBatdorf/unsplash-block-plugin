@@ -14,3 +14,7 @@
 @tailwind components;
 @tailwind utilities;
 /* Add more styles here specific to the editor only */
+
+.unlimited-photos-editor.unlimited-photos-modal {
+    @apply fixed z-high inset-0 overflow-y-auto;
+}

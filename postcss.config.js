@@ -10,7 +10,7 @@ module.exports = ({ mode, file }) => ({
             ...tailwind,
             // Scope the editor css separately from the frontend css.
             content: file.endsWith('editor.css')
-                ? ['./src/editor/*.{ts,tsx}']
+                ? ['./src/**/*.{ts,tsx}']
                 : ['./src/front/*.{ts,tsx}'],
             important:
                 tailwind.important +

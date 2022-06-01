@@ -6,12 +6,7 @@
     "title": "Unlimited Photos",
     "category": "common",
     "description": "My amazing block",
-    "attributes": {
-        "text": {
-            "type": "string",
-            "source": "text"
-        }
-    },
+    "attributes": {},
     "supports": {
         "html": false
     },
