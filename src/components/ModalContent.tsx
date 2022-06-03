@@ -57,28 +57,42 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         setGridWidth(realW)
     }
 
-    useEffect(updateLayout)
+    // useEffect(updateLayout)
 
     useEffect(() => {
+        // setSubpixelOffset(0)
+    }, [moving])
+
+    useEffect(() => {
+        const events = ['resize', 'focus']
         let rafId: number
-        let rafId2: number
         const handler = () => {
             window.cancelAnimationFrame(rafId)
             setMoving(true)
             rafId = window.requestAnimationFrame(() => {
                 setImagePositions([])
-                rafId2 = window.requestAnimationFrame(() => {
-                    updateLayout()
-                })
             })
         }
-        window.addEventListener('resize', handler, { passive: true })
+        events.forEach((e) =>
+            window.addEventListener(e, handler, { passive: true }),
+        )
         return () => {
-            window.removeEventListener('resize', handler)
+            events.forEach((e) => window.removeEventListener(e, handler))
             window.cancelAnimationFrame(rafId)
-            window.cancelAnimationFrame(rafId2)
         }
     })
+
+    useEffect(() => {
+        // Update the layout if no image positions are set
+        if (imagePositions?.length) return
+        updateLayout()
+        const rafId2 = window.requestAnimationFrame(() => {
+            updateLayout()
+        })
+        return () => {
+            window.cancelAnimationFrame(rafId2)
+        }
+    }, [imagePositions])
 
     return (
         <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
@@ -227,6 +241,7 @@ const MasonryItem = ({
         <motion.div
             className="absolute"
             layout
+            transition={{ type: 'Tween' }}
             animate={{ x, y, width, height, opacity: 1 }}
             initial={{ x, y, width, height, opacity: 1 }}>
             <img className="w-full" alt="" src={image.urls.small} />
