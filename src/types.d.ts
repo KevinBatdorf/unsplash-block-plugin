@@ -1,5 +1,7 @@
 export type UnsplashImage = {
     id: string
+    height: number
+    width: number
     urls: {
         small: string
     }

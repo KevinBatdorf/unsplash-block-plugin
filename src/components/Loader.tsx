@@ -16,7 +16,7 @@ export const Loader = ({
     CurrentMenuItems,
     toolbarProps,
 }: LoaderProps) => {
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(true)
 
     useEffect(() => {
         const namespace = 'kevinbatdorf/unlimted-photos-open'

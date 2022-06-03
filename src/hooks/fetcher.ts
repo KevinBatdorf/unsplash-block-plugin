@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+import { UnsplashImage } from '../types'
 
 type ListPhotosParams = {
     page?: number
@@ -12,7 +13,16 @@ export const useListPhotos = (params: ListPhotosParams) => {
     )
 
     const url = `http://unsplash-api-search.vercel.app/api/photos?${queryParams}`
-    const { data, error, isValidating } = useSWR(url, fetcher)
+    const { data, error, isValidating } = useSWR<UnsplashImage[]>(
+        url,
+        fetcher,
+        {
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        },
+    )
+
     return {
         data,
         error,
