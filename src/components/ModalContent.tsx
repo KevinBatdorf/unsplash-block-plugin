@@ -17,9 +17,10 @@ type ImagePosition = {
     parent?: ImagePosition | undefined
 }
 
-export const ModalContent = () => {
+export const ModalContent = ({ open }: { open: boolean }) => {
     const { data: images, error, isLoading } = useListPhotos({})
     const [gridWidth, setGridWidth] = useState<number>()
+    const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
     const gridRef = useRef<HTMLDivElement>(null)
 
@@ -39,11 +40,14 @@ export const ModalContent = () => {
         },
         [imagePositions],
     )
-
-    useEffect(() => {
+    const updateLayout = () => {
         if (!gridRef.current) return
-        setGridWidth(gridRef.current?.offsetWidth)
-    }, [])
+        const w = gridRef.current.offsetWidth
+        setColumns(Math.floor(w / 300))
+        setGridWidth(w)
+    }
+
+    useEffect(updateLayout)
 
     useEffect(() => {
         let rafId: number
@@ -53,7 +57,7 @@ export const ModalContent = () => {
             rafId = window.requestAnimationFrame(() => {
                 setImagePositions([])
                 rafId2 = window.requestAnimationFrame(() => {
-                    setGridWidth(gridRef.current?.offsetWidth)
+                    updateLayout()
                 })
             })
         }
@@ -74,7 +78,7 @@ export const ModalContent = () => {
                     key={image.id}
                     index={index}
                     gridWidth={gridWidth}
-                    columns={8}
+                    columns={columns}
                     imagePositions={imagePositions?.slice(0, index)}
                     setPosition={setPosition}
                     image={image}
@@ -104,7 +108,7 @@ const findParent = (imagePositions: ImagePosition[], columns: number) => {
         // Is this even needed after all the filtering?
         ?.slice(0, columns)
     if (!possibleParents?.length) return undefined
-    console.log({ possibleParents })
+
     // Find the first image with the lowest height
     const bestMatch = possibleParents.reduce((best, next) => {
         if (next.y + next.height < best.y + best.height) {

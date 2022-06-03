@@ -41,7 +41,7 @@ export const Modal = ({ open, onClose }: ModalProps) => {
                             <Sidebar />
                             <div className="flex flex-col bg-gray-50 w-full relative">
                                 <div className="overflow-y-scroll h-full flex flex-col items-center">
-                                    <ModalContent />
+                                    <ModalContent open={open} />
                                 </div>
                             </div>
                         </motion.div>
