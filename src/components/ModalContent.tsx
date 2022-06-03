@@ -22,6 +22,8 @@ export const ModalContent = ({ open }: { open: boolean }) => {
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
+    const [moving, setMoving] = useState(true)
+    const [subpixelOffset, setSubpixelOffset] = useState(0)
     const gridRef = useRef<HTMLDivElement>(null)
 
     const setPosition = useCallback(
@@ -36,15 +38,23 @@ export const ModalContent = ({ open }: { open: boolean }) => {
 
             const newPositions = [...imagePositions]
             newPositions[index] = incoming
+
+            if (newPositions?.length === images?.length) {
+                setMoving(false)
+            }
             setImagePositions(newPositions)
         },
-        [imagePositions],
+        [imagePositions, images],
     )
     const updateLayout = () => {
         if (!gridRef.current) return
         const w = gridRef.current.offsetWidth
-        setColumns(Math.floor(w / 300))
-        setGridWidth(w)
+        const columns = Math.floor(w / 300)
+        setColumns(columns)
+        // Fight subpixel rendering
+        const realW = Math.floor(w / columns) * columns
+        setSubpixelOffset(w - realW)
+        setGridWidth(realW)
     }
 
     useEffect(updateLayout)
@@ -54,6 +64,7 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         let rafId2: number
         const handler = () => {
             window.cancelAnimationFrame(rafId)
+            setMoving(true)
             rafId = window.requestAnimationFrame(() => {
                 setImagePositions([])
                 rafId2 = window.requestAnimationFrame(() => {
@@ -70,7 +81,12 @@ export const ModalContent = ({ open }: { open: boolean }) => {
     })
 
     return (
-        <div ref={gridRef} className="w-full bg-gray-50">
+        <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
+            {subpixelOffset ? (
+                <div
+                    className="absolute left-0 top-0 bottom-0 bg-gray-300"
+                    style={{ width: subpixelOffset }}></div>
+            ) : null}
             {isLoading && <div className="text-center">Loading...</div>}
             {error && <div className="text-center">Error: {error.message}</div>}
             {images?.slice(0, 40).map((image, index) => (
@@ -79,6 +95,7 @@ export const ModalContent = ({ open }: { open: boolean }) => {
                     index={index}
                     gridWidth={gridWidth}
                     columns={columns}
+                    subpixelOffset={subpixelOffset}
                     imagePositions={imagePositions?.slice(0, index)}
                     setPosition={setPosition}
                     image={image}
@@ -131,6 +148,7 @@ export const areSimiliar = (a: ImagePosition, b: MaybeUndefinedImagePosition) =>
 
 const MasonryItem = ({
     image,
+    subpixelOffset,
     imagePositions,
     setPosition,
     index,
@@ -142,6 +160,7 @@ const MasonryItem = ({
     setPosition: (index: number, position: ImagePosition) => void
     index: number
     columns: number
+    subpixelOffset: number
     gridWidth: number | undefined
 }) => {
     const [x, setX] = useState<number>()
@@ -168,7 +187,7 @@ const MasonryItem = ({
 
         const w = gridWidth / columns
         const h = (w * image.height) / image.width
-        const newX = parent?.x ?? (index / columns) * gridWidth
+        const newX = parent?.x ?? (index / columns) * gridWidth + subpixelOffset
         const newY = parent ? parent.y + parent.height : 0
 
         setX(newX)
@@ -177,6 +196,7 @@ const MasonryItem = ({
         setHeight(h)
     }, [
         imagePositions,
+        subpixelOffset,
         columns,
         gridWidth,
         index,
@@ -199,9 +219,12 @@ const MasonryItem = ({
     if ([x, y, width, height].some((i) => typeof i === 'undefined')) return null
     if (!gridWidth) return null
 
+    // TODO: use a variant to transition into full view?
+
     return (
         <motion.div
             className="absolute"
+            layout
             animate={{ x, y, width, height, opacity: 1 }}
             initial={{ x, y, width, height, opacity: 1 }}>
             <img className="w-full" alt="" src={image.urls.small} />
