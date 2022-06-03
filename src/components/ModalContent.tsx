@@ -187,8 +187,10 @@ const MasonryItem = ({
 
         const w = gridWidth / columns
         const h = (w * image.height) / image.width
-        const newX = parent?.x ?? (index / columns) * gridWidth + subpixelOffset
-        const newY = parent ? parent.y + parent.height : 0
+        const newX =
+            parent?.x ??
+            Math.ceil((index / columns) * gridWidth) + subpixelOffset
+        const newY = parent ? Math.floor(parent.y + parent.height) : 0
 
         setX(newX)
         setY(newY)
