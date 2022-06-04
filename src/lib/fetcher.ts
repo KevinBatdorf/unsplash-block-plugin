@@ -1,4 +1,6 @@
+import { useEffect } from '@wordpress/element'
 import useSWR from 'swr'
+import { useGlobalState } from '../state/global'
 import { UnsplashImage } from '../types'
 
 type ListPhotosParams = {
@@ -7,6 +9,7 @@ type ListPhotosParams = {
     order_by?: string
 }
 export const useListPhotos = (params: ListPhotosParams) => {
+    const { setLoading } = useGlobalState()
     const queryParams = new URLSearchParams(
         // Convert object values to strings
         Object.entries(params).map(([key, value]) => [key, String(value)]),
@@ -22,12 +25,14 @@ export const useListPhotos = (params: ListPhotosParams) => {
             revalidateOnReconnect: false,
         },
     )
+    useEffect(() => {
+        setLoading(!error && !data)
+    }, [data, error, setLoading])
 
     return {
         data,
         error,
         isValidating,
-        isLoading: !error && !data,
     }
 }
 const fetcher = async (url: string) => {

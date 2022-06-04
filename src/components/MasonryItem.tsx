@@ -30,6 +30,10 @@ export const MasonryItem = ({
     const [width, setWidth] = useState<number>()
     const [height, setHeight] = useState<number>()
     const [parent, setParent] = useState<undefined | ImagePosition>()
+    const canUpdate = useRef(true)
+
+    // Searches the data to find the best match placement area
+    // Looks for the shorest height
     const findParent = useCallback(() => {
         // Top n images have no parent
         if (imagePositions?.length < columns) return undefined
@@ -62,12 +66,12 @@ export const MasonryItem = ({
         return bestMatch
     }, [imagePositions, columns])
 
-    const canUpdate = useRef(true)
-
+    // Only update if the grid changes
     useEffect(() => {
         if (gridWidth && gridWidth > 0) canUpdate.current = true
-    }, [gridWidth])
+    }, [gridWidth, subpixelOffset])
 
+    // Calculate the position of the image
     useEffect(() => {
         // Always allow index 0 and only allow if the previous image was set
         if (imagePositions?.length < index && index !== 0) return
@@ -82,7 +86,9 @@ export const MasonryItem = ({
         const h = (w * image.height) / image.width
         const newX =
             parent?.x ??
-            Math.ceil((index / columns) * gridWidth) + subpixelOffset
+            Math.max(Math.ceil((index / columns) * gridWidth), 0) +
+                subpixelOffset
+        console.log({ index, gridWidth })
         const newY = parent ? Math.floor(parent.y + parent.height) : 0
 
         setX(newX)
@@ -102,17 +108,14 @@ export const MasonryItem = ({
         x,
     ])
 
+    // Signal to the parent comonent the details of our position
     useLayoutEffect(() => {
         if (!width || !height) return
         if (typeof x === 'undefined' || typeof y === 'undefined') return
-        let rafId: number
-        const id = window.setTimeout(() => {
-            rafId = requestAnimationFrame(() => {
-                setPosition(index, { x, y, width, height, parent })
-            })
-        }, 50)
+        const rafId = requestAnimationFrame(() => {
+            setPosition(index, { x, y, width, height, parent })
+        })
         return () => {
-            window.clearTimeout(id)
             cancelAnimationFrame(rafId)
         }
     }, [x, y, width, height, index, setPosition, parent])
@@ -120,6 +123,7 @@ export const MasonryItem = ({
     // Wait until all are not undefined
     if ([x, y, width, height].some((i) => typeof i === 'undefined')) return null
     if (!gridWidth) return null
+
     // TODO: use a variant to transition into full view?
 
     return (

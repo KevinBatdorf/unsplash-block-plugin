@@ -1,17 +1,21 @@
-import { useEffect, useCallback, useRef, useState } from '@wordpress/element'
+import {
+    useEffect,
+    useCallback,
+    useRef,
+    useState,
+    useLayoutEffect,
+} from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { useListPhotos } from '../lib/fetcher'
 import { areSimiliar } from '../lib/util'
+import { useGlobalState } from '../state/global'
 import { ImagePosition } from '../types'
+import { ButtonNav } from './ButtonNav'
 import { MasonryItem } from './MasonryItem'
 
 export const ModalContent = () => {
-    const [page, setPage] = useState(1)
-    const {
-        data: images,
-        error,
-        isLoading,
-    } = useListPhotos({ per_page: 30, page })
+    const { page, loading } = useGlobalState()
+    const { data: images, error } = useListPhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
@@ -20,6 +24,8 @@ export const ModalContent = () => {
     const [minHeight, setMinHeight] = useState(0)
     const gridRef = useRef<HTMLDivElement>(null)
 
+    // Masonry items will report back their position
+    // so that othe rmasonry items can read from the data
     const setPosition = useCallback(
         (index: number, incoming: ImagePosition) => {
             if (!imagePositions[index - 1] && index !== 0) return
@@ -37,22 +43,13 @@ export const ModalContent = () => {
         [imagePositions, images],
     )
 
-    const updateLayout = () => {
-        if (!gridRef.current) return
-        const w = gridRef.current.offsetWidth
-        const columns = Math.floor(w / 300)
-        setColumns(columns)
-        // Fight subpixel rendering
-        const realW = Math.floor(w / columns) * columns
-        setSubpixelOffset(w - realW)
-        setGridWidth(realW)
-    }
-
-    useEffect(() => {
-        if (!isLoading) return
+    // Reset if we are fetching new data
+    useLayoutEffect(() => {
+        if (!loading) return
         setImagePositions([])
-    }, [isLoading])
+    }, [loading])
 
+    // Find the height of all the images, and add some extra space
     useEffect(() => {
         if (!imagePositions?.length) return
         const largestHeight = imagePositions
@@ -81,11 +78,16 @@ export const ModalContent = () => {
     })
 
     useEffect(() => {
-        // Update the layout if no image positions are set
+        // Update the grid stats to instruct the MasonryItems to re-render
         if (imagePositions?.length) return
-        updateLayout()
-        const rafId2 = window.requestAnimationFrame(() => updateLayout())
-        return () => window.cancelAnimationFrame(rafId2)
+        if (!gridRef.current) return
+        const w = Math.ceil(gridRef.current.offsetWidth)
+        const columns = Math.floor(w / 300)
+        setColumns(columns)
+        // Fight subpixel rendering
+        const realW = Math.floor(w / columns) * columns
+        setSubpixelOffset(w - realW)
+        setGridWidth(realW)
     }, [imagePositions])
 
     if (error) {
@@ -97,33 +99,27 @@ export const ModalContent = () => {
     }
 
     return (
-        <>
-            <button
-                className="fixed top-0 left-0 z-10"
-                onClick={() => setPage((p) => p + 1)}>
-                next page
-            </button>
+        <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
+            <div className="w-full relative h-full" style={{ minHeight }} />
             <div
-                ref={gridRef}
-                className="w-full relative h-full overflow-y-scroll">
-                <div className="w-full relative h-full" style={{ minHeight }} />
-                <div
-                    className="absolute left-0 top-0 bottom-0 bg-transparent"
-                    style={{ width: subpixelOffset, minHeight }}
+                className="absolute left-0 top-0 bottom-0 bg-transparent"
+                style={{ width: subpixelOffset, minHeight }}
+            />
+            {images?.map((image, index) => (
+                <MasonryItem
+                    key={image.id}
+                    index={index}
+                    gridWidth={gridWidth}
+                    columns={columns}
+                    subpixelOffset={subpixelOffset}
+                    imagePositions={imagePositions?.slice(0, index)}
+                    setPosition={setPosition}
+                    image={image}
                 />
-                {images?.map((image, index) => (
-                    <MasonryItem
-                        key={image.id}
-                        index={index}
-                        gridWidth={gridWidth}
-                        columns={columns}
-                        subpixelOffset={subpixelOffset}
-                        imagePositions={imagePositions?.slice(0, index)}
-                        setPosition={setPosition}
-                        image={image}
-                    />
-                ))}
+            ))}
+            <div className="mt-2 mb-6">
+                <ButtonNav show={imagePositions?.length === images?.length} />
             </div>
-        </>
+        </div>
     )
 }
