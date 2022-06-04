@@ -34,3 +34,19 @@ export type WpImage = {
     slug: string
     status: string
 }
+
+export type ImagePosition = {
+    x: number
+    y: number
+    width: number
+    height: number
+    parent?: ImagePosition | undefined
+}
+
+export type MaybeUndefinedImagePosition = {
+    x?: number | undefined
+    y?: number | undefined
+    width?: number | undefined
+    height?: number | undefined
+    parent?: ImagePosition | undefined
+}
