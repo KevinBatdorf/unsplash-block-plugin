@@ -41,7 +41,7 @@ export const MasonryItem = ({
         // Remove any that are already parents
         const alreadyParents = imagePositions
             .filter((i) => Boolean(i?.parent))
-            .map((i) => i.parent)
+            .map((i) => ({ ...i.parent }))
 
         // Find parent candidates
         const possibleParents = imagePositions
@@ -63,16 +63,16 @@ export const MasonryItem = ({
             }
             return best
         })
-        return bestMatch
+        return { ...bestMatch }
     }, [imagePositions, columns])
 
     // Only update if the grid changes
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (gridWidth && gridWidth > 0) canUpdate.current = true
     }, [gridWidth, subpixelOffset])
 
     // Calculate the position of the image
-    useEffect(() => {
+    useLayoutEffect(() => {
         // Always allow index 0 and only allow if the previous image was set
         if (imagePositions?.length < index && index !== 0) return
         if (!gridWidth || !canUpdate.current) return
@@ -80,15 +80,16 @@ export const MasonryItem = ({
 
         // Find the best match for a parent
         const parent = findParent()
+        // Remove image.parent.parent.etc
+        if (parent) delete parent.parent
         setParent(parent)
 
         const w = gridWidth / columns
-        const h = (w * image.height) / image.width
+        const h = Math.floor((w * image.height) / image.width)
         const newX =
             parent?.x ??
             Math.max(Math.ceil((index / columns) * gridWidth), 0) +
                 subpixelOffset
-        console.log({ index, gridWidth })
         const newY = parent ? Math.floor(parent.y + parent.height) : 0
 
         setX(newX)

@@ -15,7 +15,11 @@ import { MasonryItem } from './MasonryItem'
 
 export const ModalContent = () => {
     const { page, loading } = useGlobalState()
-    const { data: images, error } = useListPhotos({ per_page: 30, page })
+    const {
+        data: images,
+        error,
+        cacheId,
+    } = useListPhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
@@ -43,11 +47,10 @@ export const ModalContent = () => {
         [imagePositions, images],
     )
 
-    // Reset if we are fetching new data
     useLayoutEffect(() => {
-        if (!loading) return
+        if (!images?.length) return
         setImagePositions([])
-    }, [loading])
+    }, [page, images])
 
     // Find the height of all the images, and add some extra space
     useEffect(() => {
@@ -58,22 +61,17 @@ export const ModalContent = () => {
         setMinHeight(Math.floor(largestHeight) + 100)
     }, [moving, imagePositions, columns])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const events = ['resize', 'focus']
-        let rafId: number
         const handler = () => {
-            window.cancelAnimationFrame(rafId)
             setMoving(true)
-            rafId = window.requestAnimationFrame(() => setImagePositions([]))
+            setImagePositions([])
         }
         events.forEach((e) =>
             window.addEventListener(e, handler, { passive: true }),
         )
         return () => {
             events.forEach((e) => window.removeEventListener(e, handler))
-            window.cancelAnimationFrame(rafId)
-            // If the frame was requested and cancelled
-            if (rafId) setMoving(false)
         }
     })
 
@@ -90,6 +88,12 @@ export const ModalContent = () => {
         setGridWidth(realW)
     }, [imagePositions])
 
+    // Reset if we are fetching new data
+    useEffect(() => {
+        if (!loading) return
+        setImagePositions([])
+    }, [loading])
+
     if (error) {
         return (
             <div className="text-center absolute inset-0 flex items-center justify-center">
@@ -100,14 +104,14 @@ export const ModalContent = () => {
 
     return (
         <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
-            <div className="w-full relative h-full" style={{ minHeight }} />
+            <div className="w-full relative min-h-full" style={{ minHeight }} />
             <div
                 className="absolute left-0 top-0 bottom-0 bg-transparent"
                 style={{ width: subpixelOffset, minHeight }}
             />
             {images?.map((image, index) => (
                 <MasonryItem
-                    key={image.id}
+                    key={image.id + cacheId}
                     index={index}
                     gridWidth={gridWidth}
                     columns={columns}
