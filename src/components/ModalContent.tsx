@@ -1,7 +1,7 @@
 import {
-    useCallback,
     useEffect,
     useLayoutEffect,
+    useCallback,
     useRef,
     useState,
 } from '@wordpress/element'
@@ -17,13 +17,19 @@ type ImagePosition = {
     parent?: ImagePosition | undefined
 }
 
-export const ModalContent = ({ open }: { open: boolean }) => {
-    const { data: images, error, isLoading } = useListPhotos({})
+export const ModalContent = () => {
+    const [page, setPage] = useState(1)
+    const {
+        data: images,
+        error,
+        isLoading,
+    } = useListPhotos({ per_page: 50, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
     const [moving, setMoving] = useState(true)
     const [subpixelOffset, setSubpixelOffset] = useState(0)
+    const [minHeight, setMinHeight] = useState(0)
     const gridRef = useRef<HTMLDivElement>(null)
 
     const setPosition = useCallback(
@@ -46,6 +52,7 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         },
         [imagePositions, images],
     )
+
     const updateLayout = () => {
         if (!gridRef.current) return
         const w = gridRef.current.offsetWidth
@@ -57,11 +64,17 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         setGridWidth(realW)
     }
 
-    // useEffect(updateLayout)
+    useEffect(() => {
+        setImagePositions([])
+    }, [page])
 
     useEffect(() => {
-        // setSubpixelOffset(0)
-    }, [moving])
+        if (moving || !imagePositions?.length) return
+        const largestHeight = imagePositions
+            .slice(-columns)
+            .reduce((prev, next) => Math.max(prev, next.y + next.height), 0)
+        setMinHeight(largestHeight)
+    }, [moving, imagePositions, columns])
 
     useEffect(() => {
         const events = ['resize', 'focus']
@@ -69,9 +82,7 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         const handler = () => {
             window.cancelAnimationFrame(rafId)
             setMoving(true)
-            rafId = window.requestAnimationFrame(() => {
-                setImagePositions([])
-            })
+            rafId = window.requestAnimationFrame(() => setImagePositions([]))
         }
         events.forEach((e) =>
             window.addEventListener(e, handler, { passive: true }),
@@ -79,6 +90,8 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         return () => {
             events.forEach((e) => window.removeEventListener(e, handler))
             window.cancelAnimationFrame(rafId)
+            // If the frame was requested and cancelled
+            if (rafId) setMoving(false)
         }
     })
 
@@ -86,24 +99,20 @@ export const ModalContent = ({ open }: { open: boolean }) => {
         // Update the layout if no image positions are set
         if (imagePositions?.length) return
         updateLayout()
-        const rafId2 = window.requestAnimationFrame(() => {
-            updateLayout()
-        })
-        return () => {
-            window.cancelAnimationFrame(rafId2)
-        }
+        const rafId2 = window.requestAnimationFrame(updateLayout)
+        return () => window.cancelAnimationFrame(rafId2)
     }, [imagePositions])
 
     return (
         <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
-            {subpixelOffset ? (
-                <div
-                    className="absolute left-0 top-0 bottom-0 bg-gray-300"
-                    style={{ width: subpixelOffset }}></div>
-            ) : null}
+            <div className="w-full relative h-full" style={{ minHeight }} />
+            <div
+                className="absolute left-0 top-0 bottom-0 bg-gray-300"
+                style={{ width: subpixelOffset, minHeight }}
+            />
             {isLoading && <div className="text-center">Loading...</div>}
             {error && <div className="text-center">Error: {error.message}</div>}
-            {images?.slice(0, 40).map((image, index) => (
+            {images?.map((image, index) => (
                 <MasonryItem
                     key={image.id}
                     index={index}
@@ -115,39 +124,13 @@ export const ModalContent = ({ open }: { open: boolean }) => {
                     image={image}
                 />
             ))}
+            <button
+                className="fixed top-0 left-0 z-10"
+                onClick={() => setPage((p) => p + 1)}>
+                next page
+            </button>
         </div>
     )
-}
-
-const findParent = (imagePositions: ImagePosition[], columns: number) => {
-    // Top n images have no parent
-    if (imagePositions?.length < columns) return undefined
-
-    // Remove any that are already parents
-    const alreadyParents = imagePositions
-        .filter((i) => Boolean(i?.parent))
-        .map((i) => i.parent)
-
-    // Find parent candidates
-    const possibleParents = imagePositions
-        ?.filter(
-            // If they are already a parent, remove them
-            (i) => !alreadyParents.some((p) => p?.x === i?.x && p?.y === i?.y),
-        )
-        // Sort by distance from the top
-        ?.sort((a, b) => b.y - a.y)
-        // Is this even needed after all the filtering?
-        ?.slice(0, columns)
-    if (!possibleParents?.length) return undefined
-
-    // Find the first image with the lowest height
-    const bestMatch = possibleParents.reduce((best, next) => {
-        if (next.y + next.height < best.y + best.height) {
-            best = next
-        }
-        return best
-    })
-    return bestMatch
 }
 
 type MaybeUndefinedImagePosition = {
@@ -182,6 +165,37 @@ const MasonryItem = ({
     const [width, setWidth] = useState<number>()
     const [height, setHeight] = useState<number>()
     const [parent, setParent] = useState<undefined | ImagePosition>()
+    const findParent = useCallback(() => {
+        // Top n images have no parent
+        if (imagePositions?.length < columns) return undefined
+
+        // Remove any that are already parents
+        const alreadyParents = imagePositions
+            .filter((i) => Boolean(i?.parent))
+            .map((i) => i.parent)
+
+        // Find parent candidates
+        const possibleParents = imagePositions
+            ?.filter(
+                // If they are already a parent, remove them
+                (i) =>
+                    !alreadyParents.some((p) => p?.x === i?.x && p?.y === i?.y),
+            )
+            // Sort by distance from the top
+            ?.sort((a, b) => b.y - a.y)
+            // Is this even needed after all the filtering?
+            ?.slice(0, columns)
+        if (!possibleParents?.length) return undefined
+
+        // Find the first image with the lowest height
+        const bestMatch = possibleParents.reduce((best, next) => {
+            if (next.y + next.height < best.y + best.height) {
+                best = next
+            }
+            return best
+        })
+        return bestMatch
+    }, [imagePositions, columns])
 
     const canUpdate = useRef(true)
 
@@ -196,7 +210,7 @@ const MasonryItem = ({
         canUpdate.current = false
 
         // Find the best match for a parent
-        const parent = findParent(imagePositions, columns)
+        const parent = findParent()
         setParent(parent)
 
         const w = gridWidth / columns
@@ -239,7 +253,7 @@ const MasonryItem = ({
 
     return (
         <motion.div
-            className="absolute"
+            className="absolute top-0 left-0"
             layout
             transition={{ type: 'Tween' }}
             animate={{ x, y, width, height, opacity: 1 }}
