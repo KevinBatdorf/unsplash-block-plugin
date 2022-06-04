@@ -7,7 +7,11 @@ import { MasonryItem } from './MasonryItem'
 
 export const ModalContent = () => {
     const [page, setPage] = useState(1)
-    const { data: images, error } = useListPhotos({ per_page: 50, page })
+    const {
+        data: images,
+        error,
+        isLoading,
+    } = useListPhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
@@ -44,14 +48,17 @@ export const ModalContent = () => {
         setGridWidth(realW)
     }
 
-    useEffect(() => setImagePositions([]), [page])
+    useEffect(() => {
+        if (!isLoading) return
+        setImagePositions([])
+    }, [isLoading])
 
     useEffect(() => {
-        if (moving || !imagePositions?.length) return
+        if (!imagePositions?.length) return
         const largestHeight = imagePositions
             .slice(-columns)
             .reduce((prev, next) => Math.max(prev, next.y + next.height), 0)
-        setMinHeight(largestHeight)
+        setMinHeight(Math.floor(largestHeight) + 100)
     }, [moving, imagePositions, columns])
 
     useEffect(() => {
@@ -101,7 +108,7 @@ export const ModalContent = () => {
                 className="w-full relative h-full overflow-y-scroll">
                 <div className="w-full relative h-full" style={{ minHeight }} />
                 <div
-                    className="absolute left-0 top-0 bottom-0 bg-gray-300"
+                    className="absolute left-0 top-0 bottom-0 bg-transparent"
                     style={{ width: subpixelOffset, minHeight }}
                 />
                 {images?.map((image, index) => (

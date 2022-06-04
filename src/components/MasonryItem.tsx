@@ -64,8 +64,6 @@ export const MasonryItem = ({
 
     const canUpdate = useRef(true)
 
-    console.log({ image, index })
-
     useEffect(() => {
         if (gridWidth && gridWidth > 0) canUpdate.current = true
     }, [gridWidth])
@@ -107,10 +105,16 @@ export const MasonryItem = ({
     useLayoutEffect(() => {
         if (!width || !height) return
         if (typeof x === 'undefined' || typeof y === 'undefined') return
-        const id = window.requestAnimationFrame(() => {
-            setPosition(index, { x, y, width, height, parent })
-        })
-        return () => window.cancelAnimationFrame(id)
+        let rafId: number
+        const id = window.setTimeout(() => {
+            rafId = requestAnimationFrame(() => {
+                setPosition(index, { x, y, width, height, parent })
+            })
+        }, 50)
+        return () => {
+            window.clearTimeout(id)
+            cancelAnimationFrame(rafId)
+        }
     }, [x, y, width, height, index, setPosition, parent])
 
     // Wait until all are not undefined
@@ -124,7 +128,7 @@ export const MasonryItem = ({
             layout
             transition={{ type: 'Tween' }}
             animate={{ x, y, width, height, opacity: 1 }}
-            initial={{ x, y, width, height, opacity: 1 }}>
+            initial={{ x, y, width, height, opacity: 0 }}>
             <img className="w-full" alt="" src={image.urls.small} />
         </motion.div>
     )

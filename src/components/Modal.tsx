@@ -34,13 +34,21 @@ export const Modal = ({ open, onClose }: ModalProps) => {
                             initial={{ y: 30 }}
                             animate={{ y: 0 }}
                             exit={{ y: 0, opacity: 0 }}
-                            className="flex h-full w-full relative shadow-2xl overflow-hidden max-w-screen-2xl mx-auto">
+                            className="flex h-full w-full relative shadow-2xl overflow-hidden max-w-screen-2xl mx-auto bg-gray-100 bg-opacity-60"
+                            style={{
+                                backdropFilter: 'saturate(180%) blur(10px)',
+                            }}>
                             <Dialog.Title className="sr-only">
                                 {__('Listing images', 'unlimited-photos')}
                             </Dialog.Title>
                             <Sidebar />
-                            <div className="flex flex-col bg-gray-50 w-full relative">
-                                <ModalContent open={open} />
+                            <div
+                                style={{
+                                    backgroundImage:
+                                        'linear-gradient(103.3deg, transparent 30%, rgb(255 131 215) 55.7%, rgb(125 159 237) 81.8%)',
+                                }}
+                                className="flex flex-col w-full relative">
+                                <ModalContent />
                             </div>
                         </motion.div>
                     </div>
