@@ -1,5 +1,5 @@
 import { Icon } from '@wordpress/components'
-import { useEffect } from '@wordpress/element'
+import { useEffect, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { blockIcon } from '../icons'
 import { useGlobalState } from '../state/global'
@@ -9,11 +9,27 @@ export const Sidebar = ({
 }: {
     initialFocus: React.RefObject<HTMLInputElement>
 }) => {
-    const { page } = useGlobalState()
+    const { page, searchTerm, setSearchTerm } = useGlobalState()
+    const [search, setSearch] = useState('')
+
     useEffect(() => {
         if (!initialFocus?.current) return
         initialFocus.current.focus()
     }, [page, initialFocus])
+
+    useEffect(() => {
+        if (!searchTerm) return
+        setSearch(searchTerm)
+    }, [setSearch, searchTerm])
+
+    useEffect(() => {
+        let timerId = 0
+        window.clearTimeout(timerId)
+        timerId = window.setTimeout(() => {
+            setSearchTerm(search)
+        }, 2000)
+        return () => window.clearTimeout(timerId)
+    }, [search, setSearchTerm])
 
     return (
         <div className="w-72">
@@ -34,6 +50,8 @@ export const Sidebar = ({
                 <div className="mt-1">
                     <input
                         ref={initialFocus}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         type="search"
                         name="search"
                         id="search"

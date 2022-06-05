@@ -7,6 +7,7 @@ type GlobalState = {
     totalPages: number | undefined
     loading: boolean
     setLoading: (loading: boolean) => void
+    setSearchTerm: (searchTerm: string) => void
     setTotalPages: (totalPages: number | undefined) => void
     nextPage: () => void
     prevPage: () => void
@@ -20,6 +21,9 @@ export const useGlobalState = create<GlobalState>()(
                 page: 1,
                 totalPages: undefined,
                 loading: false,
+                setSearchTerm: (searchTerm: string) => {
+                    set(() => ({ searchTerm }))
+                },
                 setLoading: (loading: boolean) => {
                     set((state) => ({ ...state, loading }))
                 },
