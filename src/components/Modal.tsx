@@ -1,3 +1,4 @@
+import { useRef } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { Dialog } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -11,7 +12,7 @@ type ModalProps = {
 }
 
 export const Modal = ({ open, onClose }: ModalProps) => {
-    // const intialFocus = useRef(null)
+    const initialFocus = useRef(null)
 
     return (
         <AnimatePresence>
@@ -19,7 +20,7 @@ export const Modal = ({ open, onClose }: ModalProps) => {
                 <Dialog
                     className="unlimited-photos-editor unlimited-photos-modal"
                     static
-                    // initialFocus={intialFocus}
+                    initialFocus={initialFocus}
                     as={motion.div}
                     key="modal"
                     animate={{ opacity: 1 }}
@@ -41,7 +42,7 @@ export const Modal = ({ open, onClose }: ModalProps) => {
                             <Dialog.Title className="sr-only">
                                 {__('Listing images', 'unlimited-photos')}
                             </Dialog.Title>
-                            <Sidebar />
+                            <Sidebar initialFocus={initialFocus} />
                             <div
                                 style={{
                                     backgroundImage:

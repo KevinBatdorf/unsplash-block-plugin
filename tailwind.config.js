@@ -36,6 +36,15 @@ module.exports = {
                     green: '#4ab866',
                 },
             },
+            main: {
+                blue: '#74a0f1',
+                pink: '#ff77d9',
+                orange: '#ffc06b',
+                lime: '#b7ff71',
+                green: '#7edda2',
+                yellow: '#d1ff52',
+                bad: '#d2d664',
+            },
             // https://github.com/WordPress/gutenberg/blob/trunk/packages/base-styles/_colors.scss
             gray: {
                 50: '#fbfbfb',

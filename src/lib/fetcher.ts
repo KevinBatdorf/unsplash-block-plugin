@@ -3,21 +3,28 @@ import useSWR from 'swr'
 import { useGlobalState } from '../state/global'
 import { UnsplashImage } from '../types'
 
+type UnsplashResponse = {
+    total_photos: number
+    total_pages: number
+    photos: UnsplashImage[]
+}
+
 type ListPhotosParams = {
     page?: number
     per_page?: number
     order_by?: string
 }
-export const useListPhotos = (params: ListPhotosParams) => {
-    const { setLoading } = useGlobalState()
+
+export const usePhotos = (params: ListPhotosParams) => {
+    const { setLoading, setTotalPages } = useGlobalState()
     const [cacheId, setCacheId] = useState(Math.floor(Math.random() * 10000))
     const queryParams = new URLSearchParams(
         // Convert object values to strings
         Object.entries(params).map(([key, value]) => [key, String(value)]),
     )
-
+    // ;('http://unsplash-api-search.vercel.app/api/search/photos?query=cats')
     const url = `http://unsplash-api-search.vercel.app/api/photos?${queryParams}`
-    const { data, error, isValidating } = useSWR<UnsplashImage[]>(
+    const { data, error, isValidating } = useSWR<UnsplashResponse>(
         url,
         fetcher,
         {
@@ -28,17 +35,18 @@ export const useListPhotos = (params: ListPhotosParams) => {
     )
 
     useEffect(() => {
-        setLoading(!error && !data)
-    }, [data, error, setLoading])
+        setLoading(!error && !data?.photos)
+        setTotalPages(data?.total_pages)
+    }, [data, error, setLoading, setTotalPages])
 
     useEffect(() => {
-        if (!data) return
+        if (!data?.photos) return
         setCacheId(Math.floor(Math.random() * 10000000))
     }, [data])
 
     return {
         cacheId,
-        data,
+        data: data?.photos,
         error,
         isValidating,
     }
@@ -47,7 +55,3 @@ const fetcher = async (url: string) => {
     const res = await fetch(url)
     return await res.json()
 }
-
-// export const useSearchPhotos = () => {
-//     return null
-// }

@@ -6,7 +6,7 @@ import {
     useLayoutEffect,
 } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
-import { useListPhotos } from '../lib/fetcher'
+import { usePhotos } from '../lib/fetcher'
 import { areSimiliar } from '../lib/util'
 import { useGlobalState } from '../state/global'
 import { ImagePosition } from '../types'
@@ -15,11 +15,7 @@ import { MasonryItem } from './MasonryItem'
 
 export const ModalContent = () => {
     const { page, loading } = useGlobalState()
-    const {
-        data: images,
-        error,
-        cacheId,
-    } = useListPhotos({ per_page: 30, page })
+    const { data: images, error, cacheId } = usePhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
