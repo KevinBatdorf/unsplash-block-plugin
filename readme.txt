@@ -1,16 +1,24 @@
 === Unlimited Photos ===
 Contributors:      kbat82
-Tags:              block
-Tested up to:      5.9
+Tags:              block, photos, images, textures, free, filter
+Tested up to:      6.0
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-An example block built using Rust and TypeScript
+Search over 3 million photos, textures, wallpapers, and more.
 
 == Description ==
 
-This is a starter for building Gutenberg Blocks with Rust and TypeScript. You're not limited to Blocks, however.
+Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing an interface to a seemingly endless supply of free to use images.
+
+- Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
+- View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
+
+= Privacy =
+
+While using this plugin you will connect through an API that returns images based on your search terms. Usage data is generally tracked, but we do not collect personally identifiable data. You may audit the server code at its [GitHub repository](https://github.com/KevinBatdorf/unsplash-api).
+
 
 == Installation ==
 
@@ -19,13 +27,13 @@ This is a starter for building Gutenberg Blocks with Rust and TypeScript. You're
 
 == Frequently Asked Questions ==
 
-= What is Rust? =
+= Are they really free to use? =
 
-Rust is a systems program that can compile to WebAssembly and be used in the browser via JavaScript.
+Yes! For both commercial and non-commercial sites. Read more about the license for (Unsplash images)[https://unsplash.com/license].
 
-= What about foo bar? =
+= What happen when I deactivate this plugin? =
 
-Answer to foo bar dilemma.
+Nothing. We cleanly integrate into the image block, and when you import an image, we hand it off to the core block to manage. The images will always remain in your library and on your pages.
 
 == Screenshots ==
 
@@ -38,10 +46,4 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 == Changelog ==
 
 = 0.1.0 =
-* Release
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+* Initial release
