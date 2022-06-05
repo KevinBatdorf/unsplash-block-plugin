@@ -130,10 +130,9 @@ export const MasonryItem = ({
     return (
         <motion.div
             className="absolute top-0 left-0"
-            layout
             transition={{ type: 'Tween' }}
             animate={{ x, y, width, height, opacity: 1 }}
-            initial={{ x, y, width, height, opacity: 0 }}>
+            initial={{ x, y, width, height, opacity: 1 }}>
             <img className="w-full" alt="" src={image.urls.small} />
         </motion.div>
     )
