@@ -41,7 +41,11 @@ export const Sidebar = ({
                     Unlimited Photos
                 </h1>
             </div>
-            <div className="px-4">
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault()
+                }}
+                className="px-4">
                 <label
                     htmlFor="search"
                     className="block text-xs font-medium text-gray-900">
@@ -63,11 +67,11 @@ export const Sidebar = ({
                     className="mt-2 text-xs text-gray-700"
                     id="search-description">
                     {__(
-                        'Search over 3 million photos and textures.',
+                        'Search over 3 million photos, textures, wallpapers, and more.',
                         'unlimited-photos',
                     )}
                 </p>
-            </div>
+            </form>
         </div>
     )
 }
