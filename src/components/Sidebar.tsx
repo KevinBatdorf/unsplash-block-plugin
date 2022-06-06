@@ -49,7 +49,7 @@ export const Sidebar = ({
                 <div className="w-6 h-6">
                     <Icon icon={blockIcon} size={24} />
                 </div>
-                <h1 className="font-thin text-xl tracking-wide m-0">
+                <h1 className="font-thin text-xl tracking-wide m-0 -mt-px">
                     Unlimited Photos
                 </h1>
             </div>
