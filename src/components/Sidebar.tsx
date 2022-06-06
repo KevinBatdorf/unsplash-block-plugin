@@ -2,7 +2,7 @@ import { Icon } from '@wordpress/components'
 import { useEffect, useRef, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
-import { blockIconPinkMiddle } from '../icons'
+import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
 
 export const Sidebar = ({
@@ -47,7 +47,7 @@ export const Sidebar = ({
         <div className="w-72">
             <div className="p-2 mb-8 flex space-x-1.5">
                 <div className="w-6 h-6">
-                    <Icon icon={blockIconPinkMiddle} size={24} />
+                    <Icon icon={blockIconThin} size={24} />
                 </div>
                 <h1 className="font-thin text-xl tracking-wide m-0 -mt-px">
                     Unlimited Photos
