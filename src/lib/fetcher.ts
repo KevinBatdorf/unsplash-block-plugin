@@ -25,7 +25,7 @@ export const usePhotos = (params: ListPhotosParams) => {
     const endpoint = searchTerm
         ? `search/photos?query=${searchTerm}&${queryParams.toString()}`
         : `photos?${queryParams.toString()}`
-    console.log(typeof searchTerm, searchTerm)
+
     const url = `http://unsplash-api-search.vercel.app/api/${endpoint}`
     const { data, error, isValidating } = useSWR<UnsplashResponse>(
         typeof searchTerm === 'string' ? url : null,

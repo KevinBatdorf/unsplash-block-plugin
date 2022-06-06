@@ -5,7 +5,9 @@ import {
     useState,
 } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
+import classnames from 'classnames'
 import { motion } from 'framer-motion'
+import { useGlobalState } from '../state/global'
 import { ImagePosition, UnsplashImage } from '../types'
 
 export const MasonryItem = ({
@@ -33,6 +35,8 @@ export const MasonryItem = ({
     const [height, setHeight] = useState<number>()
     const [parent, setParent] = useState<undefined | ImagePosition>()
     const canUpdate = useRef(true)
+    const { importing, setImporting } = useGlobalState()
+    const [isImporting, setIsImporting] = useState(false)
 
     // Searches the data to find the best match placement area
     // Looks for the shorest height
@@ -137,23 +141,54 @@ export const MasonryItem = ({
             initial={{ x, y, width, height, opacity: 0.7 }}>
             <div
                 role="button"
-                onClick={() => setImage(image)}
+                onClick={() => {
+                    importing || setIsImporting(true)
+                    setImage(image)
+                    setImporting('Importing Image...')
+                }}
                 onKeyDown={(event) => {
                     if (['Enter', 'Space', ' '].includes(event.key)) {
                         event.stopPropagation()
                         event.preventDefault()
+                        importing || setIsImporting(true)
+                        setImporting('Importing Image...')
                         setImage(image)
                     }
                 }}
                 tabIndex={0}
                 aira-label={__('Press to import', 'unlimited-photos')}
-                // TODO: add hover and focus state
-                className="cursor-pointer">
+                className={classnames('group', {
+                    'cursor-pointer': !importing && !isImporting,
+                })}>
                 <img
-                    className="w-full"
+                    className="w-full transition duration-200"
                     alt={image?.alt_description ?? ''}
                     src={image.urls.small}
                 />
+                <div
+                    style={{
+                        background:
+                            'radial-gradient(farthest-corner at 15% 100%, rgb(0, 0, 0), rgba(255, 255, 255, 0))',
+                    }}
+                    className={classnames(
+                        'absolute flex inset-0 items-end justify-start z-40 bg-opacity-80 opacity-0 transition duration-300 ease-in-out',
+                        {
+                            'group-focus:opacity-100 group-hover:opacity-100':
+                                !isImporting && !importing,
+                            'opacity-100': isImporting && importing,
+                        },
+                    )}>
+                    {importing && isImporting ? (
+                        <span className="p-2 font-bold text-sm text-white">
+                            {importing}
+                        </span>
+                    ) : null}
+                    {!importing ? (
+                        <span className="p-2 font-bold text-sm text-white">
+                            {__('Press to import', 'unlimited-photos')}
+                        </span>
+                    ) : null}
+                </div>
             </div>
         </motion.div>
     )

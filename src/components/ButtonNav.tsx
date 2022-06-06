@@ -4,7 +4,7 @@ import { useGlobalState } from '../state/global'
 
 export const ButtonNav = ({ show }: { show?: boolean }) => {
     const { page, nextPage, prevPage, totalPages } = useGlobalState()
-    if (!show) return null
+    if (!show || totalPages === 0) return null
     return (
         <div className="flex justify-center space-x-2">
             <button

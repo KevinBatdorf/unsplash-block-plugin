@@ -1,4 +1,9 @@
-import { useEffect, useState } from '@wordpress/element'
+import {
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from '@wordpress/element'
 import { sprintf, __ } from '@wordpress/i18n'
 import { importImage } from '../lib/wp'
 import { useGlobalState } from '../state/global'
@@ -22,10 +27,13 @@ export const Loader = ({
     toolbarProps,
 }: LoaderProps) => {
     const [showModal, setShowModal] = useState(false)
-    const { imageSize } = useGlobalState()
+    const { imageSize, importing, setImporting, setLoading, setPage } =
+        useGlobalState()
+    const timerRef = useRef(0)
+    const rafRef = useRef(0)
 
     useEffect(() => {
-        const namespace = 'kevinbatdorf/unlimted-photos-open'
+        const namespace = 'kevinbatdorf/unlimited-photos-open'
         const open = (event: CustomEvent<{ clientId: string }>) => {
             if (event?.detail?.clientId !== clientId) return
             setShowModal(true)
@@ -40,12 +48,13 @@ export const Loader = ({
     // attributes?.id
 
     const setImage = async (image: UnsplashImage) => {
+        if (importing) return
         const caption =
             image?.user?.username && image?.user?.name
                 ? sprintf(
                       __('Photo by %1$s on %2$s', 'unlimited-photos'),
-                      `<a href="https://unsplash.com/@${image.user.username}?utm_source=UnlimitedPhotos&utm_medium=referral">${image.user.name}</a>`,
-                      '<a href="https://unsplash.com/?utm_source=UnlimitedPhotos&utm_medium=referral">Unsplash</a>',
+                      `<a href="https://unsplash.com/@${image.user.username}?utm_source=Unlimited%20Photos&utm_medium=referral">${image.user.name}</a>`,
+                      '<a href="https://unsplash.com/?utm_source=Unlimited%20Photos&utm_medium=referral">Unsplash</a>',
                   )
                 : ''
 
@@ -70,6 +79,7 @@ export const Loader = ({
             if (dest === 'attachment') return newImage?.link
             return attributes?.href
         }
+
         setAttributes({
             id: newImage.id,
             caption: newImage.caption.raw,
@@ -81,8 +91,24 @@ export const Loader = ({
             url: newImage.source_url,
             alt: newImage.alt_text,
         })
-        setShowModal(false)
+
+        setImporting('Done!')
+
+        timerRef.current = window.setTimeout(() => {
+            rafRef.current = window.requestAnimationFrame(() => {
+                setShowModal(false)
+            })
+        }, 1000)
     }
+    useLayoutEffect(() => {
+        if (showModal) {
+            setPage(1)
+            setLoading(false)
+            setImporting(false)
+        }
+        window.clearTimeout(timerRef.current)
+        window.clearTimeout(rafRef.current)
+    }, [showModal, setImporting, setLoading, setPage])
 
     return (
         <>

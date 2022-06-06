@@ -94,7 +94,10 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
         setImagePositions([])
     }, [loading])
 
-    if (error || (!images?.length && !loading)) {
+    if (
+        error ||
+        (!images?.length && typeof images !== 'undefined' && !loading)
+    ) {
         return (
             <div className="text-center absolute inset-0 flex flex-col items-center justify-center">
                 {error?.message ? (

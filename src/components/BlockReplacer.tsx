@@ -20,7 +20,6 @@ export const BlockReplacer = ({ clientId }: { clientId: string }) => {
         replaceBlock(clientId, [blockData]).then(() => {
             const { clientId } = blockData
             // Open the modal
-            console.log('opened')
             window.dispatchEvent(
                 new CustomEvent('kevinbatdorf/unlimited-photos-open', {
                     bubbles: true,

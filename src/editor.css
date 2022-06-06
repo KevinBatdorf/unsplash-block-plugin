@@ -3,6 +3,13 @@
     --tw-ring-offset-width: 0px;
     --tw-ring-offset-color: transparent;
     --tw-ring-color: var(--wp-admin-theme-color);
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
 }
 .unlimited-photos-editor *,
 .unlimited-photos-editor *:after,
@@ -17,4 +24,15 @@
 
 .unlimited-photos-editor.unlimited-photos-modal {
     @apply fixed z-high inset-0 overflow-y-auto;
+}
+
+.unlimited-photos-editor.unlimited-photos-modal .color-change {
+    animation: unlimited-photos-colorchange 10s infinite linear;
+}
+@-webkit-keyframes unlimited-photos-colorchange {
+    0% { @apply text-main-blue; }
+    25% { @apply text-main-pink; }
+    50% { @apply text-main-lime; }
+    75% { @apply text-main-yellow; }
+    100% { @apply text-main-blue; }
 }

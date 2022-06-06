@@ -1,6 +1,7 @@
 import { Icon } from '@wordpress/components'
 import { useEffect, useRef, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
+import classnames from 'classnames'
 import { blockIcon } from '../icons'
 import { useGlobalState } from '../state/global'
 
@@ -9,7 +10,7 @@ export const Sidebar = ({
 }: {
     initialFocus: React.RefObject<HTMLInputElement>
 }) => {
-    const { page, searchTerm, setSearchTerm } = useGlobalState()
+    const { page, searchTerm, setSearchTerm, importing } = useGlobalState()
     const [search, setSearch] = useState('')
     const touched = useRef(false)
 
@@ -25,6 +26,7 @@ export const Sidebar = ({
 
     useEffect(() => {
         let timerId = 0
+        if (importing) return
         if (!search && touched.current) {
             setSearchTerm('')
             return
@@ -35,15 +37,15 @@ export const Sidebar = ({
             setSearchTerm(search)
         }, 500)
         return () => window.clearTimeout(timerId)
-    }, [search, setSearchTerm])
+    }, [search, setSearchTerm, importing])
 
     return (
         <div className="w-72">
-            <div className="p-2 mb-8 flex space-x-3">
-                <div style={{ transform: 'rotate(61deg)' }} className="w-6 h-6">
+            <div className="p-2 mb-8 flex space-x-2">
+                <div className="w-6 h-6">
                     <Icon icon={blockIcon} size={24} />
                 </div>
-                <h1 className="font-thin text-xl tracking-wide m-0 -mt-1">
+                <h1 className="font-thin text-xl tracking-wide m-0 -mt-px">
                     Unlimited Photos
                 </h1>
             </div>
@@ -53,7 +55,7 @@ export const Sidebar = ({
                 }}
                 className="px-4">
                 <label
-                    htmlFor="search"
+                    htmlFor="unlimited-images-search"
                     className="block text-xs font-medium text-gray-900">
                     {__('Search', 'unlimited-photos')}
                 </label>
@@ -63,9 +65,15 @@ export const Sidebar = ({
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         type="search"
-                        name="search"
-                        id="search"
-                        className="block rounded-none w-full sm:text-sm border-gray-700 focus:border-gray-700 bg-gray-100 outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp"
+                        name="unlimited-images-search"
+                        id="unlimited-images-search"
+                        disabled={Boolean(importing)}
+                        className={classnames(
+                            'block rounded-none w-full sm:text-sm border-gray-700 focus:border-gray-700 bg-gray-100 outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
+                            {
+                                'bg-gray-400': importing,
+                            },
+                        )}
                         aria-describedby="search-description"
                     />
                 </div>
