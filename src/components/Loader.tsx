@@ -27,8 +27,7 @@ export const Loader = ({
     toolbarProps,
 }: LoaderProps) => {
     const [showModal, setShowModal] = useState(false)
-    const { imageSize, importing, setImporting, setLoading, setPage } =
-        useGlobalState()
+    const { imageSize, importing, setImporting, setLoading } = useGlobalState()
     const timerRef = useRef(0)
     const rafRef = useRef(0)
 
@@ -102,13 +101,12 @@ export const Loader = ({
     }
     useLayoutEffect(() => {
         if (showModal) {
-            setPage(1)
             setLoading(false)
             setImporting(false)
         }
         window.clearTimeout(timerRef.current)
         window.clearTimeout(rafRef.current)
-    }, [showModal, setImporting, setLoading, setPage])
+    }, [showModal, setImporting, setLoading])
 
     return (
         <>

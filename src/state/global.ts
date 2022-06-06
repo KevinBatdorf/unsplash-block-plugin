@@ -28,10 +28,7 @@ export const useGlobalState = create<GlobalState>()(
                 totalPages: undefined,
                 loading: undefined,
                 setSearchTerm: (searchTerm: string) => {
-                    set(() => ({
-                        page: 1,
-                        searchTerm,
-                    }))
+                    set(() => ({ searchTerm }))
                 },
                 setImporting: (importing: boolean | string) => {
                     set((state) => ({ ...state, importing }))
@@ -77,7 +74,7 @@ export const useGlobalState = create<GlobalState>()(
                 name: 'unlimited-photos',
                 getStorage: () => window.localStorage,
                 partialize: (state) => ({
-                    searchTerm: state.searchTerm,
+                    searchTerm: state.searchTerm ? state.searchTerm : undefined,
                     imageSize: state.imageSize,
                 }),
             },

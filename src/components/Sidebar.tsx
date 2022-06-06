@@ -10,7 +10,8 @@ export const Sidebar = ({
 }: {
     initialFocus: React.RefObject<HTMLInputElement>
 }) => {
-    const { page, searchTerm, setSearchTerm, importing } = useGlobalState()
+    const { page, setPage, searchTerm, setSearchTerm, importing } =
+        useGlobalState()
     const [search, setSearch] = useState('')
     const touched = useRef(false)
 
@@ -27,25 +28,28 @@ export const Sidebar = ({
     useEffect(() => {
         let timerId = 0
         if (importing) return
-        if (!search && touched.current) {
+        if (searchTerm === search) return
+        if (!touched.current) return
+        if (!search) {
+            setPage(1)
             setSearchTerm('')
             return
         }
         window.clearTimeout(timerId)
         timerId = window.setTimeout(() => {
-            touched.current = true
+            setPage(1)
             setSearchTerm(search)
         }, 500)
         return () => window.clearTimeout(timerId)
-    }, [search, setSearchTerm, importing])
+    }, [search, setSearchTerm, importing, setPage, searchTerm])
 
     return (
         <div className="w-72">
-            <div className="p-2 mb-8 flex space-x-2">
+            <div className="p-2 mb-8 flex space-x-1.5">
                 <div className="w-6 h-6">
                     <Icon icon={blockIcon} size={24} />
                 </div>
-                <h1 className="font-thin text-xl tracking-wide m-0 -mt-px">
+                <h1 className="font-thin text-xl tracking-wide m-0">
                     Unlimited Photos
                 </h1>
             </div>
@@ -63,7 +67,10 @@ export const Sidebar = ({
                     <input
                         ref={initialFocus}
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => {
+                            touched.current = true
+                            setSearch(e.target.value)
+                        }}
                         type="search"
                         name="unlimited-images-search"
                         id="unlimited-images-search"
