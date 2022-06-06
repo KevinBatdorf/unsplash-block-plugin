@@ -2,10 +2,11 @@ import create from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
 
 type GlobalState = {
-    searchTerm: string
+    searchTerm: undefined | string
     page: number
     totalPages: number | undefined
     loading: boolean
+    imageSize: 'full' | 'raw' | 'regular' | 'small'
     setLoading: (loading: boolean) => void
     setSearchTerm: (searchTerm: string) => void
     setTotalPages: (totalPages: number | undefined) => void
@@ -17,12 +18,16 @@ export const useGlobalState = create<GlobalState>()(
     devtools(
         persist(
             (set) => ({
-                searchTerm: '',
+                searchTerm: undefined,
+                imageSize: 'full',
                 page: 1,
                 totalPages: undefined,
                 loading: false,
                 setSearchTerm: (searchTerm: string) => {
-                    set(() => ({ searchTerm }))
+                    set(() => ({
+                        page: 1,
+                        searchTerm,
+                    }))
                 },
                 setLoading: (loading: boolean) => {
                     set((state) => ({ ...state, loading }))
@@ -49,7 +54,10 @@ export const useGlobalState = create<GlobalState>()(
             {
                 name: 'unlimited-photos',
                 getStorage: () => window.localStorage,
-                partialize: (state) => ({ searchTerm: state.searchTerm }),
+                partialize: (state) => ({
+                    searchTerm: state.searchTerm,
+                    imageSize: state.imageSize,
+                }),
             },
         ),
     ),

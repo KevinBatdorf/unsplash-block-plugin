@@ -8,7 +8,7 @@ export const BlockFilter = (
     props: any,
 ) => {
     // eslint-disable-next-line
-    const { attributes, clientId } = props
+    const { attributes, setAttributes, clientId } = props
     const showMenu = useSelect(
         (select) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -26,6 +26,7 @@ export const BlockFilter = (
     return (
         <Loader
             attributes={attributes}
+            setAttributes={setAttributes}
             clientId={clientId}
             CurrentMenuItems={CurrentMenuItems}
             toolbarProps={props}

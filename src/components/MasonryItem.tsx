@@ -1,10 +1,10 @@
 import {
-    useEffect,
     useLayoutEffect,
     useCallback,
     useRef,
     useState,
 } from '@wordpress/element'
+import { __ } from '@wordpress/i18n'
 import { motion } from 'framer-motion'
 import { ImagePosition, UnsplashImage } from '../types'
 
@@ -16,6 +16,7 @@ export const MasonryItem = ({
     index,
     columns,
     gridWidth,
+    setImage,
 }: {
     image: UnsplashImage
     imagePositions: ImagePosition[]
@@ -24,6 +25,7 @@ export const MasonryItem = ({
     columns: number
     subpixelOffset: number
     gridWidth: number | undefined
+    setImage: (image: UnsplashImage) => void
 }) => {
     const [x, setX] = useState<number>()
     const [y, setY] = useState<number>()
@@ -132,8 +134,27 @@ export const MasonryItem = ({
             className="absolute top-0 left-0"
             transition={{ type: 'Tween' }}
             animate={{ x, y, width, height, opacity: 1 }}
-            initial={{ x, y, width, height, opacity: 1 }}>
-            <img className="w-full" alt="" src={image.urls.small} />
+            initial={{ x, y, width, height, opacity: 0.7 }}>
+            <div
+                role="button"
+                onClick={() => setImage(image)}
+                onKeyDown={(event) => {
+                    if (['Enter', 'Space', ' '].includes(event.key)) {
+                        event.stopPropagation()
+                        event.preventDefault()
+                        setImage(image)
+                    }
+                }}
+                tabIndex={0}
+                aira-label={__('Press to import', 'unlimited-photos')}
+                // TODO: add hover and focus state
+                className="cursor-pointer">
+                <img
+                    className="w-full"
+                    alt={image?.alt_description ?? ''}
+                    src={image.urls.small}
+                />
+            </div>
         </motion.div>
     )
 }

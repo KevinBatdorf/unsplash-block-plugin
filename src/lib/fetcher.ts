@@ -16,16 +16,19 @@ type ListPhotosParams = {
 }
 
 export const usePhotos = (params: ListPhotosParams) => {
-    const { setLoading, setTotalPages } = useGlobalState()
+    const { setLoading, setTotalPages, searchTerm } = useGlobalState()
     const [cacheId, setCacheId] = useState(Math.floor(Math.random() * 10000))
     const queryParams = new URLSearchParams(
         // Convert object values to strings
         Object.entries(params).map(([key, value]) => [key, String(value)]),
     )
-    // ;('http://unsplash-api-search.vercel.app/api/search/photos?query=cats')
-    const url = `http://unsplash-api-search.vercel.app/api/photos?${queryParams}`
+    const endpoint = searchTerm
+        ? `search/photos?query=${searchTerm}&${queryParams.toString()}`
+        : `photos?${queryParams.toString()}`
+    console.log(typeof searchTerm, searchTerm)
+    const url = `http://unsplash-api-search.vercel.app/api/${endpoint}`
     const { data, error, isValidating } = useSWR<UnsplashResponse>(
-        url,
+        typeof searchTerm === 'string' ? url : null,
         fetcher,
         {
             revalidateIfStale: false,

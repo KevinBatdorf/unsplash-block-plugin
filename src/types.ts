@@ -2,10 +2,19 @@ export type UnsplashImage = {
     id: string
     height: number
     width: number
+    alt_description: null | string
     urls: {
-        small: string
+        [T in 'raw' | 'full' | 'regular' | 'small']: string
+    }
+    links: {
+        download_location: string
+    }
+    user: {
+        username: string
+        name: string
     }
 }
+
 export type ImageLike = {
     alt?: string
     caption?: string

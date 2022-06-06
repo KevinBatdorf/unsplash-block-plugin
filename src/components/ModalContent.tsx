@@ -9,11 +9,15 @@ import { __ } from '@wordpress/i18n'
 import { usePhotos } from '../lib/fetcher'
 import { areSimiliar } from '../lib/util'
 import { useGlobalState } from '../state/global'
-import { ImagePosition } from '../types'
+import { ImagePosition, UnsplashImage } from '../types'
 import { ButtonNav } from './ButtonNav'
 import { MasonryItem } from './MasonryItem'
 
-export const ModalContent = () => {
+type MondalContentProps = {
+    setImage: (image: UnsplashImage) => void
+}
+
+export const ModalContent = ({ setImage }: MondalContentProps) => {
     const { page, loading } = useGlobalState()
     const { data: images, error, cacheId } = usePhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
@@ -90,10 +94,17 @@ export const ModalContent = () => {
         setImagePositions([])
     }, [loading])
 
-    if (error) {
+    if (error || (!images?.length && !loading)) {
         return (
-            <div className="text-center absolute inset-0 flex items-center justify-center">
-                {error?.message ?? __('Error', 'unlimited-photos')}
+            <div className="text-center absolute inset-0 flex flex-col items-center justify-center">
+                {error?.message ? (
+                    <p className="mb-4">{error?.message}</p>
+                ) : null}
+                {images && images?.length > 0 ? null : (
+                    <p className="m-0">
+                        {__('No photos found', 'unlimited-photos')}
+                    </p>
+                )}
             </div>
         )
     }
@@ -109,6 +120,7 @@ export const ModalContent = () => {
                 <MasonryItem
                     key={image.id + cacheId}
                     index={index}
+                    setImage={setImage}
                     gridWidth={gridWidth}
                     columns={columns}
                     subpixelOffset={subpixelOffset}

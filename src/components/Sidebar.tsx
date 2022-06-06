@@ -1,5 +1,5 @@
 import { Icon } from '@wordpress/components'
-import { useEffect, useState } from '@wordpress/element'
+import { useEffect, useRef, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { blockIcon } from '../icons'
 import { useGlobalState } from '../state/global'
@@ -11,6 +11,7 @@ export const Sidebar = ({
 }) => {
     const { page, searchTerm, setSearchTerm } = useGlobalState()
     const [search, setSearch] = useState('')
+    const touched = useRef(false)
 
     useEffect(() => {
         if (!initialFocus?.current) return
@@ -24,10 +25,15 @@ export const Sidebar = ({
 
     useEffect(() => {
         let timerId = 0
+        if (!search && touched.current) {
+            setSearchTerm('')
+            return
+        }
         window.clearTimeout(timerId)
         timerId = window.setTimeout(() => {
+            touched.current = true
             setSearchTerm(search)
-        }, 2000)
+        }, 500)
         return () => window.clearTimeout(timerId)
     }, [search, setSearchTerm])
 

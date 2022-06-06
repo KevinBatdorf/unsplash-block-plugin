@@ -2,16 +2,18 @@ import { useRef } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { Dialog } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { UnsplashImage } from '../types'
 import { ModalContent } from './ModalContent'
 import { ModalToolbar } from './ModalToolbar'
 import { Sidebar } from './Sidebar'
 
 type ModalProps = {
     open: boolean
+    setImage: (image: UnsplashImage) => void
     onClose: () => void
 }
 
-export const Modal = ({ open, onClose }: ModalProps) => {
+export const Modal = ({ open, onClose, setImage }: ModalProps) => {
     const initialFocus = useRef(null)
 
     return (
@@ -49,7 +51,7 @@ export const Modal = ({ open, onClose }: ModalProps) => {
                                         'linear-gradient(103.3deg, transparent 30%, rgb(255 131 215) 55.7%, rgb(125 159 237) 81.8%)',
                                 }}
                                 className="flex flex-col w-full relative">
-                                <ModalContent />
+                                <ModalContent setImage={setImage} />
                             </div>
                         </motion.div>
                     </div>
