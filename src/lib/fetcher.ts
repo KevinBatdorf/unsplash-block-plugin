@@ -26,7 +26,7 @@ export const usePhotos = (params: ListPhotosParams) => {
         ? `search/photos?query=${searchTerm}&${queryParams.toString()}`
         : `photos?${queryParams.toString()}`
 
-    const url = `http://unsplash-api-search.vercel.app/api/${endpoint}`
+    const url = `https://unsplash-api-search.vercel.app/api/${endpoint}`
     const { data, error, isValidating } = useSWR<UnsplashResponse>(
         url,
         fetcher,

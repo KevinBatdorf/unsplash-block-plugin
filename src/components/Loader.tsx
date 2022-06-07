@@ -58,7 +58,7 @@ export const Loader = ({
                 : ''
 
         // Record download to Unsplash
-        await fetch('http://unsplash-api-search.vercel.app/api/download', {
+        await fetch('https://unsplash-api-search.vercel.app/api/download', {
             method: 'POST',
             headers: { 'Content-Type': 'multipart/form-data' },
             body: image?.links?.download_location,
