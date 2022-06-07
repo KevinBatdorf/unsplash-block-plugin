@@ -80,7 +80,8 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
         if (imagePositions?.length) return
         if (!gridRef.current) return
         const w = Math.ceil(gridRef.current.offsetWidth)
-        const columns = Math.floor(w / 300)
+        const isMobile = window.innerWidth < 782
+        const columns = isMobile ? 1 : Math.max(Math.floor(w / 295), 2)
         setColumns(columns)
         // Fight subpixel rendering
         const realW = Math.floor(w / columns) * columns
@@ -114,9 +115,12 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
 
     return (
         <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
-            <div className="w-full relative min-h-full" style={{ minHeight }} />
             <div
-                className="absolute left-0 top-0 bottom-0 bg-transparent"
+                className="hidden md:block w-full relative min-h-full"
+                style={{ minHeight }}
+            />
+            <div
+                className="hidden md:absolute left-0 top-0 bottom-0 bg-transparent"
                 style={{ width: subpixelOffset, minHeight }}
             />
             {images?.map((image, index) => (
@@ -132,7 +136,7 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
                     image={image}
                 />
             ))}
-            <div className="mt-2 mb-6">
+            <div className="mt-6 md:mt-2 mb-6">
                 <ButtonNav show={imagePositions?.length === images?.length} />
             </div>
         </div>

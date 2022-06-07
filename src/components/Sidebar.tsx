@@ -44,8 +44,8 @@ export const Sidebar = ({
     }, [search, setSearchTerm, importing, setPage, searchTerm])
 
     return (
-        <div className="w-72">
-            <div className="p-2 mb-8 flex space-x-1.5">
+        <div className="w-52 md:w-64 space-y-8 flex-shrink-0">
+            <div className="p-2 flex space-x-1.5">
                 <div className="w-6 h-6">
                     <Icon icon={blockIconThin} size={24} />
                 </div>

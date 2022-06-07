@@ -36,3 +36,13 @@
     75% { @apply text-main-yellow; }
     100% { @apply text-main-blue; }
 }
+.unlimited-photos-editor .backdrop-blur {
+    @apply bg-gray-100 bg-opacity-90;
+}
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .unlimited-photos-editor .backdrop-blur {
+        @apply bg-gray-100 bg-opacity-60;
+        -webkit-backdrop-filter: saturate(180%) blur(10px);
+        backdrop-filter: saturate(180%) blur(10px);
+    }
+}

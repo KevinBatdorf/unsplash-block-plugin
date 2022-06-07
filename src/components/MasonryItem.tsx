@@ -133,12 +133,27 @@ export const MasonryItem = ({
 
     // TODO: use a variant to transition into full view?
 
+    const mobilePosition = {
+        x: 0,
+        y: 0,
+        width,
+        height,
+    }
+
     return (
         <motion.div
-            className="absolute top-0 left-0"
+            className="relative md:absolute top-0 left-0"
             transition={{ type: 'Tween' }}
-            animate={{ x, y, width, height, opacity: 1 }}
-            initial={{ x, y, width, height, opacity: 0.7 }}>
+            animate={
+                columns > 1
+                    ? { x, y, width, height, opacity: 1 }
+                    : mobilePosition
+            }
+            initial={
+                columns > 1
+                    ? { x, y, width, height, opacity: 0.7 }
+                    : mobilePosition
+            }>
             <div
                 role="button"
                 onClick={() => {
@@ -161,21 +176,22 @@ export const MasonryItem = ({
                     'cursor-pointer': !importing && !isImporting,
                 })}>
                 <img
-                    className="w-full transition duration-200"
+                    className="w-full block transition duration-200"
                     alt={image?.alt_description ?? ''}
                     src={image.urls.small}
                 />
                 <div
                     style={{
                         background:
-                            'radial-gradient(farthest-corner at 15% 100%, rgb(0, 0, 0), rgba(255, 255, 255, 0))',
+                            'radial-gradient(100% 65px at left bottom, rgba(0, 0, 0, 0.59) 0px, rgba(255, 255, 255, 0))',
                     }}
                     className={classnames(
                         'absolute flex inset-0 items-end justify-start z-40 bg-opacity-80 opacity-0 transition duration-300 ease-in-out',
                         {
                             'group-focus:opacity-100 group-hover:opacity-100':
                                 !isImporting && !importing,
-                            'opacity-100': isImporting && importing,
+                            'opacity-100':
+                                (isImporting && importing) || columns === 1,
                         },
                     )}>
                     {importing && isImporting ? (

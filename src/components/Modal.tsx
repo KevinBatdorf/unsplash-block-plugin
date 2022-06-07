@@ -29,7 +29,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                     exit={{ opacity: 0 }}
                     open={open}
                     onClose={onClose}>
-                    <div className="absolute mx-auto w-full h-full p-8">
+                    <div className="absolute mx-auto w-full h-full md:p-8">
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
                         <ModalToolbar onClose={onClose} />
                         <motion.div
@@ -37,10 +37,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                             initial={{ y: 30 }}
                             animate={{ y: 0 }}
                             exit={{ y: 0, opacity: 0 }}
-                            className="flex h-full w-full relative shadow-2xl overflow-hidden max-w-screen-2xl mx-auto bg-gray-100 bg-opacity-60"
-                            style={{
-                                backdropFilter: 'saturate(180%) blur(10px)',
-                            }}>
+                            className="sm:flex h-full w-full relative shadow-2xl sm:overflow-hidden max-w-screen-2xl mx-auto backdrop-blur">
                             <Dialog.Title className="sr-only">
                                 {__('Listing images', 'unlimited-photos')}
                             </Dialog.Title>

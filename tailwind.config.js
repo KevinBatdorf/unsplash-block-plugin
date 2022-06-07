@@ -13,7 +13,7 @@ module.exports = {
         screens: {
             xxs: '280px',
             xs: '480px',
-            sm: '600px',
+            sm: '599px',
             md: '782px',
             md2: '960px', // admin sidebar auto folds
             lg: '1080px', // adminbar goes big

@@ -10,7 +10,7 @@ Search over 3 million photos, textures, wallpapers, and more.
 
 == Description ==
 
-Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing an interface to a seemingly endless supply of free to use images.
+Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing way to view, search, and import over 3 million free-to-use photos, images, and more...
 
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
 - View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)

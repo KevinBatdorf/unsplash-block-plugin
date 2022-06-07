@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:       Unlimited Photos
- * Description:       An example block built using Rust and TypeScript
- * Requires at least: 5.8
+ * Description:       Search over 3 million photos, textures, wallpapers, and more.
+ * Requires at least: 6.0
  * Requires PHP:      7.0
  * Version:           0.1.0
  * Author:            Kevin Batdorf

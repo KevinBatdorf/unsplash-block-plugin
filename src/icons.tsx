@@ -1,7 +1,7 @@
 export const blockIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        style={{ width: 24, height: 24 }}
         fill="none"
         viewBox="0 0 24 24"
         stroke="#1e1e1e"
@@ -25,7 +25,7 @@ export const blockIcon = () => (
 export const blockIconThin = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        style={{ width: 24, height: 24 }}
         fill="none"
         viewBox="0 0 24 24"
         stroke="#1e1e1e"
