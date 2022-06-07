@@ -1,4 +1,4 @@
-name: Build development zip file
+name: Build production zip file
 on: push
 jobs:
     build:
@@ -30,3 +30,4 @@ jobs:
                       !${{ github.workspace }}/.wordpress-org/
                       !${{ github.workspace }}/assets/
                       !${{ github.workspace }}/scripts/
+                      !${{ github.workspace }}/package-lock.json/
