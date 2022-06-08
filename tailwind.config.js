@@ -56,6 +56,7 @@ module.exports = {
                 500: '#cccccc',
                 600: '#949494', // Meets 3:1 UI or large text contrast against white.
                 700: '#757575', // Meets 4.6:1 text contrast against white.
+                800: '#4d4d4d',
                 900: '#1e1e1e',
             },
         },

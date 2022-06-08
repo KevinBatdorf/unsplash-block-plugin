@@ -4,6 +4,7 @@ import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
 import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
+import { SearchSuggestions } from './SearchSuggestions'
 
 export const Sidebar = ({
     initialFocus,
@@ -44,7 +45,7 @@ export const Sidebar = ({
     }, [search, setSearchTerm, importing, setPage, searchTerm])
 
     return (
-        <div className="w-52 md:w-64 space-y-8 flex-shrink-0">
+        <div className="sm:w-52 md:w-64 space-y-6 flex-shrink-0 flex flex-col">
             <div className="p-2 flex space-x-1.5">
                 <div className="w-6 h-6">
                     <Icon icon={blockIconThin} size={24} />
@@ -60,10 +61,10 @@ export const Sidebar = ({
                 className="px-4">
                 <label
                     htmlFor="unlimited-images-search"
-                    className="block text-xs font-medium text-gray-900">
+                    className="block text-xs font-medium text-gray-800 mb-3">
                     {__('Search', 'unlimited-photos')}
                 </label>
-                <div className="mt-1">
+                <div>
                     <input
                         ref={initialFocus}
                         value={search}
@@ -76,7 +77,7 @@ export const Sidebar = ({
                         id="unlimited-images-search"
                         disabled={Boolean(importing)}
                         className={classnames(
-                            'block rounded-none w-full sm:text-sm border-gray-700 focus:border-gray-700 bg-gray-100 outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
+                            'm-0 block rounded-none w-full sm:text-sm border-gray-700 focus:border-gray-700 bg-gray-100 outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
                             {
                                 'bg-gray-400': importing,
                             },
@@ -85,7 +86,7 @@ export const Sidebar = ({
                     />
                 </div>
                 <p
-                    className="mt-2 text-xs text-gray-700"
+                    className="mt-2 text-xs italic text-gray-800 font-light"
                     id="search-description">
                     {__(
                         'Search over 3 million photos, textures, wallpapers, and more.',
@@ -93,6 +94,21 @@ export const Sidebar = ({
                     )}
                 </p>
             </form>
+            <div className="flex flex-col overflow-hidden">
+                <h2 className="p-0 px-4 text-xs text-gray-800 leading-none m-0 mb-2 font-medium">
+                    {__('Suggestions', 'unlmiited-photos')}
+                </h2>
+                <div className="px-4 hidden md:block overflow-y-scroll">
+                    <SearchSuggestions
+                        handlePress={(term: string) => {
+                            touched.current = true
+                            setSearch(term)
+                            setPage(1)
+                        }}
+                    />
+                </div>
+            </div>
+            <div className="h-12 w-full flex-grow"></div>
         </div>
     )
 }
