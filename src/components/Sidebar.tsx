@@ -102,8 +102,9 @@ export const Sidebar = ({
                     <SearchSuggestions
                         handlePress={(term: string) => {
                             touched.current = true
-                            setSearch(term)
                             setPage(1)
+                            setSearchTerm(term)
+                            setSearch(term)
                         }}
                     />
                 </div>
