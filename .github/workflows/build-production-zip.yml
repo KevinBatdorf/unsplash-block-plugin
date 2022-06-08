@@ -30,4 +30,4 @@ jobs:
                       !${{ github.workspace }}/.wordpress-org/
                       !${{ github.workspace }}/assets/
                       !${{ github.workspace }}/scripts/
-                      !${{ github.workspace }}/package-lock.json/
+                      !${{ github.workspace }}/package-lock.json
