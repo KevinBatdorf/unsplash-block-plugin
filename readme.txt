@@ -42,7 +42,7 @@ Further, the API mentioend above routes requests to [Unsplash.com](https://unspl
 
 = Are they really free to use? =
 
-Yes! For both commercial and non-commercial sites. Read more about the license for (Unsplash images)[https://unsplash.com/license].
+Yes! For both commercial and non-commercial sites. Read more about the license for [Unsplash images](https://unsplash.com/license).
 
 = What happen when I deactivate this plugin? =
 
