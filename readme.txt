@@ -15,10 +15,20 @@ Unlimited Photos is a Gutenberg block plugin that integrates into the core image
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
 - View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
 
-= Privacy =
+= Features =
+- Import photos right into the core image block (and the media library too)
+- Search anything, or select from a predefined list
+- No lock in, delete at any time and nothing changes
 
-While using this plugin you will connect through an API that returns images based on your search terms. Usage data is generally tracked, but we do not collect personally identifiable data. You may audit the server code at its [GitHub repository](https://github.com/KevinBatdorf/unsplash-api).
+= Terms of Use & Privacy =
 
+While using this plugin you will connect through via an API at [unsplash-api-search.vercel.app](https://unsplash-api-search.vercel.app/) that returns images based on your search terms. No personally identifiable data is collected.
+
+You may audit the server code at its [GitHub repository](https://github.com/KevinBatdorf/unsplash-api).
+
+Further, the API mentioend above routes requests to [Unsplash.com](https://unsplash.com). You can view their privacy policy here ([Unsplash Privacy Policy](https://unsplash.com/privacy)).
+
+[General API terms](https://unsplash-api-search.vercel.app/terms.html)
 
 == Installation ==
 
