@@ -16,6 +16,7 @@ Unlimited Photos is a Gutenberg block plugin that integrates into the core image
 - View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
 
 = Features =
+- Search over 3 million photos, textures, wallpapers, and more.
 - Import photos right into the core image block (and the media library too)
 - Search anything, or select from a predefined list
 - No lock in, delete at any time and nothing changes
