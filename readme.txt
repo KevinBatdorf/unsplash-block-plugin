@@ -23,9 +23,11 @@ Unlimited Photos is a Gutenberg block plugin that integrates into the core image
 
 = Terms of Use & Privacy =
 
-While using this plugin you will connect through via an API at [unsplash-api-search.vercel.app](https://unsplash-api-search.vercel.app/) that returns images based on your search terms. No personally identifiable data is collected.
+While using this plugin you will connect through via an API at [unsplash-api-search.vercel.app](https://unsplash-api-search.vercel.app/) that returns images based on your search terms. No personally identifiable data is passed along outside of what is required for normal Internet communication (referer information, IP, etc).
 
 You may audit the server code at its [GitHub repository](https://github.com/KevinBatdorf/unsplash-api).
+
+The server is hosted on [Vercel](https://vercel.com/), and by connecting to their servers, you also agree to their [privacy policy](https://vercel.com/legal/privacy-policy) and [terms](https://vercel.com/legal/terms) as well.
 
 Further, the API mentioend above routes requests to [Unsplash.com](https://unsplash.com). You can view their privacy policy here ([Unsplash Privacy Policy](https://unsplash.com/privacy)).
 
