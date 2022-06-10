@@ -1,6 +1,6 @@
 === Unlimited Photos ===
 Contributors:      kbat82
-Tags:              block, stock photos, news, textures, wallpaper
+Tags:              block, photos, images, textures, free, filter
 Tested up to:      6.0
 Stable tag:        1.0.1
 License:           GPL-2.0-or-later
@@ -55,5 +55,5 @@ Nothing. We cleanly integrate into the image block, and when you import an image
 
 == Changelog ==
 
-= 0.1.0 =
+= 1.0.1 =
 * Initial release
