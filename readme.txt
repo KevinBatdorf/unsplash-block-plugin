@@ -1,6 +1,6 @@
 === Unlimited Photos ===
 Contributors:      kbat82
-Tags:              block, photos, images, textures, free, filter
+Tags:              block, stock photos, news, free, photography
 Tested up to:      6.0
 Stable tag:        1.0.1
 License:           GPL-2.0-or-later
@@ -12,14 +12,17 @@ Search over 3 million photos, textures, wallpapers, and more.
 
 Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and more...
 
-- Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
-- View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
+Quickly search for a stock photo that perfectly fits your recipe blog post, or the perfect current event pic that describes exactly what your story is about. Writing a blog post for your business? Quickly search for business photos too.
 
 = Features =
 - Search over 3 million photos, textures, wallpapers, and more.
+- Your search is saved so you can always pick up where you left off.
 - Import photos right into the core image block (and the media library too)
 - Search anything, or select from a predefined list
 - No lock in, delete at any time and nothing changes
+
+- Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
+- View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
 
 = Terms of Use & Privacy =
 
