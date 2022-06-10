@@ -2,10 +2,10 @@
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 2,
     "name": "kevinbatdorf/unlimited-photos",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "title": "Unlimited Photos",
     "category": "common",
-    "description": "My amazing block",
+    "description": "Search over 3 million photos, textures, wallpapers, and more.",
     "attributes": {},
     "supports": {
         "html": false
