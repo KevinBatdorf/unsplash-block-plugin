@@ -10,7 +10,7 @@ Search over 3 million photos, textures, wallpapers, and more.
 
 == Description ==
 
-Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing way to view, search, and import over 3 million free-to-use photos, images, and more...
+Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and more...
 
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
 - View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
@@ -29,7 +29,7 @@ You may audit the server code at its [GitHub repository](https://github.com/Kevi
 
 The server is hosted on [Vercel](https://vercel.com/), and by connecting to their servers, you also agree to their [privacy policy](https://vercel.com/legal/privacy-policy) and [terms](https://vercel.com/legal/terms) as well.
 
-Further, the API mentioend above routes requests to [Unsplash.com](https://unsplash.com). You can view their privacy policy here ([Unsplash Privacy Policy](https://unsplash.com/privacy)).
+Further, the API mentioned above routes requests to [Unsplash.com](https://unsplash.com). You can view their privacy policy here ([Unsplash Privacy Policy](https://unsplash.com/privacy)).
 
 [General API terms](https://unsplash-api-search.vercel.app/terms.html)
 
@@ -44,7 +44,7 @@ Further, the API mentioend above routes requests to [Unsplash.com](https://unspl
 
 Yes! For both commercial and non-commercial sites. Read more about the license for [Unsplash images](https://unsplash.com/license).
 
-= What happen when I deactivate this plugin? =
+= What happens when I deactivate this plugin? =
 
 Nothing. We cleanly integrate into the image block, and when you import an image, we hand it off to the core block to manage. The images will always remain in your library and on your pages.
 
