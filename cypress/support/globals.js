@@ -19,6 +19,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+    cy.closeOurModal()
     cy.saveDraft() // so we can leave without an alert
     // cy.uninstallPlugin('unlimited-photos')
     cy.logoutUser()
