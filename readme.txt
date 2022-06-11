@@ -21,6 +21,7 @@ Looking for that stock photo that perfectly matches your recipe blog post? Or th
 - Search anything, or select from a predefined list
 - No lock in, delete at any time and nothing changes
 
+= More info =
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
 - View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
 
