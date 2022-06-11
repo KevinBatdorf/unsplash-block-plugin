@@ -41,7 +41,7 @@
 }
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
     .unlimited-photos-editor .backdrop-blur {
-        @apply bg-gray-100 sm:bg-opacity-60;
+        @apply bg-gray-100 sm:bg-opacity-70;
         -webkit-backdrop-filter: saturate(180%) blur(10px);
         backdrop-filter: saturate(180%) blur(10px);
     }
