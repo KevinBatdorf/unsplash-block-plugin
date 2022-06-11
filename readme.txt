@@ -12,7 +12,7 @@ Search over 3 million photos, textures, wallpapers, and more.
 
 Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and more...
 
-Quickly search for a stock photo that perfectly fits your recipe blog post, or the perfect current event pic that describes exactly what your story is about. Writing a blog post for your business? Quickly search for business photos too.
+Looking for that stock photo that perfectly matches your recipe blog post? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos liekly has exactly what you are looking for, for free.
 
 = Features =
 - Search over 3 million photos, textures, wallpapers, and more.
