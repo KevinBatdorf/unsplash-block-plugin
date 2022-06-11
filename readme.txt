@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, news, images, photography
 Tested up to:      6.0
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,5 +58,11 @@ Nothing. We cleanly integrate into the image block, and when you import an image
 
 == Changelog ==
 
+= 1.0.2 =
+* Test and add support for WP 5.8
+
 = 1.0.1 =
+* Fix icon
+
+= 1.0.0 =
 * Initial release
