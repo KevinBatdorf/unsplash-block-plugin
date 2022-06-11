@@ -60,10 +60,11 @@ Nothing. We cleanly integrate into the image block, and when you import an image
 == Changelog ==
 
 = 1.0.2 =
-* Test and add support for WP 5.8
+- Test and add support for WP 5.8
+- Lower background opacity by 10
 
 = 1.0.1 =
-* Fix icon
+- Fix icon
 
 = 1.0.0 =
-* Initial release
+- Initial release
