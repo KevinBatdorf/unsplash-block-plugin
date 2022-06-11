@@ -2,9 +2,9 @@ name: Run Cypress test suite
 on:
     push:
     workflow_dispatch:
-    # schedule:
+    schedule:
     # At 08:00 on Thursday.
-    # - cron: "0 8 * * 4"
+    - cron: "0 8 * * 4"
 jobs:
     test:
         name: Cypress
