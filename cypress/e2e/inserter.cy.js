@@ -1,5 +1,3 @@
-// Check support/globals.js for some default checks
-// as well as start up and clean up methods
 context('Inserter checks', () => {
     it('The image block is inserted', () => {
         // Adds our block

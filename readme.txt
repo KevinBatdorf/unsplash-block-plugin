@@ -59,6 +59,9 @@ Nothing. We cleanly integrate into the image block, and when you import an image
 
 == Changelog ==
 
+- Add e2e tests of all features
+- Add missing translation functions
+
 = 1.0.2 =
 - Test and add support for WP 5.8
 - Lower background opacity by 10

@@ -9,6 +9,7 @@ import {
     wpDataSelect,
 } from './gutenberg'
 import { login, logout } from './login-logout'
+import { closeModal } from './modal'
 import {
     visitPageEditor,
     visitAdminPage,
@@ -56,8 +57,4 @@ Cypress.Commands.add('installPlugin', (slug) => installPlugin(slug))
 Cypress.Commands.add('uninstallPlugin', (slug) => uninstallPlugin(slug))
 
 // Domain specific commands
-Cypress.Commands.add('closeOurModal', () => {
-    cy.get(
-        '.unlimited-photos-editor.unlimited-photos-modal button[aria-label="Close"]',
-    ).click()
-})
+Cypress.Commands.add('closeOurModal', () => closeModal())

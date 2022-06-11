@@ -33,7 +33,7 @@ export const SearchSuggestions = ({ handlePress }: SearchSuggestionsProps) => {
     ]
 
     return (
-        <ul className="m-0 pt-1">
+        <ul className="m-0 pt-1 unlimited-photos-suggestions-list">
             {terms.map((term) => (
                 <li className="mb-0.5" key={term}>
                     <button
