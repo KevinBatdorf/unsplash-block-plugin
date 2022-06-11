@@ -54,3 +54,10 @@ Cypress.Commands.add('wpDataSelect', (store, selector, ...parameters) =>
 // Manage plugins
 Cypress.Commands.add('installPlugin', (slug) => installPlugin(slug))
 Cypress.Commands.add('uninstallPlugin', (slug) => uninstallPlugin(slug))
+
+// Domain specific commands
+Cypress.Commands.add('closeOurModal', () => {
+    cy.get(
+        '.unlimited-photos-editor.unlimited-photos-modal button[aria-label="Close"]',
+    ).click()
+})

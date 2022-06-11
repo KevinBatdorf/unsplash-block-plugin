@@ -21,6 +21,7 @@ export const ToolbarControls = (props: ToolbarControlsProps) => {
                 <ToolbarGroup>
                     <ToolbarButton
                         icon={blockIcon}
+                        className="unlimited-photos-toolbar-button"
                         label={__('Press to see photos', 'unlimited-photos')}
                         onClick={openModal}
                     />
