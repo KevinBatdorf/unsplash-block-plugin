@@ -1,6 +1,6 @@
 === Unlimited Photos ===
 Contributors:      kbat82
-Tags:              block, stock photos, news, free, photography
+Tags:              block, stock photos, news, images, photography
 Tested up to:      6.0
 Stable tag:        1.0.1
 License:           GPL-2.0-or-later
