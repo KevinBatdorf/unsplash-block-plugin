@@ -74,7 +74,7 @@ context('Modal checks', () => {
         )
     })
 
-    it('Imports and image', () => {
+    it('Imports an image', () => {
         // Confirm no images in post
         cy.getPostContent().find('img').should('not.exist')
 
