@@ -100,7 +100,7 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
         (!images?.length && typeof images !== 'undefined' && !loading)
     ) {
         return (
-            <div className="text-center absolute inset-0 flex flex-col items-center justify-center">
+            <div className="text-center absolute inset-0 flex flex-col items-center justify-center unlimited-photos-image-container-error">
                 {error?.message ? (
                     <p className="mb-4">{error?.message}</p>
                 ) : null}
@@ -114,7 +114,9 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
     }
 
     return (
-        <div ref={gridRef} className="w-full relative h-full overflow-y-scroll">
+        <div
+            ref={gridRef}
+            className="w-full relative h-full overflow-y-scroll unlimited-photos-image-container">
             <div
                 className="hidden md:block w-full relative min-h-full"
                 style={{ minHeight }}

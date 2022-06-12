@@ -6,7 +6,7 @@ export const ButtonNav = ({ show }: { show?: boolean }) => {
     const { page, nextPage, prevPage, totalPages } = useGlobalState()
     if (!show || totalPages === 0) return null
     return (
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-center space-x-2 unlimited-photos-button-nav">
             <button
                 disabled={page < 2}
                 className={classnames(

@@ -91,7 +91,7 @@ export const Loader = ({
             alt: newImage.alt_text,
         })
 
-        setImporting('Done!')
+        setImporting(__('Done!', 'unlimited-photos'))
 
         timerRef.current = window.setTimeout(() => {
             rafRef.current = window.requestAnimationFrame(() => {

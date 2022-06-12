@@ -159,14 +159,16 @@ export const MasonryItem = ({
                 onClick={() => {
                     importing || setIsImporting(true)
                     setImage(image)
-                    setImporting('Importing Image...')
+                    setImporting(__('Importing image...', 'unlimited-photos'))
                 }}
                 onKeyDown={(event) => {
                     if (['Enter', 'Space', ' '].includes(event.key)) {
                         event.stopPropagation()
                         event.preventDefault()
                         importing || setIsImporting(true)
-                        setImporting('Importing Image...')
+                        setImporting(
+                            __('Importing image...', 'unlimited-photos'),
+                        )
                         setImage(image)
                     }
                 }}

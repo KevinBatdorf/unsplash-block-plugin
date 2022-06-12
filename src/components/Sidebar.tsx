@@ -60,7 +60,7 @@ export const Sidebar = ({
                 }}
                 className="px-4">
                 <label
-                    htmlFor="unlimited-images-search"
+                    htmlFor="unlimited-photos-search"
                     className="block text-xs font-medium text-gray-800 mb-3">
                     {__('Search', 'unlimited-photos')}
                 </label>
@@ -73,8 +73,8 @@ export const Sidebar = ({
                             setSearch(e.target.value)
                         }}
                         type="search"
-                        name="unlimited-images-search"
-                        id="unlimited-images-search"
+                        name="unlimited-photos-search"
+                        id="unlimited-photos-search"
                         disabled={Boolean(importing)}
                         className={classnames(
                             'm-0 block rounded-none w-full sm:text-sm border-gray-700 focus:border-gray-700 bg-gray-100 outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
