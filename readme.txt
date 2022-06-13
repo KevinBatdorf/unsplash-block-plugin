@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, news, images, photography
 Tested up to:      6.0
-Stable tag:        1.0.2
+Stable tag:        1.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,7 @@ This warning shows when your server has a restriction lower than 10MB. Many imag
 
 == Changelog ==
 
+= 1.1.0 =
 - Add e2e tests of all features
 - Add missing translation functions
 - Add warning when php max upload size is below 10mb
