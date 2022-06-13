@@ -52,15 +52,21 @@ Yes! For both commercial and non-commercial sites. Read more about the license f
 
 Nothing. We cleanly integrate into the image block, and when you import an image, we hand it off to the core block to manage. The images will always remain in your library and on your pages.
 
+= Your server has a max upload size of =
+
+This warning shows when your server has a restriction lower than 10MB. Many images provided at the "full" quality are higher than this and therefore will fail when attempting to import. You should be able to contact your hosting provider to increase this value to something more reasonable like 25MB.
+
 == Screenshots ==
 
-1. The default view showing the latest photos
-2. A search for puppies
+1. A zoomed in view showing a search for food photos
+2. The default view showing the latest photos
 
 == Changelog ==
 
 - Add e2e tests of all features
 - Add missing translation functions
+- Add warning when php max upload size is below 10mb
+- Default to "small" size when the above is true
 
 = 1.0.2 =
 - Test and add support for WP 5.8

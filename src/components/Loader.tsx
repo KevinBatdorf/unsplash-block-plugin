@@ -64,8 +64,16 @@ export const Loader = ({
             body: image?.links?.download_location,
         })
 
+        // If the user cannot import large images, lower the quality
+        const imageSizeChecked =
+            // eslint-disable-next-line
+            // @ts-ignore-next-line
+            Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 10
+                ? 'small'
+                : imageSize
+
         const newImage: WpImage | undefined = await importImage(
-            image?.urls?.[imageSize],
+            image?.urls?.[imageSizeChecked],
             {
                 alt: image?.alt_description ?? '',
                 filename: `unsplash-image-${image.id}.jpg`,

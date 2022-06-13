@@ -17,3 +17,14 @@ add_action('init', function () {
     register_block_type(__DIR__ . '/build');
     wp_set_script_translations('kevinbatdorf/unlimited-photos', 'unlimited-photos');
 });
+
+add_action('admin_enqueue_scripts', function () {
+    wp_add_inline_script(
+        'kevinbatdorf-unlimited-photos-editor-script',
+        'window.unlimitedPhotosConfig = ' . wp_json_encode([
+            // Convert to mb
+            'maxUploadSize' => number_format(wp_max_upload_size() / 1048576),
+        ]),
+        'before'
+    );
+});
