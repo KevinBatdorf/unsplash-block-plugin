@@ -17,7 +17,7 @@ export const PhpMaxFileSizeWarning = ({ size }: { size: string }) => {
             <p className="m-0">
                 {sprintf(
                     __(
-                        "Warning: Your server has a max upload size of %1$sMB. We've lowered the import quality to avoid import issues",
+                        "Warning: Your server has a max upload size of %1$sMB. We've lowered the import quality to avoid import issues.",
                         'unlimited-photos',
                     ),
                     size,
