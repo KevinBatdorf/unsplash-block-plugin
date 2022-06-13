@@ -4,6 +4,7 @@ import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
 import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
+import { PhpMaxFileSizeWarning } from './Errors'
 import { SearchSuggestions } from './SearchSuggestions'
 
 export const Sidebar = ({
@@ -11,10 +12,20 @@ export const Sidebar = ({
 }: {
     initialFocus: React.RefObject<HTMLInputElement>
 }) => {
-    const { page, setPage, searchTerm, setSearchTerm, importing } =
+    const { page, setPage, searchTerm, setSearchTerm, importing, imageSize } =
         useGlobalState()
     const [search, setSearch] = useState('')
+    const [showImportWarning, setShowImportWarning] = useState(false)
     const touched = useRef(false)
+
+    useEffect(() => {
+        if (imageSize === 'small') return
+        //  eslint-disable-next-line
+        //  @ts-ignore-next-line
+        if (Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 10) {
+            setShowImportWarning(true)
+        }
+    }, [imageSize])
 
     useEffect(() => {
         if (!initialFocus?.current) return
@@ -94,6 +105,14 @@ export const Sidebar = ({
                     )}
                 </p>
             </form>
+            {showImportWarning && (
+                <PhpMaxFileSizeWarning
+                    // eslint-disable-next-line
+                    // @ts-ignore-next-line
+                    size={window.unlimitedPhotosConfig.maxUploadSize}
+                />
+            )}
+
             <div className="flex flex-col overflow-hidden">
                 <h2 className="p-0 px-4 text-xs text-gray-800 leading-none m-0 mb-2 font-medium">
                     {__('Suggestions', 'unlmiited-photos')}
