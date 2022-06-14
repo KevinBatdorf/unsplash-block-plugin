@@ -6,6 +6,7 @@ import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
 import { PhpMaxFileSizeWarning } from './Errors'
 import { SearchSuggestions } from './SearchSuggestions'
+import { SettingsModal } from './SettingsModal'
 
 export const Sidebar = ({
     initialFocus,
@@ -128,7 +129,9 @@ export const Sidebar = ({
                     />
                 </div>
             </div>
-            <div className="h-12 w-full flex-grow"></div>
+            <div className="h-12 w-full flex-grow flex items-end pl-2 pb-2">
+                <SettingsModal />
+            </div>
         </div>
     )
 }
