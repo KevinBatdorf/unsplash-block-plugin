@@ -54,7 +54,7 @@ Nothing. We cleanly integrate into the image block, and when you import an image
 
 = Your server has a max upload size of =
 
-This warning shows when your server has a restriction lower than 10MB. Many images provided at the "full" quality are higher than this and therefore will fail when attempting to import. You should be able to contact your hosting provider to increase this value to something more reasonable like 25MB.
+This warning shows when your server has a restriction lower than 3MB. Many images provided at the "full" or "raw" quality are higher than this and therefore will fail when attempting to import. You should be able to contact your hosting provider to increase this value to something more reasonable like 25MB.
 
 == Screenshots ==
 
@@ -62,6 +62,8 @@ This warning shows when your server has a restriction lower than 10MB. Many imag
 2. The default view showing the latest photos
 
 == Changelog ==
+
+- Default to regular size when server upload size is less than 3MB
 
 = 1.1.0 =
 - Add e2e tests of all features

@@ -68,8 +68,8 @@ export const Loader = ({
         const imageSizeChecked =
             // eslint-disable-next-line
             // @ts-ignore-next-line
-            Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 10
-                ? 'small'
+            Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 3
+                ? 'regular'
                 : imageSize
 
         const newImage: WpImage | undefined = await importImage(

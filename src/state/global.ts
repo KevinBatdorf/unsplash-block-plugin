@@ -7,7 +7,7 @@ type GlobalState = {
     page: number
     totalPages: number | undefined
     loading: boolean | undefined
-    imageSize: 'full' | 'raw' | 'regular' | 'small'
+    imageSize: 'full' | 'raw' | 'regular'
     setImporting: (loading: string | boolean) => void
     setLoading: (loading: boolean) => void
     setSearchTerm: (searchTerm: string) => void

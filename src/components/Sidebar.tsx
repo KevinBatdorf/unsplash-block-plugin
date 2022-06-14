@@ -19,10 +19,10 @@ export const Sidebar = ({
     const touched = useRef(false)
 
     useEffect(() => {
-        if (imageSize === 'small') return
+        if (imageSize === 'regular') return
         //  eslint-disable-next-line
         //  @ts-ignore-next-line
-        if (Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 10) {
+        if (Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 3) {
             setShowImportWarning(true)
         }
     }, [imageSize])
