@@ -13,10 +13,28 @@ jobs:
             - name: npm install and build
               run: |
                   npm ci
+                  npm install -g @wordpress/env
                   npm run build
               env:
                   CI: true
 
+            # Run Cypress against the main release only
+            - name: Start server
+              run: wp-env start
+            - name: Cypress run
+              uses: cypress-io/github-action@v4
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - uses: actions/upload-artifact@v2
+              if: always()
+              with:
+                  name: cypress-screenshots
+                  path: cypress/screenshots
+            - uses: actions/upload-artifact@v2
+              if: failure()
+              with:
+                  name: cypress-videos
+                  path: cypress/videos
             - name: WordPress Plugin Deploy
               id: deploy
               uses: 10up/action-wordpress-plugin-deploy@stable
