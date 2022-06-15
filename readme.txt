@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, images, free, photography
 Tested up to:      6.0
-Stable tag:        1.1.1
+Stable tag:        1.1.2
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 2. The default view showing the latest photos
 
 == Changelog ==
+
+= 1.1.2 =
+- Remove testing files from release
 
 = 1.1.1 =
 - Default to regular size when server upload size is less than 3MB
