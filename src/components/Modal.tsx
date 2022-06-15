@@ -34,7 +34,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                             className="fixed inset-0 bg-black/40"
                             aria-hidden="true"
                         />
-                        <div className="absolute top-0 right-0 m-0.5">
+                        <div className="absolute top-0 right-0 m-0.5 z-10">
                             <ModalCloseButton onClose={onClose} />
                         </div>
                         <motion.div

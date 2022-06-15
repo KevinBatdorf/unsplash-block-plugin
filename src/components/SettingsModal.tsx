@@ -14,6 +14,7 @@ export const SettingsModal = () => {
         <>
             <button
                 type="button"
+                data-cy-up="settings-button"
                 onClick={() => setOpen(true)}
                 className="components-button has-icon text-gray-800">
                 <Icon icon={cog} />
@@ -31,7 +32,7 @@ export const SettingsModal = () => {
                         exit={{ opacity: 0 }}
                         open={open}
                         onClose={() => null}>
-                        <div className="absolute mx-auto w-full h-full flex items-center justify-center">
+                        <div className="absolute mx-auto w-full h-full hidden md:flex items-center justify-center">
                             <div
                                 className="fixed inset-0 bg-black/40"
                                 aria-hidden="true"
@@ -41,6 +42,7 @@ export const SettingsModal = () => {
                                 initial={{ y: 20 }}
                                 animate={{ y: 0 }}
                                 exit={{ y: 0, opacity: 0 }}
+                                data-cy-up="settings-modal"
                                 className="sm:flex w-full relative shadow-2xl sm:overflow-hidden max-w-screen-xs mx-auto bg-white flex flex-col">
                                 <div className="flex items-center justify-between border-b border-gray-300 p-4">
                                     <Dialog.Title className="m-0">
@@ -92,6 +94,7 @@ const SettingsSection = () => {
                                     <input
                                         id={`image-size-${value}-unsplash-photos`}
                                         name="image-size-unsplash-photos"
+                                        value={value}
                                         type="radio"
                                         checked={imageSize === value}
                                         onChange={() =>
