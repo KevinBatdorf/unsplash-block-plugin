@@ -2,13 +2,14 @@ import { Icon } from '@wordpress/components'
 import { useRef, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import { cog } from '@wordpress/icons'
-import { Dialog } from '@headlessui/react'
+import { Dialog, RadioGroup } from '@headlessui/react'
+import classnames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useGlobalState } from '../state/global'
 import { ModalCloseButton } from './ModalCloseButton'
 
 export const SettingsModal = () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
     const initialFocus = useRef(null)
     return (
         <>
@@ -69,7 +70,7 @@ const SettingsSection = () => {
     const { imageSize, setImageSize } = useGlobalState()
     return (
         <div
-            className="py-4"
+            className="py-4 space-y-4"
             role="group"
             aria-labelledby="image-size-unsplash-photos">
             <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:items-baseline">
@@ -113,6 +114,69 @@ const SettingsSection = () => {
                     </div>
                 </div>
             </div>
+            <div>
+                <ThemeSelect />
+            </div>
         </div>
+    )
+}
+const ThemeSelect = () => {
+    // type themes = 'regular' | 'full' | 'raw'
+    const { currentTheme, setCurrentTheme } = useGlobalState()
+    return (
+        <RadioGroup value={currentTheme} onChange={setCurrentTheme}>
+            <RadioGroup.Label className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-900">
+                {__('Theme', 'unlimited-photos')}
+            </RadioGroup.Label>
+
+            <div className="mt-4 grid grid-cols-3 gap-x-4">
+                {['default', 'light', 'dark'].map((theme) => (
+                    <RadioGroup.Option
+                        key={theme}
+                        value={theme}
+                        className={({ active }) =>
+                            classnames(
+                                { 'ring-2 ': active },
+                                'relative bg-white border shadow-sm p-4 flex cursor-pointer focus:outline-none border-gray-300 ring-wp-theme-500 ring-offset-2 ring-offset-white',
+                            )
+                        }>
+                        {({ checked }) => (
+                            <>
+                                <span className="flex-1 flex">
+                                    <span className="flex flex-col">
+                                        <RadioGroup.Label
+                                            as="span"
+                                            className="block capitalize text-sm font-medium text-gray-900">
+                                            {theme}
+                                        </RadioGroup.Label>
+                                    </span>
+                                </span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={classnames(
+                                        !checked ? 'invisible' : '',
+                                        'h-5 w-5 text-wp-theme-500',
+                                    )}
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                                <span
+                                    className={classnames(
+                                        { 'ring-2 ': checked },
+                                        'absolute -inset-px pointer-events-none ring-wp-theme-500 ring-offset-2 ring-offset-white',
+                                    )}
+                                    aria-hidden="true"
+                                />
+                            </>
+                        )}
+                    </RadioGroup.Option>
+                ))}
+            </div>
+        </RadioGroup>
     )
 }

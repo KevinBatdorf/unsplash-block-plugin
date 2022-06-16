@@ -26,7 +26,7 @@ export const Loader = ({
     CurrentMenuItems,
     toolbarProps,
 }: LoaderProps) => {
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(true)
     const { imageSize, importing, setImporting, setLoading } = useGlobalState()
     const timerRef = useRef(0)
     const rafRef = useRef(0)
