@@ -9,7 +9,7 @@ import { useGlobalState } from '../state/global'
 import { ModalCloseButton } from './ModalCloseButton'
 
 export const SettingsModal = () => {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
     const initialFocus = useRef(null)
     return (
         <>
