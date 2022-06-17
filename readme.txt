@@ -53,7 +53,7 @@ Nothing. We cleanly integrate into the image block, and when you import an image
 
 = Your server has a max upload size of =
 
-This warning shows when your server has a restriction lower than 3MB. Many images provided at the "full" or "raw" quality are higher than this and therefore will fail when attempting to import. You should be able to contact your hosting provider to increase this value to something more reasonable like 25MB.
+This warning shows when your server has a restriction lower than 3MB. Many images provided at the "full" or "raw" quality are higher than this and therefore will fail when attempting to import. You should be able to contact your hosting provider to increase this value to something more reasonable like 25MB. To remove the warning, press the "Settings" button and select the "Regular" radio button to manually set the import size.
 
 == Screenshots ==
 
