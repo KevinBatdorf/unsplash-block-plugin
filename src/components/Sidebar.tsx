@@ -173,8 +173,8 @@ export const Sidebar = ({
                         handlePress={(term: string) => {
                             touched.current = true
                             setPage(1)
-                            setSearchTerm(term)
-                            setSearch(term)
+                            setSearchTerm(term.toLowerCase())
+                            setSearch(term.toLowerCase())
                         }}
                     />
                 </div>

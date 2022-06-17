@@ -43,12 +43,16 @@ export const SearchSuggestions = ({ handlePress }: SearchSuggestionsProps) => {
                         className={classnames(
                             'p-0 bg-transparent focus:outline-none focus:shadow-none outline-none text-left text-sm border-b cursor-pointer ring-main-blue focus:ring-wp font-light transition-all duration-200 ease-linear',
                             {
-                                'border-transparent': term !== searchTerm,
+                                'border-transparent':
+                                    term.toLowerCase() !==
+                                    searchTerm?.toLowerCase(),
                                 'border-gray-900':
-                                    term === searchTerm &&
+                                    term.toLowerCase() ===
+                                        searchTerm?.toLowerCase() &&
                                     currentTheme !== 'midnight',
                                 'border-main-grayish':
-                                    term === searchTerm &&
+                                    term.toLowerCase() ===
+                                        searchTerm?.toLowerCase() &&
                                     currentTheme === 'midnight',
                                 'hover:border-gray-900':
                                     currentTheme !== 'midnight',
