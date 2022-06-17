@@ -60,8 +60,11 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 1. A zoomed in view showing a search for food photos
 2. The default view showing the latest photos
+2. Multiple UI theme
 
 == Changelog ==
+
+- Add two themes
 
 = 1.1.2 =
 - Remove testing files from release
