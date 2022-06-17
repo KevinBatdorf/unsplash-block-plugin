@@ -8,16 +8,14 @@ context('Settings modal checks', () => {
             // Open the settings modal
             cy.get('[data-cy-up="settings-button"]').click()
         })
-        afterEach(() => {
-            cy.get(
-                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
-            ).click()
-            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
-        })
 
         it('Full is select by default', () => {
             cy.get('[data-cy-up="settings-modal"]').should('exist')
             cy.get('input[type="radio"][value="full"]').should('be.checked')
+            cy.get(
+                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
+            ).click()
+            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
         })
 
         it('Settings are persisted', () => {
@@ -28,6 +26,10 @@ context('Settings modal checks', () => {
             cy.addBlock('unlimited-photos')
             cy.get('[data-cy-up="settings-button"]').click()
             cy.get('input[type="radio"][value="raw"]').should('be.checked')
+            cy.get(
+                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
+            ).click()
+            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
         })
 
         // Note: this test depends on the max file upload size from wp-env
@@ -36,6 +38,10 @@ context('Settings modal checks', () => {
             cy.get('[data-cy-up="file-size-warning"]').should('exist')
             cy.get('input[type="radio"][value="regular"]').click()
             cy.get('input[type="radio"][value="regular"]').should('be.checked')
+            cy.get(
+                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
+            ).click()
+            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
             cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
         })
     })

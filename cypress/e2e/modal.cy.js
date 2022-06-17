@@ -100,7 +100,7 @@ context('Modal checks', () => {
         cy.getPostContent().find('img').should('exist')
     })
 
-    it('Importing disables sidebar', () => {
+    it('Importing disables the sidebar', () => {
         // Adds our block
         cy.addBlock('unlimited-photos')
 
