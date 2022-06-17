@@ -3,8 +3,8 @@ import { __ } from '@wordpress/i18n'
 import { Dialog } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { UnsplashImage } from '../types'
+import { ModalCloseButton } from './ModalCloseButton'
 import { ModalContent } from './ModalContent'
-import { ModalToolbar } from './ModalToolbar'
 import { Sidebar } from './Sidebar'
 
 type ModalProps = {
@@ -30,8 +30,13 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                     open={open}
                     onClose={onClose}>
                     <div className="absolute mx-auto w-full h-full md:p-8">
-                        <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
-                        <ModalToolbar onClose={onClose} />
+                        <div
+                            className="fixed inset-0 bg-black/40"
+                            aria-hidden="true"
+                        />
+                        <div className="absolute top-0 right-0 m-0.5 z-10">
+                            <ModalCloseButton onClose={onClose} />
+                        </div>
                         <motion.div
                             key="modal"
                             initial={{ y: 30 }}

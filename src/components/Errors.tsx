@@ -6,7 +6,9 @@ export const PhpMaxFileSizeWarning = ({ size }: { size: string }) => {
 
     if (!show) return null
     return (
-        <div className="bg-wp-alert-yellow p-4 text-gray-900 relative">
+        <div
+            data-cy-up="file-size-warning"
+            className="bg-wp-alert-yellow p-4 text-gray-900 relative">
             <button
                 className="absolute top-0 right-0 bg-transparent shadow-none"
                 onClick={() => setShow(false)}

@@ -15,6 +15,7 @@ type GlobalState = {
     nextPage: () => void
     prevPage: () => void
     setPage: (page: number) => void
+    setImageSize: (imageSize: 'full' | 'raw' | 'regular') => void
 }
 
 export const useGlobalState = create<GlobalState>()(
@@ -68,6 +69,9 @@ export const useGlobalState = create<GlobalState>()(
                             page,
                         }
                     })
+                },
+                setImageSize(size: 'full' | 'raw' | 'regular') {
+                    set((state) => ({ ...state, imageSize: size }))
                 },
             }),
             {

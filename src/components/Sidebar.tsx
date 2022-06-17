@@ -6,6 +6,7 @@ import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
 import { PhpMaxFileSizeWarning } from './Errors'
 import { SearchSuggestions } from './SearchSuggestions'
+import { SettingsModal } from './SettingsModal'
 
 export const Sidebar = ({
     initialFocus,
@@ -19,7 +20,10 @@ export const Sidebar = ({
     const touched = useRef(false)
 
     useEffect(() => {
-        if (imageSize === 'regular') return
+        if (imageSize === 'regular') {
+            setShowImportWarning(false)
+            return
+        }
         //  eslint-disable-next-line
         //  @ts-ignore-next-line
         if (Number(window?.unlimitedPhotosConfig?.maxUploadSize) < 3) {
@@ -113,11 +117,11 @@ export const Sidebar = ({
                 />
             )}
 
-            <div className="flex flex-col overflow-hidden">
+            <div className="hidden md:flex flex-col overflow-hidden">
                 <h2 className="p-0 px-4 text-xs text-gray-800 leading-none m-0 mb-2 font-medium">
                     {__('Suggestions', 'unlmiited-photos')}
                 </h2>
-                <div className="px-4 hidden md:block overflow-y-scroll">
+                <div className="px-4 block overflow-y-scroll">
                     <SearchSuggestions
                         handlePress={(term: string) => {
                             touched.current = true
@@ -128,7 +132,9 @@ export const Sidebar = ({
                     />
                 </div>
             </div>
-            <div className="h-12 w-full flex-grow"></div>
+            <div className="h-12 w-full flex-grow hidden md:flex items-end pl-2 pb-2">
+                <SettingsModal />
+            </div>
         </div>
     )
 }
