@@ -58,6 +58,7 @@ export const SearchSuggestions = ({ handlePress }: SearchSuggestionsProps) => {
                                     currentTheme !== 'midnight',
                                 'text-main-grayish hover:border-main-grayish':
                                     currentTheme === 'midnight',
+                                'opacity-50': Boolean(importing),
                             },
                         )}>
                         {term}

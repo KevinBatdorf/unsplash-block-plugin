@@ -26,12 +26,13 @@ export const SettingsModal = () => {
                             : undefined,
                 }}
                 className={classnames(
-                    'bg-transparent flex focus:outline-none focus:ring-wp focus:shadow-none focus:text-main-grayish items-center outline-none ring-main-blue text-main-grayish',
+                    'bg-transparent flex focus:outline-none focus:ring-wp focus:shadow-none items-center outline-none ring-main-blue',
                     {
                         'text-main-grayish focus:text-main-grayish':
                             currentTheme === 'midnight',
                         'text-gray-800 focus:text-gray-800':
                             currentTheme !== 'midnight',
+                        'opacity-50': Boolean(importing),
                     },
                 )}>
                 <Icon className="fill-current" icon={cog} />
