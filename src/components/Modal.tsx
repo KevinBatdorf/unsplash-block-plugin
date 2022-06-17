@@ -50,11 +50,14 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                             className="fixed inset-0 bg-black/40"
                             aria-hidden="true"
                         />
-                        <div className="absolute top-0 right-0 m-0.5 z-10">
+                        <div
+                            data-cy-up="main-modal"
+                            className="absolute top-0 right-0 m-0.5 z-10">
                             <ModalCloseButton onClose={onClose} />
                         </div>
                         <motion.div
                             key="modal"
+                            id="unlimited-photos-modal-inner"
                             initial={{ y: 30 }}
                             animate={{ y: 0 }}
                             exit={{ y: 0, opacity: 0 }}

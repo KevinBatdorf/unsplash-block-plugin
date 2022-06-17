@@ -39,4 +39,56 @@ context('Settings modal checks', () => {
             cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
         })
     })
+    context('Theme selector', () => {
+        beforeEach(() => {
+            cy.clearLocalStorage('unlimited-photos')
+            // Adds our block
+            cy.addBlock('unlimited-photos')
+
+            // Open the settings modal
+            cy.get('[data-cy-up="settings-button"]').click()
+        })
+        afterEach(() => {
+            cy.get(
+                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
+            ).click()
+            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
+        })
+
+        it('Can switch themes and persist', () => {
+            // light mode
+            cy.get('div[role="radio"]').contains('light').click()
+            cy.get('div[role="radio"][aria-checked="true"]')
+                .contains('light')
+                .should('exist')
+
+            // reload the page to make sure the settings are saved
+            cy.reload()
+            cy.addBlock('unlimited-photos')
+            cy.get('[data-cy-up="settings-button"]').click()
+            cy.get('div[role="radio"][aria-checked="true"]')
+                .contains('light')
+                .should('exist')
+            cy.get('div[role="radio"][aria-checked="true"]')
+                .contains('default')
+                .should('not.exist')
+
+            // midnight mode
+            cy.get('div[role="radio"]').contains('midnight').click()
+            cy.get('div[role="radio"][aria-checked="true"]')
+                .contains('midnight')
+                .should('exist')
+
+            // reload the page to make sure the settings are saved
+            cy.reload()
+            cy.addBlock('unlimited-photos')
+            cy.get('[data-cy-up="settings-button"]').click()
+            cy.get('div[role="radio"][aria-checked="true"]')
+                .contains('midnight')
+                .should('exist')
+            cy.get('div[role="radio"][aria-checked="true"]')
+                .contains('default')
+                .should('not.exist')
+        })
+    })
 })
