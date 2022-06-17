@@ -88,6 +88,11 @@ context('Modal checks', () => {
             30,
         )
 
+        // Wait for the first image to be ready
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
+            .should('exist')
+
         // Focus the initial image and import it
         cy.get('.unlimited-photos-image-container div[role="button"]')
             .first()

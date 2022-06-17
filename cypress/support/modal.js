@@ -5,5 +5,4 @@ export const closeModal = () => {
             cy.get(modalX).click()
         }
     })
-    cy.get(modalX).should('not.exist')
 }
