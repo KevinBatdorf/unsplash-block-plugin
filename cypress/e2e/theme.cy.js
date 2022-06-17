@@ -26,7 +26,7 @@ context('Theme checks', () => {
         cy.get('#unlimited-photos-modal-inner').should('have.class', 'bg-white')
     })
 
-    it('Mightnight theme has a midnight background color', () => {
+    it('Midnight theme has a midnight background color', () => {
         // Switch to light theme
         cy.get('div[role="radio"]').contains('midnight').click()
         cy.get('div[role="radio"][aria-checked="true"]')
