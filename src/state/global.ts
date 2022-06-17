@@ -8,6 +8,7 @@ type GlobalState = {
     totalPages: number | undefined
     loading: boolean | undefined
     imageSize: 'full' | 'raw' | 'regular'
+    currentTheme: 'default' | 'midnight' | 'light'
     setImporting: (loading: string | boolean) => void
     setLoading: (loading: boolean) => void
     setSearchTerm: (searchTerm: string) => void
@@ -16,6 +17,7 @@ type GlobalState = {
     prevPage: () => void
     setPage: (page: number) => void
     setImageSize: (imageSize: 'full' | 'raw' | 'regular') => void
+    setCurrentTheme: (currentTheme: 'default' | 'midnight' | 'light') => void
 }
 
 export const useGlobalState = create<GlobalState>()(
@@ -28,6 +30,7 @@ export const useGlobalState = create<GlobalState>()(
                 page: 1,
                 totalPages: undefined,
                 loading: undefined,
+                currentTheme: 'default',
                 setSearchTerm: (searchTerm: string) => {
                     set(() => ({ searchTerm }))
                 },
@@ -73,12 +76,16 @@ export const useGlobalState = create<GlobalState>()(
                 setImageSize(size: 'full' | 'raw' | 'regular') {
                     set((state) => ({ ...state, imageSize: size }))
                 },
+                setCurrentTheme(theme: 'default' | 'midnight' | 'light') {
+                    set((state) => ({ ...state, currentTheme: theme }))
+                },
             }),
             {
                 name: 'unlimited-photos',
                 getStorage: () => window.localStorage,
                 partialize: (state) => ({
                     searchTerm: state.searchTerm ? state.searchTerm : undefined,
+                    currentTheme: state.currentTheme,
                     imageSize: state.imageSize,
                 }),
             },

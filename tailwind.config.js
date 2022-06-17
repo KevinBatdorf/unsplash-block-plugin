@@ -38,12 +38,9 @@ module.exports = {
             },
             main: {
                 blue: '#74a0f1',
-                pink: '#ff77d9',
-                orange: '#ffc06b',
-                lime: '#b7ff71',
-                green: '#7edda2',
-                yellow: '#d1ff52',
-                bad: '#d2d664',
+                midnight: '#140022',
+                grayish: '#ded8e6',
+                magenta: '#550b43',
             },
             // https://github.com/WordPress/gutenberg/blob/trunk/packages/base-styles/_colors.scss
             gray: {

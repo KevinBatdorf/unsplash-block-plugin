@@ -26,16 +26,6 @@
     @apply fixed z-high inset-0 overflow-y-auto;
 }
 
-.unlimited-photos-editor.unlimited-photos-modal .color-change {
-    animation: unlimited-photos-colorchange 10s infinite linear;
-}
-@-webkit-keyframes unlimited-photos-colorchange {
-    0% { @apply text-main-blue; }
-    25% { @apply text-main-pink; }
-    50% { @apply text-main-lime; }
-    75% { @apply text-main-yellow; }
-    100% { @apply text-main-blue; }
-}
 .unlimited-photos-editor .backdrop-blur {
     @apply bg-gray-100 bg-opacity-90;
 }
@@ -45,4 +35,8 @@
         -webkit-backdrop-filter: saturate(180%) blur(10px);
         backdrop-filter: saturate(180%) blur(10px);
     }
+}
+
+.unlimited-photos-editor.unlimited-photos-modal input[type=radio]:checked::before {
+    @apply bg-main-blue;
 }

@@ -22,13 +22,13 @@ export const blockIcon = () => (
         />
     </svg>
 )
-export const blockIconThin = () => (
+export const blockIconThin = (stroke = '#1e1e1e') => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: 24, height: 24 }}
         fill="none"
         viewBox="0 0 24 24"
-        stroke="#1e1e1e"
+        stroke={stroke}
         strokeWidth={1}>
         <path
             fill="transparent"

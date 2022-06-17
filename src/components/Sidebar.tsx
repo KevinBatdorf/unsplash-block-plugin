@@ -13,11 +13,21 @@ export const Sidebar = ({
 }: {
     initialFocus: React.RefObject<HTMLInputElement>
 }) => {
-    const { page, setPage, searchTerm, setSearchTerm, importing, imageSize } =
-        useGlobalState()
+    const {
+        page,
+        setPage,
+        searchTerm,
+        setSearchTerm,
+        importing,
+        imageSize,
+        currentTheme,
+    } = useGlobalState()
     const [search, setSearch] = useState('')
     const [showImportWarning, setShowImportWarning] = useState(false)
     const touched = useRef(false)
+    const textShadow = {
+        textShadow: currentTheme === 'midnight' ? '0 0 4px white' : undefined,
+    }
 
     useEffect(() => {
         if (imageSize === 'regular') {
@@ -63,9 +73,26 @@ export const Sidebar = ({
         <div className="sm:w-52 md:w-64 space-y-6 flex-shrink-0 flex flex-col">
             <div className="p-2 flex space-x-1.5">
                 <div className="w-6 h-6">
-                    <Icon icon={blockIconThin} size={24} />
+                    <Icon
+                        icon={() =>
+                            blockIconThin(
+                                currentTheme === 'midnight'
+                                    ? '#ded8e6'
+                                    : '#1e1e1e',
+                            )
+                        }
+                        size={24}
+                    />
                 </div>
-                <h1 className="font-thin text-xl tracking-wide m-0 -mt-px">
+                <h1
+                    className={classnames(
+                        'font-thin text-xl tracking-wide m-0 -mt-px',
+                        {
+                            'text-main-grayish': currentTheme === 'midnight',
+                            'text-gray-900': currentTheme !== 'midnight',
+                        },
+                    )}
+                    style={textShadow}>
                     Unlimited Photos
                 </h1>
             </div>
@@ -76,7 +103,11 @@ export const Sidebar = ({
                 className="px-4">
                 <label
                     htmlFor="unlimited-photos-search"
-                    className="block text-xs font-medium text-gray-800 mb-3">
+                    className={classnames('block text-xs font-medium mb-3', {
+                        'text-main-grayish': currentTheme === 'midnight',
+                        'text-gray-800': currentTheme !== 'midnight',
+                    })}
+                    style={textShadow}>
                     {__('Search', 'unlimited-photos')}
                 </label>
                 <div>
@@ -92,16 +123,24 @@ export const Sidebar = ({
                         id="unlimited-photos-search"
                         disabled={Boolean(importing)}
                         className={classnames(
-                            'm-0 block rounded-none w-full sm:text-sm border-gray-700 focus:border-gray-700 bg-gray-100 outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
+                            'm-0 block rounded-none w-full sm:text-sm outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
                             {
                                 'bg-gray-400': importing,
+                                'text-main-grayish border-gray-900 focus:border-gray-900 bg-main-magenta':
+                                    currentTheme === 'midnight',
+                                'border-gray-700 focus:border-gray-700 bg-gray-100 text-gray-900':
+                                    currentTheme !== 'midnight',
                             },
                         )}
                         aria-describedby="search-description"
                     />
                 </div>
                 <p
-                    className="mt-2 text-xs italic text-gray-800 font-light"
+                    className={classnames('mt-2 text-xs italic font-light', {
+                        'text-main-grayish text-opacity-60':
+                            currentTheme === 'midnight',
+                        'text-gray-800': currentTheme !== 'midnight',
+                    })}
                     id="search-description">
                     {__(
                         'Search over 3 million photos, textures, wallpapers, and more.',
@@ -118,7 +157,15 @@ export const Sidebar = ({
             )}
 
             <div className="hidden md:flex flex-col overflow-hidden">
-                <h2 className="p-0 px-4 text-xs text-gray-800 leading-none m-0 mb-2 font-medium">
+                <h2
+                    className={classnames(
+                        'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
+                        {
+                            'text-main-grayish': currentTheme === 'midnight',
+                            'text-gray-800': currentTheme !== 'midnight',
+                        },
+                    )}
+                    style={textShadow}>
                     {__('Suggestions', 'unlmiited-photos')}
                 </h2>
                 <div className="px-4 block overflow-y-scroll">

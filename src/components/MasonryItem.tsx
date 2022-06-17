@@ -142,7 +142,7 @@ export const MasonryItem = ({
 
     return (
         <motion.div
-            className="relative md:absolute top-0 left-0"
+            className="relative md:absolute top-0 left-0 overflow-hidden"
             transition={{ type: 'Tween' }}
             animate={
                 columns > 1
