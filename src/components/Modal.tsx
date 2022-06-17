@@ -38,6 +38,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                 <Dialog
                     className="unlimited-photos-editor unlimited-photos-modal"
                     static
+                    data-cy-up="main-modal"
                     initialFocus={initialFocus}
                     as={motion.div}
                     key="modal"
