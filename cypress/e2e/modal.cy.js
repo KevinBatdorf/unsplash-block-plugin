@@ -99,4 +99,31 @@ context('Modal checks', () => {
 
         cy.getPostContent().find('img').should('exist')
     })
+
+    it('Importing disables the sidebar', () => {
+        // Adds our block
+        cy.addBlock('unlimited-photos')
+
+        // Confirm items are not disabled
+        cy.get('#unlimited-photos-search').should('not.be.disabled')
+        cy.get('[data-cy-up="settings-button"]')
+            .first()
+            .should('not.be.disabled')
+        cy.get('.unlimited-photos-suggestions-list button')
+            .first()
+            .should('be.not.disabled')
+
+        // Focus the initial image and import it
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
+            .click()
+            .should('have.text', 'Importing image...')
+
+        // Confirm items are disabled
+        cy.get('#unlimited-photos-search').should('be.disabled')
+        cy.get('[data-cy-up="settings-button"]').first().should('be.disabled')
+        cy.get('.unlimited-photos-suggestions-list button')
+            .first()
+            .should('be.disabled')
+    })
 })

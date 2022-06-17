@@ -10,10 +10,12 @@ import { ModalCloseButton } from './ModalCloseButton'
 export const SettingsModal = () => {
     const [open, setOpen] = useState(false)
     const initialFocus = useRef(null)
+    const { importing } = useGlobalState()
     return (
         <>
             <button
                 type="button"
+                disabled={Boolean(importing)}
                 data-cy-up="settings-button"
                 onClick={() => setOpen(true)}
                 className="components-button has-icon text-gray-800">

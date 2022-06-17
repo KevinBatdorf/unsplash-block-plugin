@@ -5,7 +5,7 @@ type SearchSuggestionsProps = {
     handlePress: (term: string) => void
 }
 export const SearchSuggestions = ({ handlePress }: SearchSuggestionsProps) => {
-    const { searchTerm } = useGlobalState()
+    const { searchTerm, importing } = useGlobalState()
     const terms = [
         'Current Events',
         'Wallpapers',
@@ -38,6 +38,7 @@ export const SearchSuggestions = ({ handlePress }: SearchSuggestionsProps) => {
                 <li className="mb-0.5" key={term}>
                     <button
                         type="button"
+                        disabled={Boolean(importing)}
                         onClick={() => handlePress(term)}
                         className={classnames(
                             'p-0 bg-transparent focus:outline-none focus:shadow-none outline-none text-left text-sm border-b hover:border-gray-900 cursor-pointer ring-main-blue focus:ring-wp font-light transition-all duration-200 ease-linear',
