@@ -4,7 +4,7 @@ import { closeX } from '../icons'
 
 export const ModalCloseButton = ({ onClose }: { onClose: () => void }) => (
     <button
-        className="block w-6 h-6 text-gray-900 p-px bg-transparent cursor-pointer outline-none focus:shadow-none focus:ring-wp focus:ring-wp-theme-500"
+        className="block w-6 h-6 text-gray-900 p-px bg-transparent cursor-pointer outline-none focus:shadow-none focus:ring-wp focus:ring-main-blue"
         type="button"
         onClick={onClose}
         aria-label={__('Close', 'unlimited-photos')}>

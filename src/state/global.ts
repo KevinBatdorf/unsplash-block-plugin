@@ -8,7 +8,7 @@ type GlobalState = {
     totalPages: number | undefined
     loading: boolean | undefined
     imageSize: 'full' | 'raw' | 'regular'
-    currentTheme: 'default' | 'dark' | 'light'
+    currentTheme: 'default' | 'midnight' | 'light'
     setImporting: (loading: string | boolean) => void
     setLoading: (loading: boolean) => void
     setSearchTerm: (searchTerm: string) => void
@@ -17,7 +17,7 @@ type GlobalState = {
     prevPage: () => void
     setPage: (page: number) => void
     setImageSize: (imageSize: 'full' | 'raw' | 'regular') => void
-    setCurrentTheme: (currentTheme: 'default' | 'dark' | 'light') => void
+    setCurrentTheme: (currentTheme: 'default' | 'midnight' | 'light') => void
 }
 
 export const useGlobalState = create<GlobalState>()(
@@ -76,7 +76,7 @@ export const useGlobalState = create<GlobalState>()(
                 setImageSize(size: 'full' | 'raw' | 'regular') {
                     set((state) => ({ ...state, imageSize: size }))
                 },
-                setCurrentTheme(theme: 'default' | 'dark' | 'light') {
+                setCurrentTheme(theme: 'default' | 'midnight' | 'light') {
                     set((state) => ({ ...state, currentTheme: theme }))
                 },
             }),

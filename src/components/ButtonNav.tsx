@@ -3,7 +3,8 @@ import classnames from 'classnames'
 import { useGlobalState } from '../state/global'
 
 export const ButtonNav = ({ show }: { show?: boolean }) => {
-    const { page, nextPage, prevPage, totalPages } = useGlobalState()
+    const { page, nextPage, prevPage, totalPages, currentTheme } =
+        useGlobalState()
     if (!show || totalPages === 0) return null
     return (
         <div className="flex justify-center space-x-2 unlimited-photos-button-nav">
@@ -14,7 +15,10 @@ export const ButtonNav = ({ show }: { show?: boolean }) => {
                     {
                         'text-white cursor-pointer ring-main-blue focus:shadow-none focus:ring-wp':
                             page > 1,
-                        'bg-opacity-30 text-gray-900 opacity-60': page < 2,
+                        'bg-opacity-30 text-gray-900 opacity-60':
+                            page < 2 && currentTheme !== 'midnight',
+                        'bg-opacity-30 text-main-grayish opacity-60':
+                            page < 2 && currentTheme === 'midnight',
                     },
                 )}
                 aria-label={__(

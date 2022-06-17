@@ -11,14 +11,29 @@ import { ModalCloseButton } from './ModalCloseButton'
 export const SettingsModal = () => {
     const [open, setOpen] = useState(false)
     const initialFocus = useRef(null)
+    const { currentTheme } = useGlobalState()
     return (
         <>
             <button
                 type="button"
                 data-cy-up="settings-button"
                 onClick={() => setOpen(true)}
-                className="components-button has-icon text-gray-800">
-                <Icon icon={cog} />
+                style={{
+                    textShadow:
+                        currentTheme === 'midnight'
+                            ? '0 0 4px white'
+                            : undefined,
+                }}
+                className={classnames(
+                    'bg-transparent flex focus:outline-none focus:ring-wp focus:shadow-none focus:text-main-grayish items-center outline-none ring-main-blue text-main-grayish',
+                    {
+                        'text-main-grayish focus:text-main-grayish':
+                            currentTheme === 'midnight',
+                        'text-gray-800 focus:text-gray-800':
+                            currentTheme !== 'midnight',
+                    },
+                )}>
+                <Icon className="fill-current" icon={cog} />
                 {__('Settings', 'unlimited-photos')}
             </button>
             <AnimatePresence>
@@ -32,7 +47,7 @@ export const SettingsModal = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         open={open}
-                        onClose={() => null}>
+                        onClose={() => setOpen(false)}>
                         <div className="absolute mx-auto w-full h-full hidden md:flex items-center justify-center">
                             <div
                                 className="fixed inset-0 bg-black/40"
@@ -121,23 +136,22 @@ const SettingsSection = () => {
     )
 }
 const ThemeSelect = () => {
-    // type themes = 'regular' | 'full' | 'raw'
     const { currentTheme, setCurrentTheme } = useGlobalState()
     return (
         <RadioGroup value={currentTheme} onChange={setCurrentTheme}>
-            <RadioGroup.Label className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-900">
+            <RadioGroup.Label className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-900 mb-2 block">
                 {__('Theme', 'unlimited-photos')}
             </RadioGroup.Label>
 
-            <div className="mt-4 grid grid-cols-3 gap-x-4">
-                {['default', 'light', 'dark'].map((theme) => (
+            <div className="grid grid-cols-3 gap-x-4">
+                {['default', 'light', 'midnight'].map((theme) => (
                     <RadioGroup.Option
                         key={theme}
                         value={theme}
                         className={({ active }) =>
                             classnames(
                                 { 'ring-2 ': active },
-                                'relative bg-white border shadow-sm p-4 flex cursor-pointer focus:outline-none border-gray-300 ring-wp-theme-500 ring-offset-2 ring-offset-white',
+                                'relative bg-white border shadow-sm p-4 flex cursor-pointer focus:outline-none border-gray-300 ring-main-blue ring-offset-2 ring-offset-white',
                             )
                         }>
                         {({ checked }) => (
@@ -155,7 +169,7 @@ const ThemeSelect = () => {
                                     xmlns="http://www.w3.org/2000/svg"
                                     className={classnames(
                                         !checked ? 'invisible' : '',
-                                        'h-5 w-5 text-wp-theme-500',
+                                        'h-5 w-5 text-main-blue',
                                     )}
                                     viewBox="0 0 20 20"
                                     fill="currentColor">
@@ -168,7 +182,7 @@ const ThemeSelect = () => {
                                 <span
                                     className={classnames(
                                         { 'ring-2 ': checked },
-                                        'absolute -inset-px pointer-events-none ring-wp-theme-500 ring-offset-2 ring-offset-white',
+                                        'absolute -inset-px pointer-events-none ring-main-blue ring-offset-2 ring-offset-white',
                                     )}
                                     aria-hidden="true"
                                 />

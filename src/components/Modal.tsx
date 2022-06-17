@@ -20,17 +20,17 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
     const { currentTheme } = useGlobalState()
 
     const leftGradient =
-        currentTheme === 'default'
-            ? 'rgb(255 131 215)'
+        currentTheme === 'midnight'
+            ? 'rgb(112 14 82)'
             : currentTheme === 'light'
             ? 'rgb(186, 230, 253)'
-            : ''
+            : 'rgb(255 131 215)'
     const rightGradient =
-        currentTheme === 'default'
-            ? 'rgb(125 159 237)'
+        currentTheme === 'midnight'
+            ? 'rgb(170 55 55)'
             : currentTheme === 'light'
             ? 'rgb(56, 189, 248)'
-            : ''
+            : 'rgb(125 159 237)'
 
     return (
         <AnimatePresence>
@@ -63,6 +63,8 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                                 {
                                     'bg-white': currentTheme === 'light',
                                     'backdrop-blur': currentTheme === 'default',
+                                    'bg-main-midnight':
+                                        currentTheme == 'midnight',
                                 },
                             )}>
                             <Dialog.Title className="sr-only">
