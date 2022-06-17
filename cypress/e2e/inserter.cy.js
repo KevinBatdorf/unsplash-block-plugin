@@ -20,5 +20,11 @@ context('Inserter checks', () => {
 
         // Checks our toolbar icon exists
         cy.get('.unlimited-photos-toolbar-button').should('exist')
+
+        // Open the modal back up
+        cy.get('.unlimited-photos-toolbar-button').click()
+
+        // Check the search bar has focus
+        cy.get('#unlimited-photos-search').should('have.focus')
     })
 })

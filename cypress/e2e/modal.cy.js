@@ -97,12 +97,29 @@ context('Modal checks', () => {
         cy.get('.unlimited-photos-image-container div[role="button"]')
             .first()
             .focus()
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
+            .should('be.focused')
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
             .should('have.text', 'Press to import')
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
             .click()
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
             .should('have.text', 'Importing image...')
             .contains('Done!', { timeout: 60000 })
 
         cy.getPostContent().find('img').should('exist')
+
+        // Open the modal back up
+        cy.get('.unlimited-photos-toolbar-button').click()
+
+        // Wait for the first image to be ready
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
+            .should('exist')
     })
 
     it('Importing disables the sidebar', () => {
@@ -130,5 +147,15 @@ context('Modal checks', () => {
         cy.get('.unlimited-photos-suggestions-list button')
             .first()
             .should('be.disabled')
+
+        cy.getPostContent().find('img').should('exist')
+
+        // Open the modal back up
+        cy.get('.unlimited-photos-toolbar-button').click()
+
+        // Wait for the first image to be ready
+        cy.get('.unlimited-photos-image-container div[role="button"]')
+            .first()
+            .should('exist')
     })
 })
