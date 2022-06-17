@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, images, free, photography
 Tested up to:      6.0
-Stable tag:        1.1.2
+Stable tag:        1.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,7 +41,6 @@ Further, the API mentioned above routes requests to [Unsplash.com](https://unspl
 
 1. Activate the plugin through the 'Plugins' screen in WordPress
 
-
 == Frequently Asked Questions ==
 
 = Are they really free to use? =
@@ -60,11 +59,14 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 1. A zoomed in view showing a search for food photos
 2. The default view showing the latest photos
-2. Multiple UI theme
+2. Multiple UI themes
 
 == Changelog ==
 
-- Add two themes
+= 1.2.0 =
+- Add settings modal
+- Add setting to toggle import file size/quality
+- Add two UI themes
 
 = 1.1.2 =
 - Remove testing files from release
