@@ -6,6 +6,7 @@ import {
     useLayoutEffect,
 } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
+import classnames from 'classnames'
 import { usePhotos } from '../lib/fetcher'
 import { areSimiliar } from '../lib/util'
 import { useGlobalState } from '../state/global'
@@ -18,7 +19,7 @@ type MondalContentProps = {
 }
 
 export const ModalContent = ({ setImage }: MondalContentProps) => {
-    const { page, loading } = useGlobalState()
+    const { page, loading, currentTheme } = useGlobalState()
     const { data: images, error, cacheId } = usePhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
@@ -100,7 +101,14 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
         (!images?.length && typeof images !== 'undefined' && !loading)
     ) {
         return (
-            <div className="text-center absolute inset-0 flex flex-col items-center justify-center unlimited-photos-image-container-error">
+            <div
+                className={classnames(
+                    'text-center absolute inset-0 flex flex-col items-center justify-center unlimited-photos-image-container-error',
+                    {
+                        'text-white': currentTheme === 'midnight',
+                        'text-gray-900': currentTheme !== 'midnight',
+                    },
+                )}>
                 {error?.message ? (
                     <p className="mb-4">{error?.message}</p>
                 ) : null}
