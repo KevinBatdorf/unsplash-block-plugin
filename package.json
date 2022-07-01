@@ -45,7 +45,7 @@
         "@headlessui/react": "^1.6.4",
         "@wordpress/api-fetch": "^6.7.0",
         "@wordpress/block-editor": "^9.2.0",
-        "@wordpress/blocks": "^11.9.0",
+        "@wordpress/blocks": "^11.11.0",
         "@wordpress/element": "^4.8.0",
         "@wordpress/i18n": "^4.10.0",
         "framer-motion": "^6.3.10",
