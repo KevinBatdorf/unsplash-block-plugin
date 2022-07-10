@@ -1,4 +1,4 @@
-=== Unlimited Photos ===
+=== Unlimited Photos - Free images and more from Unsplash.com ===
 Contributors:      kbat82
 Tags:              block, stock photos, images, free, photography
 Tested up to:      6.0
@@ -10,9 +10,9 @@ Search over 3 million photos, textures, wallpapers, and more.
 
 == Description ==
 
-Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and more...
+Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and digital art.
 
-Looking for that stock photo that perfectly matches your recipe blog post? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free.
+Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free.
 
 = Features =
 - Search over 3 million photos, textures, wallpapers, and more.
