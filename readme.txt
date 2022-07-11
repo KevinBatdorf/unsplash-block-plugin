@@ -1,4 +1,4 @@
-=== Unlimited Photos - Free images and more from Unsplash.com ===
+=== Unlimited Photos - Free images from Unsplash.com ===
 Contributors:      kbat82
 Tags:              block, stock photos, images, free, photography
 Tested up to:      6.0
