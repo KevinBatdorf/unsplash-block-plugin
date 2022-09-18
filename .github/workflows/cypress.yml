@@ -1,6 +1,6 @@
 name: Run Cypress test suite
 on:
-    push:
+    pull_request:
     workflow_dispatch:
     schedule:
     # At 08:00 on Thursday.
