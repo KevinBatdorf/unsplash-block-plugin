@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, images, free, photography
 Tested up to:      6.0
-Stable tag:        1.2.0
+Stable tag:        1.2.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,8 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 == Changelog ==
 
+= 1.2.1 - 2022-09-17 =
+- Fix: Fix color contrast on "No photos found" message
 - Fix: Wait one frame before opening the modal
 
 = 1.2.0 =
