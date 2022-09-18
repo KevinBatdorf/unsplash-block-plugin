@@ -63,6 +63,8 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 == Changelog ==
 
+- Fix: Wait one frame before opening the modal
+
 = 1.2.0 =
 - Add settings modal
 - Add setting to toggle import file size/quality

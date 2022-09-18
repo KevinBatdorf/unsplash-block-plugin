@@ -20,12 +20,14 @@ export const BlockReplacer = ({ clientId }: { clientId: string }) => {
         replaceBlock(clientId, [blockData]).then(() => {
             const { clientId } = blockData
             // Open the modal
-            window.dispatchEvent(
-                new CustomEvent('kevinbatdorf/unlimited-photos-open', {
-                    bubbles: true,
-                    detail: { clientId },
-                }),
-            )
+            window.requestAnimationFrame(() => {
+                window.dispatchEvent(
+                    new CustomEvent('kevinbatdorf/unlimited-photos-open', {
+                        bubbles: true,
+                        detail: { clientId },
+                    }),
+                )
+            })
         })
     }, [block, replaceBlock, clientId])
 
