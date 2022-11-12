@@ -1,7 +1,7 @@
 === Unlimited Photos - Free images from Unsplash.com ===
 Contributors:      kbat82
-Tags:              block, stock photos, images, free, photography
-Tested up to:      6.0
+Tags:              block, stock photos, banner, images, photography, news, current events, politics, people, wallpaper, google images
+Tested up to:      6.1
 Stable tag:        1.2.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
