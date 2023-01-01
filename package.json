@@ -20,7 +20,7 @@
         "@trivago/prettier-plugin-sort-imports": "^3.3.0",
         "@types/wordpress__block-editor": "^7.0.0",
         "@types/wordpress__blocks": "^11.0.7",
-        "@typescript-eslint/parser": "^5.37.0",
+        "@typescript-eslint/parser": "^5.47.1",
         "@wordpress/block-editor": "^10.0.0",
         "@wordpress/env": "^5.2.0",
         "@wordpress/scripts": "^24.1.0",
