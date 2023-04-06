@@ -43,14 +43,16 @@ context('Modal checks', () => {
         )
 
         // Search for a specific string and see 30 results
-        cy.get('#unlimited-photos-search').clear().type('wordpress')
+        cy.get('#unlimited-photos-search').clear()
+        cy.get('#unlimited-photos-search').type('wordpress')
         cy.get('.unlimited-photos-image-container img').should(
             'have.length',
             30,
         )
 
         // Clear out the results again
-        cy.get('#unlimited-photos-search').clear().type('zzzzzzzzzzzzz')
+        cy.get('#unlimited-photos-search').clear()
+        cy.get('#unlimited-photos-search').type('zzzzzzzzzzzzz')
         cy.get('.unlimited-photos-image-container img').should('have.length', 0)
         cy.get('.unlimited-photos-image-container-error').should(
             'have.text',
@@ -139,7 +141,10 @@ context('Modal checks', () => {
         cy.get('.unlimited-photos-image-container div[role="button"]')
             .first()
             .click()
-            .should('have.text', 'Importing image...')
+        cy.get('.unlimited-photos-image-container div[role="button"]').should(
+            'have.text',
+            'Importing image...',
+        )
 
         // Confirm items are disabled
         cy.get('#unlimited-photos-search').should('be.disabled')
