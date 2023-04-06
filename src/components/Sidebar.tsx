@@ -168,7 +168,7 @@ export const Sidebar = ({
                     style={textShadow}>
                     {__('Suggestions', 'unlmiited-photos')}
                 </h2>
-                <div className="px-4 block overflow-y-scroll">
+                <div className="px-4 block overflow-y-auto">
                     <SearchSuggestions
                         handlePress={(term: string) => {
                             touched.current = true

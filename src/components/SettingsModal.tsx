@@ -70,7 +70,7 @@ export const SettingsModal = () => {
                                         onClose={() => setOpen(false)}
                                     />
                                 </div>
-                                <div className="flex flex-col w-full relative px-4 divide-y divide-gray-100 h-96 overflow-y-scroll">
+                                <div className="flex flex-col w-full relative px-4 divide-y divide-gray-100 h-96 overflow-y-auto">
                                     <SettingsSection />
                                 </div>
                             </motion.div>

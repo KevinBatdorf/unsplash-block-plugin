@@ -124,7 +124,7 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
     return (
         <div
             ref={gridRef}
-            className="w-full relative h-full overflow-y-scroll unlimited-photos-image-container">
+            className="w-full relative h-full overflow-y-auto unlimited-photos-image-container">
             <div
                 className="hidden md:block w-full relative min-h-full"
                 style={{ minHeight }}
