@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, banner, images, photography, news, current events, politics, people, wallpaper, google images
 Tested up to:      6.2
-Stable tag:        1.2.1
+Stable tag:        1.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,11 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 2. Multiple UI themes
 
 == Changelog ==
+
+= 1.3.0 - 2023-04-06 =
+- Fix: Update persistent scroll bars
+- Testing: Update testing strategy (on GitHub)
+- API: Return results by latest upload instead of modified date as it seems some users game this otherwise.
 
 = 1.2.1 - 2022-09-17 =
 - Fix: Fix color contrast on "No photos found" message
