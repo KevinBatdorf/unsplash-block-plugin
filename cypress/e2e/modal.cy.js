@@ -1,9 +1,14 @@
-// Check support/globals.js for some default checks
-// as well as start up and clean up methods
+beforeEach(() => {
+    cy.resetDatabase()
+    cy.clearBrowserStorage()
+    cy.loginUser()
+    cy.visitNewPageEditor()
+})
+
 context('Modal checks', () => {
     it('Basic UI checks', () => {
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // Check the search bar has focus
         cy.get('#unlimited-photos-search').should('have.focus')
@@ -26,7 +31,7 @@ context('Modal checks', () => {
 
     it('Search for images', () => {
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // grab initial 30 images
         cy.get('.unlimited-photos-image-container img').should(
@@ -81,7 +86,7 @@ context('Modal checks', () => {
         cy.getPostContent().find('img').should('not.exist')
 
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // Attempt to locate an image with low filesize
         cy.get('#unlimited-photos-search').type('Experimental')
@@ -126,7 +131,7 @@ context('Modal checks', () => {
 
     it('Importing disables the sidebar', () => {
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // Confirm items are not disabled
         cy.get('#unlimited-photos-search').should('not.be.disabled')

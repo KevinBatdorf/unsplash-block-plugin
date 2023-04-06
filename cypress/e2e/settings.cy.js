@@ -1,67 +1,63 @@
+const SETTINGS_MODAL_CLOSE =
+    '[data-cy-up="settings-modal"] button[aria-label="Close"]'
+beforeEach(() => {
+    cy.resetDatabase()
+    cy.clearBrowserStorage()
+    cy.loginUser()
+    cy.visitNewPageEditor()
+})
+afterEach(() => {
+    cy.closeOurModal()
+    cy.saveDraft()
+    cy.logoutUser()
+})
 context('Settings modal checks', () => {
     context('Image size/quality', () => {
-        beforeEach(() => {
-            cy.clearLocalStorage('unlimited-photos')
-            // Adds our block
-            cy.addBlock('unlimited-photos')
-
-            // Open the settings modal
-            cy.get('[data-cy-up="settings-button"]').click()
-        })
-
         it('Full is select by default', () => {
+            cy.addBlock('kevinbatdorf/unlimited-photos')
+            cy.get('[data-cy-up="settings-button"]').click()
             cy.get('[data-cy-up="settings-modal"]').should('exist')
             cy.get('input[type="radio"][value="full"]').should('be.checked')
-            cy.get(
-                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
-            ).click()
+            cy.get(SETTINGS_MODAL_CLOSE).click()
             cy.get('[data-cy-up="settings-modal"]').should('not.exist')
         })
 
         it('Settings are persisted', () => {
+            cy.addBlock('kevinbatdorf/unlimited-photos')
+            cy.get('[data-cy-up="settings-button"]').click()
             cy.get('input[type="radio"][value="raw"]').click()
             cy.get('input[type="radio"][value="raw"]').should('be.checked')
+
             // reload the page to make sure the settings are saved
+            cy.get(SETTINGS_MODAL_CLOSE).click()
+            cy.closeOurModal()
+            cy.saveDraft()
             cy.reload()
-            cy.addBlock('unlimited-photos')
+            cy.addBlock('kevinbatdorf/unlimited-photos')
+
             cy.get('[data-cy-up="settings-button"]').click()
             cy.get('input[type="radio"][value="raw"]').should('be.checked')
-            cy.get(
-                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
-            ).click()
+            cy.get(SETTINGS_MODAL_CLOSE).click()
             cy.get('[data-cy-up="settings-modal"]').should('not.exist')
         })
 
         // Note: this test depends on the max file upload size from wp-env
         // being set to 2MB
         it('Filesize warning disappears when regular is selected', () => {
+            cy.addBlock('kevinbatdorf/unlimited-photos')
+            cy.get('[data-cy-up="settings-button"]').click()
             cy.get('[data-cy-up="file-size-warning"]').should('exist')
             cy.get('input[type="radio"][value="regular"]').click()
             cy.get('input[type="radio"][value="regular"]').should('be.checked')
-            cy.get(
-                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
-            ).click()
+            cy.get(SETTINGS_MODAL_CLOSE).click()
             cy.get('[data-cy-up="settings-modal"]').should('not.exist')
             cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
         })
     })
     context('Theme selector', () => {
-        beforeEach(() => {
-            cy.clearLocalStorage('unlimited-photos')
-            // Adds our block
-            cy.addBlock('unlimited-photos')
-
-            // Open the settings modal
-            cy.get('[data-cy-up="settings-button"]').click()
-        })
-        afterEach(() => {
-            cy.get(
-                '[data-cy-up="settings-modal"] button[aria-label="Close"]',
-            ).click()
-            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
-        })
-
         it('Can switch themes and persist', () => {
+            cy.addBlock('kevinbatdorf/unlimited-photos')
+            cy.get('[data-cy-up="settings-button"]').click()
             // light mode
             cy.get('div[role="radio"]').contains('light').click()
             cy.get('div[role="radio"][aria-checked="true"]')
@@ -69,8 +65,12 @@ context('Settings modal checks', () => {
                 .should('exist')
 
             // reload the page to make sure the settings are saved
+            cy.get(SETTINGS_MODAL_CLOSE).click()
+            cy.closeOurModal()
+            cy.saveDraft()
             cy.reload()
-            cy.addBlock('unlimited-photos')
+
+            cy.addBlock('kevinbatdorf/unlimited-photos')
             cy.get('[data-cy-up="settings-button"]').click()
             cy.get('div[role="radio"][aria-checked="true"]')
                 .contains('light')
@@ -86,8 +86,12 @@ context('Settings modal checks', () => {
                 .should('exist')
 
             // reload the page to make sure the settings are saved
+            cy.get(SETTINGS_MODAL_CLOSE).click()
+            cy.closeOurModal()
+            cy.saveDraft()
             cy.reload()
-            cy.addBlock('unlimited-photos')
+
+            cy.addBlock('kevinbatdorf/unlimited-photos')
             cy.get('[data-cy-up="settings-button"]').click()
             cy.get('div[role="radio"][aria-checked="true"]')
                 .contains('midnight')
@@ -95,6 +99,8 @@ context('Settings modal checks', () => {
             cy.get('div[role="radio"][aria-checked="true"]')
                 .contains('default')
                 .should('not.exist')
+
+            cy.get(SETTINGS_MODAL_CLOSE).click()
         })
     })
 })

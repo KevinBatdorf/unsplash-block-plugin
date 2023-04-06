@@ -1,7 +1,14 @@
+beforeEach(() => {
+    cy.resetDatabase()
+    cy.clearBrowserStorage()
+    cy.loginUser()
+    cy.visitNewPageEditor()
+})
+
 context('Inserter checks', () => {
     it('The image block is inserted', () => {
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // Closes our modal
         cy.get(
@@ -13,7 +20,7 @@ context('Inserter checks', () => {
     })
     it('The toolbar icon exists', () => {
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // Closes our modal
         cy.closeOurModal()
