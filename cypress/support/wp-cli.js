@@ -1,1 +1,1 @@
-export const resetDatabase = () => cy.exec('wp-env clean all');
+export const resetDatabase = () => cy.exec('wp-env clean all')
