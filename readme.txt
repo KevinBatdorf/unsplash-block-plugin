@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, banner, images, photography, news, current events, politics, people, wallpaper, google images
 Tested up to:      6.2
-Stable tag:        1.2.1
+Stable tag:        1.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,10 +12,13 @@ Search over 3 million photos, textures, wallpapers, and more.
 
 Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and digital art.
 
+To use it, when adding a block, search for 'unlimited photos' or add an image block and press the camera icon.
+
 Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free.
 
 = Features =
 - Search over 3 million photos, textures, wallpapers, and more.
+- Always view the latest photos
 - Your search is saved so you can always pick up where you left off.
 - Import photos right into the core image block (and the media library too)
 - Search anything, or select from a predefined list
@@ -62,6 +65,11 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 2. Multiple UI themes
 
 == Changelog ==
+
+= 1.3.0 - 2023-04-06 =
+- Fix: Update persistent scroll bars
+- Testing: Update testing strategy (on GitHub)
+- API: Return results by latest upload instead of modified date as it seems some users game this otherwise.
 
 = 1.2.1 - 2022-09-17 =
 - Fix: Fix color contrast on "No photos found" message

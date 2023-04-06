@@ -1,8 +1,15 @@
+beforeEach(() => {
+    cy.resetDatabase()
+    cy.clearBrowserStorage()
+    cy.loginUser()
+    cy.visitNewPageEditor()
+})
+
 context('Theme checks', () => {
     beforeEach(() => {
         cy.clearLocalStorage('unlimited-photos')
         // Adds our block
-        cy.addBlock('unlimited-photos')
+        cy.addBlock('kevinbatdorf/unlimited-photos')
 
         // Open the settings modal
         cy.get('[data-cy-up="settings-button"]').click()

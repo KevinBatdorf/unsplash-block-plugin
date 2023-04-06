@@ -4,7 +4,7 @@
  * Description:       Search over 3 million photos, textures, wallpapers, and more.
  * Requires at least: 5.8
  * Requires PHP:      7.0
- * Version:           1.2.1
+ * Version:           1.3.0
  * Author:            Kevin Batdorf
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html

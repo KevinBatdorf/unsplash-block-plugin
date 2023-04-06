@@ -173,7 +173,7 @@ export const MasonryItem = ({
                     }
                 }}
                 tabIndex={0}
-                aira-label={__('Press to import', 'unlimited-photos')}
+                aria-label={__('Press to import', 'unlimited-photos')}
                 className={classnames('group', {
                     'cursor-pointer': !importing && !isImporting,
                 })}>

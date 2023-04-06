@@ -16,6 +16,7 @@ import {
     visitToLoginPage,
 } from './navigate-pages'
 import { installPlugin, uninstallPlugin } from './plugins'
+import { resetDatabase } from './wp-cli'
 
 // Port more commands from WP here:
 // https://github.com/WordPress/gutenberg/tree/trunk/packages/e2e-test-utils/src
@@ -58,3 +59,6 @@ Cypress.Commands.add('uninstallPlugin', (slug) => uninstallPlugin(slug))
 
 // Domain specific commands
 Cypress.Commands.add('closeOurModal', () => closeModal())
+
+// Server
+Cypress.Commands.add('resetDatabase', () => resetDatabase())

@@ -37,6 +37,7 @@
     }
 }
 
-.unlimited-photos-editor.unlimited-photos-modal input[type=radio]:checked::before {
+.unlimited-photos-editor.unlimited-photos-modal
+    input[type='radio']:checked::before {
     @apply bg-main-blue;
 }
