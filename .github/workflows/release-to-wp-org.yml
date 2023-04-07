@@ -8,7 +8,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: npm install and build
               run: |
@@ -25,12 +25,12 @@ jobs:
               uses: cypress-io/github-action@v4
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            - uses: actions/upload-artifact@v2
+            - uses: actions/upload-artifact@v3
               if: always()
               with:
                   name: cypress-screenshots
                   path: cypress/screenshots
-            - uses: actions/upload-artifact@v2
+            - uses: actions/upload-artifact@v3
               if: failure()
               with:
                   name: cypress-videos
