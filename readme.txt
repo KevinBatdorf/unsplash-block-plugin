@@ -18,6 +18,10 @@ Looking for that stock photo that perfectly matches your recipe, blog post, or n
 
 Search AI-generated images built form platforms like stable diffusion, Dall-E, Midjourney, and more.
 
+= More info =
+- Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
+- View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
+
 = Features =
 - Search millions of photos, AI-generated images, textures, wallpapers, and more.
 - Always view the latest photos
@@ -26,9 +30,9 @@ Search AI-generated images built form platforms like stable diffusion, Dall-E, M
 - Search anything, or select from a predefined list
 - No lock-in, delete at any time and nothing changes
 
-= More info =
-- Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
-- View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
+= Note =
+- Image search uses the Unsplash AI at unsplash.com
+- AI search uses the Lexica API at lexica.com
 
 = Terms of Use & Privacy =
 
