@@ -4,8 +4,8 @@
     "name": "kevinbatdorf/unlimited-photos",
     "version": "1.0.0",
     "title": "Unlimited Photos",
-    "category": "common",
-    "description": "Search over 3 million photos, textures, wallpapers, and more.",
+    "category": "media",
+    "description": "Stock photo and AI image search",
     "attributes": {},
     "supports": {
         "html": false

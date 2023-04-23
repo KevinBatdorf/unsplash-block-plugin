@@ -4,14 +4,14 @@ import { Dialog } from '@headlessui/react'
 import classnames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useGlobalState } from '../state/global'
-import { UnsplashImage } from '../types'
+import { ExternalImage } from '../types'
 import { ModalCloseButton } from './ModalCloseButton'
 import { ModalContent } from './ModalContent'
 import { Sidebar } from './Sidebar'
 
 type ModalProps = {
     open: boolean
-    setImage: (image: UnsplashImage) => void
+    setImage: (image: ExternalImage) => void
     onClose: () => void
 }
 

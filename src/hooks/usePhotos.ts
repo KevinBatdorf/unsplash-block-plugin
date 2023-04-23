@@ -1,15 +1,17 @@
 import { useEffect, useState } from '@wordpress/element'
 import useSWR from 'swr'
+import { API_URL } from '../config'
 import { useGlobalState } from '../state/global'
-import { UnsplashImage } from '../types'
+import { ExternalImage } from '../types'
 
-type UnsplashResponse = {
+type ImageResponse = {
     total_photos: number
     total_pages: number
-    photos: UnsplashImage[]
+    photos: ExternalImage[]
 }
 
 type ListPhotosParams = {
+    imageSource: 'unsplash' | 'lexica'
     page?: number
     per_page?: number
     order_by?: string
@@ -26,16 +28,13 @@ export const usePhotos = (params: ListPhotosParams) => {
         ? `search/photos?query=${searchTerm}&${queryParams.toString()}`
         : `photos?${queryParams.toString()}`
 
-    const url = `https://unsplash-api-search.vercel.app/api/${endpoint}`
-    const { data, error, isValidating } = useSWR<UnsplashResponse>(
-        url,
-        fetcher,
-        {
-            revalidateIfStale: false,
-            revalidateOnFocus: false,
-            revalidateOnReconnect: false,
-        },
-    )
+    const url = `${API_URL}/api/${endpoint}`
+    const { data, error, isValidating } = useSWR<ImageResponse>(url, fetcher, {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        refreshInterval: 30_000,
+    })
 
     useEffect(() => {
         setLoading(!error && !data?.photos)
@@ -56,5 +55,6 @@ export const usePhotos = (params: ListPhotosParams) => {
 }
 const fetcher = async (url: string) => {
     const res = await fetch(url)
+    if (!res.ok) throw new Error((await res.json())?.message || res.statusText)
     return await res.json()
 }

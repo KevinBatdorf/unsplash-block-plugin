@@ -5,9 +5,10 @@ import {
     useState,
 } from '@wordpress/element'
 import { sprintf, __ } from '@wordpress/i18n'
+import { API_URL } from '../config'
 import { importImage } from '../lib/wp'
 import { useGlobalState } from '../state/global'
-import { ImageLike, UnsplashImage, WpImage } from '../types'
+import { ExternalImage, ImageLike, WpImage } from '../types'
 import { Modal } from './Modal'
 import { ToolbarControls, ToolbarControlsProps } from './ToolbarControls'
 
@@ -46,10 +47,11 @@ export const Loader = ({
     // TODO: if the user has an image set, warn them we may replace it
     // attributes?.id
 
-    const setImage = async (image: UnsplashImage) => {
+    const setImage = async (image: ExternalImage) => {
         if (importing) return
+        const unsplash = image.source === 'unsplash'
         const caption =
-            image?.user?.username && image?.user?.name
+            unsplash && image?.user?.username && image?.user?.name
                 ? sprintf(
                       __('Photo by %1$s on %2$s', 'unlimited-photos'),
                       `<a href="https://unsplash.com/@${image.user.username}?utm_source=Unlimited%20Photos&utm_medium=referral">${image.user.name}</a>`,
@@ -57,12 +59,13 @@ export const Loader = ({
                   )
                 : ''
 
-        // Record download to Unsplash
-        await fetch('https://unsplash-api-search.vercel.app/api/download', {
-            method: 'POST',
-            headers: { 'Content-Type': 'multipart/form-data' },
-            body: image?.links?.download_location,
-        })
+        // Record download to Unsplash only
+        unsplash &&
+            (await fetch(`${API_URL}/api/download`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'multipart/form-data' },
+                body: image?.links?.download_location,
+            }))
 
         // If the user cannot import large images, lower the quality
         const imageSizeChecked =
@@ -72,14 +75,12 @@ export const Loader = ({
                 ? 'regular'
                 : imageSize
 
-        const newImage: WpImage | undefined = await importImage(
-            image?.urls?.[imageSizeChecked],
-            {
-                alt: image?.alt_description ?? '',
-                filename: `unsplash-image-${image.id}.jpg`,
-                caption,
-            },
-        )
+        const url = unsplash ? image.urls[imageSizeChecked] : image.src
+        const newImage: WpImage | undefined = await importImage(url, {
+            alt: unsplash ? image?.alt_description ?? '' : '',
+            filename: `up-${image.id}.jpg`,
+            caption,
+        })
         if (!newImage) return
         const getHref = (dest: string) => {
             if (dest === 'media') return newImage?.source_url

@@ -1,4 +1,4 @@
-import { Icon } from '@wordpress/components'
+import { Icon, ToggleControl } from '@wordpress/components'
 import { useEffect, useRef, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
@@ -21,6 +21,11 @@ export const Sidebar = ({
         importing,
         imageSize,
         currentTheme,
+        recent,
+        setRecent,
+        deleteRecent,
+        imageSource,
+        setImageSource,
     } = useGlobalState()
     const [search, setSearch] = useState('')
     const [showImportWarning, setShowImportWarning] = useState(false)
@@ -49,7 +54,8 @@ export const Sidebar = ({
     useEffect(() => {
         if (!searchTerm) return
         setSearch(searchTerm)
-    }, [setSearch, searchTerm])
+        setRecent(searchTerm)
+    }, [setSearch, searchTerm, setRecent])
 
     useEffect(() => {
         let timerId = 0
@@ -96,87 +102,139 @@ export const Sidebar = ({
                     Unlimited Photos
                 </h1>
             </div>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault()
-                }}
-                className="px-4">
-                <label
-                    htmlFor="unlimited-photos-search"
-                    className={classnames('block text-xs font-medium mb-3', {
+            <div className="flex flex-col gap-2 px-4">
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <label
+                        htmlFor="unlimited-photos-search"
+                        className={classnames(
+                            'block text-xs font-medium mb-3',
+                            {
+                                'text-main-grayish':
+                                    currentTheme === 'midnight',
+                                'text-gray-800': currentTheme !== 'midnight',
+                            },
+                        )}
+                        style={textShadow}>
+                        {__('Search', 'unlimited-photos')}
+                    </label>
+                    <div>
+                        <input
+                            ref={initialFocus}
+                            value={search}
+                            onChange={(e) => {
+                                touched.current = true
+                                setSearch(e.target.value)
+                            }}
+                            type="search"
+                            name="unlimited-photos-search"
+                            id="unlimited-photos-search"
+                            disabled={Boolean(importing)}
+                            className={classnames(
+                                'm-0 block rounded-none w-full sm:text-sm outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
+                                {
+                                    'bg-gray-400': importing,
+                                    'text-main-grayish border-gray-900 focus:border-gray-900 bg-main-magenta':
+                                        currentTheme === 'midnight',
+                                    'border-gray-700 focus:border-gray-700 bg-gray-100 text-gray-900':
+                                        currentTheme !== 'midnight',
+                                },
+                            )}
+                            aria-describedby="search-description"
+                        />
+                    </div>
+                    <p
+                        className={classnames(
+                            'mt-2 text-xs italic font-light',
+                            {
+                                'text-main-grayish text-opacity-60':
+                                    currentTheme === 'midnight',
+                                'text-gray-800': currentTheme !== 'midnight',
+                            },
+                        )}
+                        id="search-description">
+                        {__(
+                            'Search millions of photos, textures, wallpapers, and more.',
+                            'unlimited-photos',
+                        )}
+                    </p>
+                </form>
+                <ToggleControl
+                    label={__('Search AI Images', 'unlimited-photos')}
+                    className={classnames({
                         'text-main-grayish': currentTheme === 'midnight',
                         'text-gray-800': currentTheme !== 'midnight',
                     })}
-                    style={textShadow}>
-                    {__('Search', 'unlimited-photos')}
-                </label>
+                    checked={imageSource === 'lexica'}
+                    onChange={() => {
+                        setPage(1)
+                        setImageSource(
+                            imageSource === 'lexica' ? 'unsplash' : 'lexica',
+                        )
+                    }}
+                />
+                {showImportWarning && (
+                    <PhpMaxFileSizeWarning
+                        // eslint-disable-next-line
+                        // @ts-ignore-next-line
+                        size={window.unlimitedPhotosConfig.maxUploadSize}
+                    />
+                )}
+            </div>
+
+            <div className="hidden md:flex flex-col gap-6 overflow-hidden">
+                {recent?.length > 0 && (
+                    <div>
+                        <h2
+                            className={classnames(
+                                'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
+                                {
+                                    'text-main-grayish':
+                                        currentTheme === 'midnight',
+                                    'text-gray-800':
+                                        currentTheme !== 'midnight',
+                                },
+                            )}
+                            style={textShadow}>
+                            {__('Recent', 'unlmiited-photos')}
+                        </h2>
+                        <div className="px-4">
+                            <SearchSuggestions
+                                terms={recent}
+                                showUnderline={false}
+                                handlePress={(term: string) => {
+                                    touched.current = true
+                                    setPage(1)
+                                    setSearchTerm(term.toLowerCase())
+                                    setSearch(term.toLowerCase())
+                                }}
+                                handleDelete={deleteRecent}
+                            />
+                        </div>
+                    </div>
+                )}
                 <div>
-                    <input
-                        ref={initialFocus}
-                        value={search}
-                        onChange={(e) => {
-                            touched.current = true
-                            setSearch(e.target.value)
-                        }}
-                        type="search"
-                        name="unlimited-photos-search"
-                        id="unlimited-photos-search"
-                        disabled={Boolean(importing)}
+                    <h2
                         className={classnames(
-                            'm-0 block rounded-none w-full sm:text-sm outline-none focus:outline-none ring-main-blue focus:shadow-none focus:ring-wp',
+                            'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
                             {
-                                'bg-gray-400': importing,
-                                'text-main-grayish border-gray-900 focus:border-gray-900 bg-main-magenta':
+                                'text-main-grayish':
                                     currentTheme === 'midnight',
-                                'border-gray-700 focus:border-gray-700 bg-gray-100 text-gray-900':
-                                    currentTheme !== 'midnight',
+                                'text-gray-800': currentTheme !== 'midnight',
                             },
                         )}
-                        aria-describedby="search-description"
-                    />
-                </div>
-                <p
-                    className={classnames('mt-2 text-xs italic font-light', {
-                        'text-main-grayish text-opacity-60':
-                            currentTheme === 'midnight',
-                        'text-gray-800': currentTheme !== 'midnight',
-                    })}
-                    id="search-description">
-                    {__(
-                        'Search over 3 million photos, textures, wallpapers, and more.',
-                        'unlimited-photos',
-                    )}
-                </p>
-            </form>
-            {showImportWarning && (
-                <PhpMaxFileSizeWarning
-                    // eslint-disable-next-line
-                    // @ts-ignore-next-line
-                    size={window.unlimitedPhotosConfig.maxUploadSize}
-                />
-            )}
-
-            <div className="hidden md:flex flex-col overflow-hidden">
-                <h2
-                    className={classnames(
-                        'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
-                        {
-                            'text-main-grayish': currentTheme === 'midnight',
-                            'text-gray-800': currentTheme !== 'midnight',
-                        },
-                    )}
-                    style={textShadow}>
-                    {__('Suggestions', 'unlmiited-photos')}
-                </h2>
-                <div className="px-4 block overflow-y-auto">
-                    <SearchSuggestions
-                        handlePress={(term: string) => {
-                            touched.current = true
-                            setPage(1)
-                            setSearchTerm(term.toLowerCase())
-                            setSearch(term.toLowerCase())
-                        }}
-                    />
+                        style={textShadow}>
+                        {__('Suggestions', 'unlmiited-photos')}
+                    </h2>
+                    <div className="px-4 overflow-y-auto">
+                        <SearchSuggestions
+                            handlePress={(term: string) => {
+                                touched.current = true
+                                setPage(1)
+                                setSearchTerm(term.toLowerCase())
+                                setSearch(term.toLowerCase())
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
             <div className="h-12 w-full flex-grow hidden md:flex items-end pl-2 pb-2">

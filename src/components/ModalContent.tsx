@@ -5,22 +5,26 @@ import {
     useState,
     useLayoutEffect,
 } from '@wordpress/element'
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import classnames from 'classnames'
-import { usePhotos } from '../lib/fetcher'
+import { usePhotos } from '../hooks/usePhotos'
 import { areSimiliar } from '../lib/util'
 import { useGlobalState } from '../state/global'
-import { ImagePosition, UnsplashImage } from '../types'
+import { ImagePosition, ExternalImage } from '../types'
 import { ButtonNav } from './ButtonNav'
 import { MasonryItem } from './MasonryItem'
 
 type MondalContentProps = {
-    setImage: (image: UnsplashImage) => void
+    setImage: (image: ExternalImage) => void
 }
 
 export const ModalContent = ({ setImage }: MondalContentProps) => {
-    const { page, loading, currentTheme } = useGlobalState()
-    const { data: images, error, cacheId } = usePhotos({ per_page: 30, page })
+    const { page, loading, currentTheme, imageSource } = useGlobalState()
+    const {
+        data: images,
+        error,
+        cacheId,
+    } = usePhotos({ per_page: 30, page, imageSource })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])
@@ -110,9 +114,20 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
                     },
                 )}>
                 {error?.message ? (
-                    <p className="mb-4">{error?.message}</p>
-                ) : null}
-                {images && images?.length > 0 ? null : (
+                    <p className="mb-4">
+                        {sprintf(
+                            __('Error: %s', 'unlimited-photos'),
+                            error?.response?.message ??
+                                sprintf(
+                                    __(
+                                        '%s. Please wait or try again',
+                                        'unlimited-photos',
+                                    ),
+                                    error?.message,
+                                ),
+                        )}
+                    </p>
+                ) : images && images?.length > 0 ? null : (
                     <p className="m-0">
                         {__('No photos found', 'unlimited-photos')}
                     </p>
@@ -135,7 +150,7 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
             />
             {images?.map((image, index) => (
                 <MasonryItem
-                    key={image.id + cacheId}
+                    key={String(image.id) + cacheId}
                     index={index}
                     setImage={setImage}
                     gridWidth={gridWidth}
