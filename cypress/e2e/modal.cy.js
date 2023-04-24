@@ -81,7 +81,7 @@ context('Modal checks', () => {
         )
     })
 
-    it('Imports an image', () => {
+    it.only('Imports an image', () => {
         // Confirm no images in post
         cy.getPostContent().find('img').should('not.exist')
 
@@ -119,6 +119,7 @@ context('Modal checks', () => {
             .contains('Done!', { timeout: 60000 })
 
         cy.getPostContent().find('img').should('exist')
+        cy.getPostContent().find('img').click()
 
         // Open the modal back up
         cy.get('.unlimited-photos-toolbar-button').click()
