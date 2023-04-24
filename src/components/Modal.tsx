@@ -78,7 +78,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                             animate={{ y: 0 }}
                             exit={{ y: 0, opacity: 0 }}
                             className={classnames(
-                                'sm:flex h-full w-full relative shadow-2xl sm:overflow-hidden max-w-screen-2xl mx-auto',
+                                'sm:flex h-full w-full relative shadow-2xl sm:overflow-hidden mx-auto',
                                 {
                                     [`theme-${currentTheme}`]: true,
                                     'bg-white': currentTheme === 'light',
