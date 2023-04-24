@@ -23,6 +23,8 @@ jobs:
                   "inserter",
                   "modal",
                   "settings",
+                  "sidebar",
+                  "sources",
                   "theme",
                 ]
         steps:
