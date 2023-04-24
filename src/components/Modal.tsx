@@ -4,14 +4,14 @@ import { Dialog } from '@headlessui/react'
 import classnames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useGlobalState } from '../state/global'
-import { UnsplashImage } from '../types'
+import { ExternalImage } from '../types'
 import { ModalCloseButton } from './ModalCloseButton'
 import { ModalContent } from './ModalContent'
 import { Sidebar } from './Sidebar'
 
 type ModalProps = {
     open: boolean
-    setImage: (image: UnsplashImage) => void
+    setImage: (image: ExternalImage) => void
     onClose: () => void
 }
 
@@ -47,15 +47,30 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                     open={open}
                     onClose={onClose}>
                     <div className="absolute mx-auto w-full h-full md:p-8">
-                        <div
-                            className="fixed inset-0 bg-black/40"
-                            aria-hidden="true"
-                        />
-                        <div
-                            data-cy-up="main-modal"
-                            className="absolute top-0 right-0 m-0.5 z-10">
-                            <ModalCloseButton onClose={onClose} />
-                        </div>
+                        <AnimatePresence>
+                            <motion.div
+                                key="backdrop"
+                                initial={{
+                                    backdropFilter: 'blur(0)',
+                                    opacity: 0,
+                                }}
+                                animate={{
+                                    backdropFilter: 'blur(4px)',
+                                    opacity: 1,
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="fixed inset-0 bg-black/30"
+                                aria-hidden="true"
+                            />
+                            <motion.div
+                                key="close"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                data-cy-up="main-modal"
+                                className="absolute top-0 right-0 m-0.5 z-10 text-black">
+                                <ModalCloseButton onClose={onClose} />
+                            </motion.div>
+                        </AnimatePresence>
                         <motion.div
                             key="modal"
                             id="unlimited-photos-modal-inner"
@@ -65,6 +80,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                             className={classnames(
                                 'sm:flex h-full w-full relative shadow-2xl sm:overflow-hidden max-w-screen-2xl mx-auto',
                                 {
+                                    [`theme-${currentTheme}`]: true,
                                     'bg-white': currentTheme === 'light',
                                     'backdrop-blur': currentTheme === 'default',
                                     'bg-main-midnight':

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Unlimited Photos
- * Description:       Search over 3 million photos, textures, wallpapers, and more.
+ * Description:       Search millions of photos, AI-generated imagry, textures, wallpapers, and more.
  * Requires at least: 5.8
  * Requires PHP:      7.0
  * Version:           1.3.0

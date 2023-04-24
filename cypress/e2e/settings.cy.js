@@ -13,11 +13,11 @@ afterEach(() => {
 })
 context('Settings modal checks', () => {
     context('Image size/quality', () => {
-        it('Full is select by default', () => {
+        it('Regular is select by default', () => {
             cy.addBlock('kevinbatdorf/unlimited-photos')
             cy.get('[data-cy-up="settings-button"]').click()
             cy.get('[data-cy-up="settings-modal"]').should('exist')
-            cy.get('input[type="radio"][value="full"]').should('be.checked')
+            cy.get('input[type="radio"][value="regular"]').should('be.checked')
             cy.get(SETTINGS_MODAL_CLOSE).click()
             cy.get('[data-cy-up="settings-modal"]').should('not.exist')
         })
@@ -43,15 +43,17 @@ context('Settings modal checks', () => {
 
         // Note: this test depends on the max file upload size from wp-env
         // being set to 2MB
-        it('Filesize warning disappears when regular is selected', () => {
+        it('Filesize warning shows when full is selected', () => {
             cy.addBlock('kevinbatdorf/unlimited-photos')
+            cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
+
             cy.get('[data-cy-up="settings-button"]').click()
-            cy.get('[data-cy-up="file-size-warning"]').should('exist')
-            cy.get('input[type="radio"][value="regular"]').click()
-            cy.get('input[type="radio"][value="regular"]').should('be.checked')
+            cy.get('input[type="radio"][value="full"]').click()
+            cy.get('input[type="radio"][value="full"]').should('be.checked')
             cy.get(SETTINGS_MODAL_CLOSE).click()
             cy.get('[data-cy-up="settings-modal"]').should('not.exist')
-            cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
+
+            cy.get('[data-cy-up="file-size-warning"]').should('exist')
         })
     })
     context('Theme selector', () => {

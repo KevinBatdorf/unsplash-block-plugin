@@ -67,7 +67,11 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require('tailwindcss/plugin')(({ addVariant }) => {
+            addVariant('search-cancel', '&::-webkit-search-cancel-button')
+        }),
+    ],
     corePlugins: {
         preflight: false,
         animation: false,

@@ -3,12 +3,13 @@ import {
     useCallback,
     useRef,
     useState,
+    useEffect,
 } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
 import { motion } from 'framer-motion'
 import { useGlobalState } from '../state/global'
-import { ImagePosition, UnsplashImage } from '../types'
+import { ExternalImage, ImagePosition } from '../types'
 
 export const MasonryItem = ({
     image,
@@ -20,14 +21,14 @@ export const MasonryItem = ({
     gridWidth,
     setImage,
 }: {
-    image: UnsplashImage
+    image: ExternalImage
     imagePositions: ImagePosition[]
     setPosition: (index: number, position: ImagePosition) => void
     index: number
     columns: number
     subpixelOffset: number
     gridWidth: number | undefined
-    setImage: (image: UnsplashImage) => void
+    setImage: (image: ExternalImage) => void
 }) => {
     const [x, setX] = useState<number>()
     const [y, setY] = useState<number>()
@@ -35,8 +36,12 @@ export const MasonryItem = ({
     const [height, setHeight] = useState<number>()
     const [parent, setParent] = useState<undefined | ImagePosition>()
     const canUpdate = useRef(true)
-    const { importing, setImporting } = useGlobalState()
+    const { importing, setImporting, blurNSFW, setBlurNSFW } = useGlobalState()
     const [isImporting, setIsImporting] = useState(false)
+    const lexica = image.source === 'lexica'
+    const [disableClick, setDisableClick] = useState(
+        lexica && image.nsfw ? blurNSFW : false,
+    )
 
     // Searches the data to find the best match placement area
     // Looks for the shorest height
@@ -71,6 +76,11 @@ export const MasonryItem = ({
         })
         return { ...bestMatch }
     }, [imagePositions, columns])
+
+    // Watch for NSFW blur global state
+    useEffect(() => {
+        setDisableClick(blurNSFW && lexica && image.nsfw)
+    }, [blurNSFW, lexica, image])
 
     // Only update if the grid changes
     useLayoutEffect(() => {
@@ -142,7 +152,7 @@ export const MasonryItem = ({
 
     return (
         <motion.div
-            className="relative md:absolute top-0 left-0 overflow-hidden"
+            className="relative md:absolute top-0 left-0 overflow-hidden border-8 border-transparent"
             transition={{ type: 'Tween' }}
             animate={
                 columns > 1
@@ -157,6 +167,7 @@ export const MasonryItem = ({
             <div
                 role="button"
                 onClick={() => {
+                    if (disableClick) return
                     importing || setIsImporting(true)
                     setImage(image)
                     setImporting(__('Importing image...', 'unlimited-photos'))
@@ -175,12 +186,45 @@ export const MasonryItem = ({
                 tabIndex={0}
                 aria-label={__('Press to import', 'unlimited-photos')}
                 className={classnames('group', {
-                    'cursor-pointer': !importing && !isImporting,
+                    'cursor-pointer':
+                        !importing && !isImporting && !disableClick,
                 })}>
+                {lexica && blurNSFW && image.nsfw && disableClick && (
+                    <>
+                        <div
+                            className="absolute inset-0 bg-black bg-opacity-50"
+                            style={{
+                                backdropFilter: 'blur(15px)',
+                            }}
+                        />
+                        <div className="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute inset-0 flex flex-col items-center gap-2 justify-center z-50">
+                            <button
+                                type="button"
+                                className="bg-black bg-opacity-50 text-white px-4 py-2 rounded cursor-pointer"
+                                onClick={() => setDisableClick(false)}>
+                                {__('Show NSFW', 'unlimited-photos')}
+                            </button>
+                            <button
+                                type="button"
+                                className="bg-black bg-opacity-50 text-white px-4 py-2 rounded cursor-pointer"
+                                onClick={() => setBlurNSFW(false)}>
+                                {__('Always show NSFW', 'unlimited-photos')}
+                            </button>
+                        </div>
+                    </>
+                )}
                 <img
                     className="w-full block transition duration-200"
-                    alt={image?.alt_description ?? ''}
-                    src={image.urls.small}
+                    alt={
+                        (image.source === 'unsplash'
+                            ? image?.alt_description
+                            : image?.prompt) ?? ''
+                    }
+                    src={
+                        image.source === 'unsplash'
+                            ? image.urls.small
+                            : image.srcSmall
+                    }
                 />
                 <div
                     style={{
@@ -191,9 +235,10 @@ export const MasonryItem = ({
                         'absolute flex inset-0 items-end justify-start z-40 bg-opacity-80 opacity-0 transition duration-300 ease-in-out',
                         {
                             'group-focus:opacity-100 group-hover:opacity-100':
-                                !isImporting && !importing,
+                                !isImporting && !importing && !disableClick,
                             'opacity-100':
-                                (isImporting && importing) || columns === 1,
+                                ((isImporting && importing) || columns === 1) &&
+                                !disableClick,
                         },
                     )}>
                     {importing && isImporting ? (

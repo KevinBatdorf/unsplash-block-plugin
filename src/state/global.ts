@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
 
 type GlobalState = {
@@ -9,6 +9,13 @@ type GlobalState = {
     loading: boolean | undefined
     imageSize: 'full' | 'raw' | 'regular'
     currentTheme: 'default' | 'midnight' | 'light'
+    blurNSFW: boolean
+    imageSource: 'unsplash' | 'lexica'
+    recent: string[]
+    setRecent: (recent: string) => void
+    deleteRecent: (recent: string) => void
+    setImageSource: (imageSource: 'unsplash' | 'lexica') => void
+    setBlurNSFW: (blurNSFW: boolean) => void
     setImporting: (loading: string | boolean) => void
     setLoading: (loading: boolean) => void
     setSearchTerm: (searchTerm: string) => void
@@ -26,11 +33,39 @@ export const useGlobalState = create<GlobalState>()(
             (set) => ({
                 importing: false,
                 searchTerm: undefined,
-                imageSize: 'full',
+                imageSize: 'regular',
                 page: 1,
                 totalPages: undefined,
                 loading: undefined,
                 currentTheme: 'default',
+                blurNSFW: true,
+                imageSource: 'unsplash',
+                recent: [],
+                setRecent: (recent: string) => {
+                    // Remove recent if it exists
+                    set((state) => ({
+                        ...state,
+                        recent: state.recent.filter((r) => r !== recent),
+                    }))
+                    // Add recent to the beginning of the array
+                    set((state) => ({
+                        ...state,
+                        // but only keep 5 total
+                        recent: [recent, ...state.recent].slice(0, 3),
+                    }))
+                },
+                deleteRecent: (recent: string) => {
+                    set((state) => ({
+                        ...state,
+                        recent: state.recent.filter((r) => r !== recent),
+                    }))
+                },
+                setImageSource: (imageSource: 'unsplash' | 'lexica') => {
+                    set((state) => ({ ...state, imageSource }))
+                },
+                setBlurNSFW: (blurNSFW: boolean) => {
+                    set((state) => ({ ...state, blurNSFW }))
+                },
                 setSearchTerm: (searchTerm: string) => {
                     set(() => ({ searchTerm }))
                 },
@@ -82,11 +117,13 @@ export const useGlobalState = create<GlobalState>()(
             }),
             {
                 name: 'unlimited-photos',
-                getStorage: () => window.localStorage,
                 partialize: (state) => ({
                     searchTerm: state.searchTerm ? state.searchTerm : undefined,
                     currentTheme: state.currentTheme,
                     imageSize: state.imageSize,
+                    blurNSFW: state.blurNSFW,
+                    imageSource: state.imageSource,
+                    recent: state.recent,
                 }),
             },
         ),

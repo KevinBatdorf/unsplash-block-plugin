@@ -62,7 +62,7 @@ export const SettingsModal = () => {
                                 exit={{ y: 0, opacity: 0 }}
                                 data-cy-up="settings-modal"
                                 className="sm:flex w-full relative shadow-2xl sm:overflow-hidden max-w-screen-xs mx-auto bg-white flex flex-col">
-                                <div className="flex items-center justify-between border-b border-gray-300 p-4">
+                                <div className="flex items-center justify-between border-b border-gray-300 p-4 text-gray-900">
                                     <Dialog.Title className="m-0">
                                         {__('Settings', 'unlimited-photos')}
                                     </Dialog.Title>
@@ -87,7 +87,7 @@ const SettingsSection = () => {
     const { imageSize, setImageSize } = useGlobalState()
     return (
         <div
-            className="py-4 space-y-4"
+            className="py-4 gap-4 flex flex-col"
             role="group"
             aria-labelledby="image-size-unsplash-photos">
             <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:items-baseline">
@@ -134,9 +134,58 @@ const SettingsSection = () => {
             <div>
                 <ThemeSelect />
             </div>
+            <div>
+                <ToggleNSFW />
+            </div>
         </div>
     )
 }
+
+const ToggleNSFW = () => {
+    const { blurNSFW, setBlurNSFW } = useGlobalState()
+    return (
+        <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:items-baseline">
+            <div>
+                <div className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-900">
+                    {__('Blur NSFW Images', 'unlimited-photos')}
+                </div>
+                <p className="text-xs text-gray-700 m-0 italic">
+                    {__(
+                        'AI-generated images may have content with adult themes',
+                        'unlimited-photos',
+                    )}
+                </p>
+            </div>
+            <div className="pl-2 space-y-1">
+                {['blur', 'do-not-blur'].map((value) => {
+                    return (
+                        <div key={value} className="flex items-center">
+                            <input
+                                id={`nsfw-${value}-unsplash-photos`}
+                                name="nsfw-blur-unsplash-photos"
+                                value={value}
+                                type="radio"
+                                checked={
+                                    value === 'blur' ? blurNSFW : !blurNSFW
+                                }
+                                onChange={() => setBlurNSFW(value === 'blur')}
+                                className="h-4 w-4 m-0"
+                            />
+                            <label
+                                htmlFor={`nsfw-${value}-unsplash-photos`}
+                                className="ml-2 block text-sm font-medium text-gray-700 capitalize">
+                                {value === 'blur'
+                                    ? __('Blur', 'unlimited-photos')
+                                    : __('Do not blur', 'unlimited-photos')}
+                            </label>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
+    )
+}
+
 const ThemeSelect = () => {
     const { currentTheme, setCurrentTheme } = useGlobalState()
     return (
