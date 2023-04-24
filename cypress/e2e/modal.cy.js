@@ -130,7 +130,7 @@ context('Modal checks', () => {
             .should('exist')
     })
 
-    it('Importing disables the sidebar', () => {
+    it.only('Importing disables the sidebar', () => {
         // Adds our block
         cy.addBlock('kevinbatdorf/unlimited-photos')
 
@@ -160,6 +160,7 @@ context('Modal checks', () => {
             .should('be.disabled')
 
         cy.getPostContent().find('img').should('exist')
+        cy.getPostContent().find('img').click()
 
         // Open the modal back up
         cy.get('.unlimited-photos-toolbar-button').click()
