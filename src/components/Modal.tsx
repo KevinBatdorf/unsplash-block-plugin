@@ -46,16 +46,31 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                     exit={{ opacity: 0 }}
                     open={open}
                     onClose={onClose}>
-                    <div
-                        className="fixed inset-0 bg-black/80 backdrop-blur-sm"
-                        aria-hidden="true"
-                    />
-                    <div
-                        data-cy-up="main-modal"
-                        className="absolute top-0 right-0 m-0.5 z-10 text-white">
-                        <ModalCloseButton onClose={onClose} />
-                    </div>
                     <div className="absolute mx-auto w-full h-full md:p-8">
+                        <AnimatePresence>
+                            <motion.div
+                                key="backdrop"
+                                initial={{
+                                    backdropFilter: 'blur(0)',
+                                    opacity: 0,
+                                }}
+                                animate={{
+                                    backdropFilter: 'blur(4px)',
+                                    opacity: 1,
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="fixed inset-0 bg-black/30"
+                                aria-hidden="true"
+                            />
+                            <motion.div
+                                key="close"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                data-cy-up="main-modal"
+                                className="absolute top-0 right-0 m-0.5 z-10 text-black">
+                                <ModalCloseButton onClose={onClose} />
+                            </motion.div>
+                        </AnimatePresence>
                         <motion.div
                             key="modal"
                             id="unlimited-photos-modal-inner"
