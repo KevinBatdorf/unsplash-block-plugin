@@ -62,7 +62,7 @@ export const SettingsModal = () => {
                                 exit={{ y: 0, opacity: 0 }}
                                 data-cy-up="settings-modal"
                                 className="sm:flex w-full relative shadow-2xl sm:overflow-hidden max-w-screen-xs mx-auto bg-white flex flex-col">
-                                <div className="flex items-center justify-between border-b border-gray-300 p-4">
+                                <div className="flex items-center justify-between border-b border-gray-300 p-4 text-gray-900">
                                     <Dialog.Title className="m-0">
                                         {__('Settings', 'unlimited-photos')}
                                     </Dialog.Title>

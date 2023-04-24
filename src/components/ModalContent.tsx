@@ -136,6 +136,14 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
         )
     }
 
+    if (loading) {
+        return (
+            <div className="text-center absolute inset-0 flex flex-col items-center justify-center unlimited-photos-image-container-error">
+                {__('Loading...', 'unlimited-photos')}
+            </div>
+        )
+    }
+
     return (
         <div
             ref={gridRef}
