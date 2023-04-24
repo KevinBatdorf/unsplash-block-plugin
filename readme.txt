@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, ai, stock photos, photography, news, politics, people, wallpaper, google images
 Tested up to:      6.2
-Stable tag:        1.3.0
+Stable tag:        1.4.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,12 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 2. Multiple UI themes
 
 == Changelog ==
+
+= 1.4.0 - 2023-04-23 =
+- Feature: Add AI image search
+- Feature: Add Recent search history
+- Tweak: Change spacing between images, and a few other design tweaks
+- Tweak: Removed auto fill of alt tags.
 
 = 1.3.0 - 2023-04-06 =
 - Fix: Update persistent scroll bars
