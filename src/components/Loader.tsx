@@ -57,6 +57,8 @@ export const Loader = ({
                       `<a href="https://unsplash.com/@${image.user.username}?utm_source=Unlimited%20Photos&utm_medium=referral">${image.user.name}</a>`,
                       '<a href="https://unsplash.com/?utm_source=Unlimited%20Photos&utm_medium=referral">Unsplash</a>',
                   )
+                : !unsplash
+                ? image?.prompt
                 : ''
 
         // Record download to Unsplash only
@@ -77,7 +79,7 @@ export const Loader = ({
 
         const url = unsplash ? image.urls[imageSizeChecked] : image.src
         const newImage: WpImage | undefined = await importImage(url, {
-            alt: unsplash ? image?.alt_description ?? '' : '',
+            alt: '',
             filename: `up-${image.id}.jpg`,
             caption,
         })

@@ -33,13 +33,13 @@ export const useGlobalState = create<GlobalState>()(
             (set) => ({
                 importing: false,
                 searchTerm: undefined,
-                imageSize: 'full',
+                imageSize: 'regular',
                 page: 1,
                 totalPages: undefined,
                 loading: undefined,
                 currentTheme: 'default',
                 blurNSFW: true,
-                imageSource: 'lexica',
+                imageSource: 'unsplash',
                 recent: [],
                 setRecent: (recent: string) => {
                     // Remove recent if it exists
@@ -51,7 +51,7 @@ export const useGlobalState = create<GlobalState>()(
                     set((state) => ({
                         ...state,
                         // but only keep 5 total
-                        recent: [recent, ...state.recent].slice(0, 5),
+                        recent: [recent, ...state.recent].slice(0, 3),
                     }))
                 },
                 deleteRecent: (recent: string) => {

@@ -4,39 +4,15 @@ import { useGlobalState } from '../state/global'
 type SearchSuggestionsProps = {
     handlePress: (term: string) => void
     handleDelete?: (term: string) => void
-    terms?: string[]
+    terms: string[]
     showUnderline?: boolean
 }
-const defaultTerms = [
-    'Current Events',
-    'Wallpapers',
-    // '3D Renders',
-    'Textures',
-    'Patterns',
-    'Experimental',
-    'Architecture',
-    'Nature',
-    'Business & Work',
-    'Fashion',
-    // 'Film',
-    'Food & Drink',
-    'Health & Wellness',
-    'Animals',
-    'Fitness',
-    'People',
-    // 'Interiors',
-    // 'Street Photography',
-    'Travel',
-    // 'Spirtuality',
-    // 'Arts & Culture',
-    // 'History',
-    'Athletics',
-]
+
 export const SearchSuggestions = ({
     handlePress,
     handleDelete,
     showUnderline = true,
-    terms = defaultTerms,
+    terms,
 }: SearchSuggestionsProps) => {
     const { searchTerm, currentTheme, importing } = useGlobalState()
 
@@ -77,6 +53,7 @@ export const SearchSuggestions = ({
                     {handleDelete && (
                         <button
                             type="button"
+                            data-cy-up="delete-recent-search"
                             disabled={Boolean(importing)}
                             onClick={() => handleDelete(term)}
                             className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 p-0 bg-transparent focus:outline-none focus:shadow-none outline-none text-left text-sm cursor-pointer ring-main-blue focus:ring-wp font-light transition-all duration-200 ease-linear">

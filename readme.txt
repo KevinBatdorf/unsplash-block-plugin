@@ -16,7 +16,7 @@ To use it, when adding a block, search for 'unlimited photos' or add an image bl
 
 Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free.
 
-Search AI-generated images built form platforms like stable diffusion, Dall-E, Midjourney, and more.
+Search AI-generated images built from platforms like stable diffusion, Dall-E, Midjourney, and more.
 
 = More info =
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter

@@ -4,6 +4,7 @@ import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
 import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
+import { artistTerms, defaultTerms } from '../suggestedSearch'
 import { PhpMaxFileSizeWarning } from './Errors'
 import { SearchSuggestions } from './SearchSuggestions'
 import { SettingsModal } from './SettingsModal'
@@ -158,20 +159,24 @@ export const Sidebar = ({
                         )}
                     </p>
                 </form>
-                <ToggleControl
-                    label={__('Search AI Images', 'unlimited-photos')}
-                    className={classnames({
-                        'text-main-grayish': currentTheme === 'midnight',
-                        'text-gray-800': currentTheme !== 'midnight',
-                    })}
-                    checked={imageSource === 'lexica'}
-                    onChange={() => {
-                        setPage(1)
-                        setImageSource(
-                            imageSource === 'lexica' ? 'unsplash' : 'lexica',
-                        )
-                    }}
-                />
+                <div data-cy-up="ai-images-toggle">
+                    <ToggleControl
+                        label={__('Search AI Images', 'unlimited-photos')}
+                        className={classnames({
+                            'text-main-grayish': currentTheme === 'midnight',
+                            'text-gray-800': currentTheme !== 'midnight',
+                        })}
+                        checked={imageSource === 'lexica'}
+                        onChange={() => {
+                            setPage(1)
+                            setImageSource(
+                                imageSource === 'lexica'
+                                    ? 'unsplash'
+                                    : 'lexica',
+                            )
+                        }}
+                    />
+                </div>
                 {showImportWarning && (
                     <PhpMaxFileSizeWarning
                         // eslint-disable-next-line
@@ -181,9 +186,9 @@ export const Sidebar = ({
                 )}
             </div>
 
-            <div className="hidden md:flex flex-col gap-6 overflow-hidden">
+            <div className="hidden md:flex flex-col overflow-hidden">
                 {recent?.length > 0 && (
-                    <div>
+                    <div id="unlimited-photos-recent-searches" className="mb-6">
                         <h2
                             className={classnames(
                                 'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
@@ -212,29 +217,31 @@ export const Sidebar = ({
                         </div>
                     </div>
                 )}
-                <div>
-                    <h2
-                        className={classnames(
-                            'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
-                            {
-                                'text-main-grayish':
-                                    currentTheme === 'midnight',
-                                'text-gray-800': currentTheme !== 'midnight',
-                            },
-                        )}
-                        style={textShadow}>
-                        {__('Suggestions', 'unlmiited-photos')}
-                    </h2>
-                    <div className="px-4 overflow-y-auto">
-                        <SearchSuggestions
-                            handlePress={(term: string) => {
-                                touched.current = true
-                                setPage(1)
-                                setSearchTerm(term.toLowerCase())
-                                setSearch(term.toLowerCase())
-                            }}
-                        />
-                    </div>
+                <h2
+                    className={classnames(
+                        'p-0 px-4 text-xs leading-none m-0 mb-2 font-medium',
+                        {
+                            'text-main-grayish': currentTheme === 'midnight',
+                            'text-gray-800': currentTheme !== 'midnight',
+                        },
+                    )}
+                    style={textShadow}>
+                    {__('Suggestions', 'unlmiited-photos')}
+                </h2>
+                <div className="px-4 overflow-y-auto">
+                    <SearchSuggestions
+                        terms={
+                            imageSource === 'unsplash'
+                                ? defaultTerms
+                                : artistTerms
+                        }
+                        handlePress={(term: string) => {
+                            touched.current = true
+                            setPage(1)
+                            setSearchTerm(term.toLowerCase())
+                            setSearch(term.toLowerCase())
+                        }}
+                    />
                 </div>
             </div>
             <div className="h-12 w-full flex-grow hidden md:flex items-end pl-2 pb-2">

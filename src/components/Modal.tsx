@@ -65,6 +65,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                             className={classnames(
                                 'sm:flex h-full w-full relative shadow-2xl sm:overflow-hidden max-w-screen-2xl mx-auto',
                                 {
+                                    [`theme-${currentTheme}`]: true,
                                     'bg-white': currentTheme === 'light',
                                     'backdrop-blur': currentTheme === 'default',
                                     'bg-main-midnight':
