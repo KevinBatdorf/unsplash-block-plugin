@@ -130,7 +130,7 @@ context('Modal checks', () => {
             .should('exist')
     })
 
-    it.only('Importing disables the sidebar', () => {
+    it('Importing disables the sidebar', () => {
         // Adds our block
         cy.addBlock('kevinbatdorf/unlimited-photos')
 
