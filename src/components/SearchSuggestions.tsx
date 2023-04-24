@@ -6,6 +6,7 @@ type SearchSuggestionsProps = {
     handleDelete?: (term: string) => void
     terms: string[]
     showUnderline?: boolean
+    className?: string
 }
 
 export const SearchSuggestions = ({
@@ -13,11 +14,12 @@ export const SearchSuggestions = ({
     handleDelete,
     showUnderline = true,
     terms,
+    className = 'unlimited-photos-suggestions-list',
 }: SearchSuggestionsProps) => {
     const { searchTerm, currentTheme, importing } = useGlobalState()
 
     return (
-        <ul className="m-0 pt-1 unlimited-photos-suggestions-list">
+        <ul className={classnames('m-0 pt-1', className)}>
             {terms.map((term) => (
                 <li
                     className="mb-0.5 flex gap-2 justify-between items-center group"

@@ -204,6 +204,7 @@ export const Sidebar = ({
                         </h2>
                         <div className="px-4">
                             <SearchSuggestions
+                                className="unlimited-photos-recent-list"
                                 terms={recent}
                                 showUnderline={false}
                                 handlePress={(term: string) => {
