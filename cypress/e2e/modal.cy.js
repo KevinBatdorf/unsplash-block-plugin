@@ -119,6 +119,7 @@ context('Modal checks', () => {
             .contains('Done!', { timeout: 60000 })
 
         cy.getPostContent().find('img').should('exist')
+        cy.getPostContent().find('img').click()
 
         // Open the modal back up
         cy.get('.unlimited-photos-toolbar-button').click()
@@ -159,6 +160,7 @@ context('Modal checks', () => {
             .should('be.disabled')
 
         cy.getPostContent().find('img').should('exist')
+        cy.getPostContent().find('img').click()
 
         // Open the modal back up
         cy.get('.unlimited-photos-toolbar-button').click()
