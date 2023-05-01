@@ -10,13 +10,15 @@ Search from millions of stock photos, AI-generated imagry, textures, wallpapers,
 
 == Description ==
 
-Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use photos, images, and digital art.
+Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use* photos, images, and digital art.
 
 To use it, when adding a block, search for 'unlimited photos' or add an image block and press the blue camera icon.
 
-Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free.
+Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free*.
 
 Search AI-generated images built from platforms like stable diffusion, Dall-E, Midjourney, and more.
+
+* See the FAQ section for specific license info. AI-generated images are free for personal use but may require a license for commercial use.
 
 = More info =
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
