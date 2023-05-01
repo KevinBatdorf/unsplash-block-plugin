@@ -50,6 +50,11 @@ The server is hosted on [Vercel](https://vercel.com/), and by connecting to thei
 
 == Frequently Asked Questions ==
 
+= What license do the images have? =
+
+- Unsplash images (non-AI) license information can be found here: https://unsplash.com/license
+- Lexica images (AI generated) license information can be found here: https://lexica.art/license
+
 = What happens when I deactivate this plugin? =
 
 Nothing. We cleanly integrate into the image block, and when you import an image, we hand it off to the core block to manage. The images will always remain in your library and on your pages.
