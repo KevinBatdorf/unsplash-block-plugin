@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, ai, stock photos, photography, news, politics, people, wallpaper, google images
 Tested up to:      6.2
-Stable tag:        1.4.0
+Stable tag:        1.4.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,11 +67,16 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 == Screenshots ==
 
-1. A zoomed in view showing a search for food photos
-2. The default view showing the latest photos
-2. Multiple UI themes
+1. An example of searching for wallpapers
+2. A search for animal stock images
+1. An AI search for a particular artist
 
 == Changelog ==
+
+= 1.4.1 - 2023-05-03 =
+- Tweak: Remove gradient bg colors as they don't work very wel with gaps now
+- Fix: The loading text on the midnight theme is now white
+- Fix: Attempt to fix first install auto inject loading
 
 = 1.4.0 - 2023-04-23 =
 - Feature: Add AI image search

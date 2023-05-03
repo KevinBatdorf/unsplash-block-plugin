@@ -19,19 +19,6 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
     const initialFocus = useRef(null)
     const { currentTheme } = useGlobalState()
 
-    const leftGradient =
-        currentTheme === 'midnight'
-            ? 'rgb(112 14 82)'
-            : currentTheme === 'light'
-            ? 'rgb(186, 230, 253)'
-            : 'rgb(255 131 215)'
-    const rightGradient =
-        currentTheme === 'midnight'
-            ? 'rgb(170 55 55)'
-            : currentTheme === 'light'
-            ? 'rgb(56, 189, 248)'
-            : 'rgb(125 159 237)'
-
     return (
         <AnimatePresence>
             {open && (
@@ -91,11 +78,7 @@ export const Modal = ({ open, onClose, setImage }: ModalProps) => {
                                 {__('Listing images', 'unlimited-photos')}
                             </Dialog.Title>
                             <Sidebar initialFocus={initialFocus} />
-                            <div
-                                style={{
-                                    backgroundImage: `linear-gradient(103.3deg, transparent 30%, ${leftGradient} 55.7%, ${rightGradient} 81.8%)`,
-                                }}
-                                className="flex flex-col w-full relative">
+                            <div className="flex flex-col w-full relative">
                                 <ModalContent setImage={setImage} />
                             </div>
                         </motion.div>

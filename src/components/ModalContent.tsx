@@ -138,7 +138,14 @@ export const ModalContent = ({ setImage }: MondalContentProps) => {
 
     if (loading) {
         return (
-            <div className="text-center absolute inset-0 flex flex-col items-center justify-center unlimited-photos-image-container-error">
+            <div
+                className={classnames(
+                    'text-center absolute inset-0 flex flex-col items-center justify-center unlimited-photos-image-container-error',
+                    {
+                        'text-white': currentTheme === 'midnight',
+                        'text-gray-900': currentTheme !== 'midnight',
+                    },
+                )}>
                 {__('Loading...', 'unlimited-photos')}
             </div>
         )
