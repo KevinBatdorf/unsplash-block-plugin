@@ -15,4 +15,3 @@ View this block plugin [on WordPress.org](https://wordpress.org/plugins/unlimite
 ![alt text](.wordpress-org/screenshot-1.png "Example")
 ![alt text](.wordpress-org/screenshot-2.png "Example 2")
 ![alt text](.wordpress-org/screenshot-3.png "Example 3")
-![alt text](.wordpress-org/screenshot-4.png "Example 4")
