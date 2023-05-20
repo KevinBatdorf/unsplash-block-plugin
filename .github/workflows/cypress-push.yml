@@ -34,7 +34,7 @@ jobs:
                   path: |
                     ~/.cache/Cypress
                     node_modules
-                  key: node-c-${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  key: node-cy-${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: Install npm dependencies
               if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: npm ci
