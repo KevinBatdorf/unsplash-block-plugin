@@ -27,6 +27,8 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
+            - name: Set up node
+              uses: actions/setup-node@v3
             - name: Cache node modules
               uses: actions/cache@v3
               id: cache-node-modules
