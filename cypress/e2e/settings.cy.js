@@ -47,17 +47,9 @@ context('Settings modal checks', () => {
             cy.addBlock('kevinbatdorf/unlimited-photos')
             cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
 
-            cy.get('[data-cy-up="settings-button"]').click()
-
-            cy.get('input[type="radio"][value="full"]').click()
-            cy.get('input[type="radio"][value="full"]').should('be.checked')
-            cy.get(SETTINGS_MODAL_CLOSE).click()
-
-            cy.get('[data-cy-up="settings-button"]').click()
-            cy.get('input[type="radio"][value="raw"]').click()
-            cy.get('input[type="radio"][value="raw"]').should('be.checked')
-            cy.get(SETTINGS_MODAL_CLOSE).click()
-
+            cy.window().then((win) => {
+                win.unlimitedPhotosConfig.maxUploadSize = 2
+            })
             cy.get('[data-cy-up="settings-button"]').click()
             cy.get('input[type="radio"][value="full"]').click()
             cy.get('input[type="radio"][value="full"]').should('be.checked')

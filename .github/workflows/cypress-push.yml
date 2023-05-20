@@ -21,8 +21,8 @@ jobs:
                 # and output their file names without the extension
                 ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -Rrs "split(\"\n\") | map(select(length > 0)) | tojson" | tee /tmp/spec.json
                 echo "spec=$(cat /tmp/spec.json)" >> "$GITHUB_OUTPUT"
-    build:
-        name: Build node modules
+    npm_install:
+        name: Install Node modules
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
@@ -43,7 +43,7 @@ jobs:
             group: cypress - ${{ github.event.pull_request.number || github.ref }} - ${{ matrix.spec }}
             cancel-in-progress: true
         runs-on: ubuntu-latest
-        needs: [build, generate_file_list]
+        needs: [npm_install, generate_file_list]
         strategy:
             fail-fast: false
             matrix:
