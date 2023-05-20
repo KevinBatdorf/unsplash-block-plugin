@@ -18,7 +18,7 @@ jobs:
               run: |
                 # List all the .cy.js files in the cypress/e2e directory
                 # and output their file names without the extension
-                echo 'spec=$(ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -R -s "split(\"\n\") | map(select(length > 0)) | tojson")' >> $GITHUB_ENV
+                echo 'spec=$(ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -R -s "split(\"\n\") | map(select(length > 0)) | tojson")' >> "$GITHUB_ENV"
     build:
         name: Build node modules
         runs-on: ubuntu-latest
