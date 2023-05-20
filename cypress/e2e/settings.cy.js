@@ -48,15 +48,22 @@ context('Settings modal checks', () => {
             cy.get('[data-cy-up="file-size-warning"]').should('not.exist')
 
             cy.get('[data-cy-up="settings-button"]').click()
-            cy.get('input[type="radio"][value="full"]').click()
-            cy.get('input[type="radio"][value="full"]').should('be.checked')
-            cy.get('input[type="radio"][value="raw"]').click()
-            cy.get('input[type="radio"][value="raw"]').should('be.checked')
+
             cy.get('input[type="radio"][value="full"]').click()
             cy.get('input[type="radio"][value="full"]').should('be.checked')
             cy.get(SETTINGS_MODAL_CLOSE).click()
-            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
 
+            cy.get('[data-cy-up="settings-button"]').click()
+            cy.get('input[type="radio"][value="raw"]').click()
+            cy.get('input[type="radio"][value="raw"]').should('be.checked')
+            cy.get(SETTINGS_MODAL_CLOSE).click()
+
+            cy.get('[data-cy-up="settings-button"]').click()
+            cy.get('input[type="radio"][value="full"]').click()
+            cy.get('input[type="radio"][value="full"]').should('be.checked')
+            cy.get(SETTINGS_MODAL_CLOSE).click()
+
+            cy.get('[data-cy-up="settings-modal"]').should('not.exist')
             cy.get('[data-cy-up="file-size-warning"]').should('exist')
         })
     })
