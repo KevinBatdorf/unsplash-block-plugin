@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import fs from 'fs'
-import { deleteFile, loadFileData, __rootDir } from './utils.mjs'
 import util from 'util'
+import { deleteFile, loadFileData, __rootDir } from './utils.mjs'
 
 const execPromise = util.promisify(exec)
 const command = process.argv[2]

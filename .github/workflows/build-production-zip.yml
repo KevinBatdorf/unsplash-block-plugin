@@ -7,12 +7,24 @@ jobs:
         steps:
             - name: Check out code
               uses: actions/checkout@v3
-            - name: npm install and build
+
+            - name: Node modules cache
+              uses: actions/cache@v3
+              id: cache-node-modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+            - name: Install npm dependencies
               run: |
-                  npm ci
+                  # Run npm ci only if the cache is not found or restored
+                  if [ -z "${{ steps.cache-node-modules.outputs.cache-hit }}" ]; then
+                    npm ci
+                  fi
+
+            - name: Build
+              run: |
+                  npx eslint --max-warnings 0 .
                   npm run build
-              env:
-                  CI: true
 
             - name: Package
               uses: actions/upload-artifact@v3
