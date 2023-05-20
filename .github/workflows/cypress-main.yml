@@ -23,6 +23,23 @@ jobs:
                   # and output their file names without the extension
                   ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -Rrs "split(\"\n\") | map(select(length > 0)) | tojson" | tee /tmp/spec.json
                   echo "spec=$(cat /tmp/spec.json)" >> "$GITHUB_OUTPUT"
+
+    npm_install:
+        name: Install Node modules
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            - name: Cache node modules
+              uses: actions/cache@v3
+              id: cache-node-modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+            - name: Install npm dependencies
+              if: steps.cache-node-modules.outputs.cache-hit != 'true'
+              run: npm ci
+
     test:
         name: WordPress ${{ matrix.wp-version }} (${{ matrix.spec }})
         concurrency:
