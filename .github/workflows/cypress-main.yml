@@ -38,7 +38,7 @@ jobs:
               id: cache-node-modules
               with:
                   path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
                   restore-keys: ${{ runner.os }}-node-modules-
             - name: Install npm dependencies
               run: |
