@@ -62,7 +62,9 @@ jobs:
                   npx eslint --max-warnings 0 .
                   npm run build
             - name: Start server
-              run: npx wp-env start
+              run: |
+                  npx wp-env start
+                  echo "WordPress version: `npx wp-env run cli core version`"
             - name: Cypress run
               uses: cypress-io/github-action@v5
               with:
