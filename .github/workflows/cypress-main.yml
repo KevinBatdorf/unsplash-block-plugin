@@ -46,7 +46,7 @@ jobs:
             group: cypress - ${{ github.event.pull_request.number || github.ref }} - ${{ matrix.wp-version }} - ${{ matrix.spec }}
             cancel-in-progress: true
         runs-on: ubuntu-latest
-        needs: [generate_file_list]
+        needs: [generate_file_list, npm_install]
         strategy:
             fail-fast: false
             matrix:
