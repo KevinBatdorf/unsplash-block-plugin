@@ -19,7 +19,7 @@ jobs:
               run: |
                 # List all the .cy.js files in the cypress/e2e directory
                 # and output their file names without the extension
-                ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -R -s "split(\"\n\") | map(select(length > 0)) | tojson" | tee /tmp/spec.json
+                ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -Rrs "split(\"\n\") | map(select(length > 0)) | tojson" | tee /tmp/spec.json
                 echo "spec=$(cat /tmp/spec.json)" >> "$GITHUB_OUTPUT"
     build:
         name: Build node modules
@@ -28,7 +28,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
             - name: Cache node modules
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               id: cache-node-modules
               with:
                   path: node_modules
@@ -52,7 +52,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
             - name: Restore node modules cache
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: node_modules
                   key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -70,12 +70,12 @@ jobs:
                   spec: cypress/e2e/${{ matrix.spec }}.cy.js
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            - uses: actions/upload-artifact@v2
+            - uses: actions/upload-artifact@v3
               if: failure()
               with:
                   name: cypress-screenshots
                   path: cypress/screenshots
-            - uses: actions/upload-artifact@v2
+            - uses: actions/upload-artifact@v3
               if: failure()
               with:
                   name: cypress-videos
