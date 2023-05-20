@@ -47,11 +47,8 @@ jobs:
                   path: node_modules
                   key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: Install npm dependencies
-              run: |
-                  # Run npm ci only if the cache is not found or restored
-                  if [ -z "${{ steps.cache-node-modules.outputs.cache-hit }}" ]; then
-                    npm ci
-                  fi
+              if: steps.cache-node-modules.outputs.cache-hit != 'true'
+              run: npm ci
 
             - name: Build
               run: |
@@ -76,7 +73,7 @@ jobs:
                   npx wp-env start
                   echo "WordPress version: `wp-env run cli core version`"
             - name: Cypress run
-              uses: cypress-io/github-action@v4
+              uses: cypress-io/github-action@v5
               with:
                   spec: cypress/e2e/${{ matrix.spec }}.cy.js
               env:
