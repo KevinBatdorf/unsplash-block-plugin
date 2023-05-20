@@ -22,7 +22,7 @@ jobs:
                 ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -Rrs "split(\"\n\") | map(select(length > 0)) | tojson" | tee /tmp/spec.json
                 echo "spec=$(cat /tmp/spec.json)" >> "$GITHUB_OUTPUT"
     build:
-        name: Build node modules
+        name: Cache node modules
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
@@ -34,10 +34,12 @@ jobs:
                   path: |
                     ~/.cache/Cypress
                     node_modules
-                  key: nc-${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  key: node-c-${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: Install npm dependencies
               if: steps.cache-node-modules.outputs.cache-hit != 'true'
-              run: npm ci
+              run: |
+                  npm ci
+                  cypress install
 
     test:
         name: WordPress (${{ matrix.spec }})
