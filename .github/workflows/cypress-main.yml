@@ -46,20 +46,11 @@ jobs:
                   if [ -z "${{ steps.cache-node-modules.outputs.cache-hit }}" ]; then
                     npm ci
                   fi
-            - name: Build cache
-              uses: actions/cache@v3
-              id: cache-build
-              with:
-                  path: build
-                  key: ${{ runner.os }}-build-${{ hashFiles('src/**') }}-${{ hashFiles('*.js') }}
-                  restore-keys: ${{ runner.os }}-build-
+
             - name: Build
               run: |
-                  # Run npm run build only if the cache is not found or restored
-                  if [ -z "${{ steps.cache-build.outputs.cache-hit }}" ]; then
-                    npx eslint --max-warnings 0 .
-                    npm run build
-                  fi
+                  npx eslint --max-warnings 0 .
+                  npm run build
 
             - name: Get Latest WP Branch
               if: ${{ matrix.wp-version }}
