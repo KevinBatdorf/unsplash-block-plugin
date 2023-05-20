@@ -59,10 +59,13 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
-            - name: Restore node modules cache
-              uses: actions/cache@v3
+            - name: Restore cache
+              uses: actions/cache/restore@v3
               with:
-                  path: node_modules
+                  fail-on-cache-miss: true
+                  path: |
+                    node_modules
+                    ~/.cache/Cypress
                   key: node-cy-${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: Build
               run: |
