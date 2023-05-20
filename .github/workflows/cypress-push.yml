@@ -12,19 +12,19 @@ jobs:
             spec: ${{ steps.list_files.outputs.spec }}
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: List Files
               id: list_files
               run: |
-                  # List all the .cy.js files in the cypress/e2e directory
-                  # and output their file names without the extension
-                  echo "spec=$(ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -R -s 'split("\n") | map(select(length > 0)) | tojson')" >> "$GITHUB_OUTPUT"
+                # List all the .cy.js files in the cypress/e2e directory
+                # and output their file names without the extension
+                echo 'spec=$(ls cypress/e2e/*.cy.js | xargs -I{} basename {} .cy.js | jq -R -s "split(\"\n\") | map(select(length > 0)) | tojson")' >> $GITHUB_ENV
     build:
         name: Build node modules
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Cache node modules
               uses: actions/cache@v2
               id: cache-node-modules
@@ -48,7 +48,7 @@ jobs:
                 spec: ${{ fromJson(needs.generate_file_list.outputs.spec) }}
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Restore node modules cache
               uses: actions/cache@v2
               with:
