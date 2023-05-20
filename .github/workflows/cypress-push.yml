@@ -31,8 +31,10 @@ jobs:
               uses: actions/cache@v3
               id: cache-node-modules
               with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  path: |
+                    ~/.cache/Cypress
+                    node_modules
+                  key: nc-${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: Install npm dependencies
               if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: npm ci
@@ -65,8 +67,9 @@ jobs:
               run: |
                   npx wp-env start
             - name: Cypress run
-              uses: cypress-io/github-action@v4
+              uses: cypress-io/github-action@v5
               with:
+                  install: false
                   spec: cypress/e2e/${{ matrix.spec }}.cy.js
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
