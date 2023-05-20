@@ -2,7 +2,7 @@ name: Run Cypress on push
 on:
     push:
         branches-ignore:
-          - main
+            - main
     workflow_dispatch:
 jobs:
     test:
@@ -14,33 +14,60 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                spec: [
-                  "dev",
-                  "inserter",
-                  "modal",
-                  "settings",
-                  "sidebar",
-                  "sources",
-                  "theme",
-                ]
+                spec:
+                    [
+                        'dev',
+                        'inserter',
+                        'modal',
+                        'settings',
+                        'sidebar',
+                        'sources',
+                        'theme',
+                    ]
         steps:
             - name: Clone repo
               uses: actions/checkout@v3
-            - name: Install server
+            - name: Set up node
+              uses: actions/setup-node@v3
+            - name: Node modules cache
+              uses: actions/cache@v3
+              id: cache-node-modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-node-modules-
+            - name: Install npm dependencies
               run: |
-                  npm ci
-                  npx eslint --max-warnings 0 .
-                  npm run build
+                  # Run npm ci only if the cache is not found or restored
+                  if [ -z "${{ steps.cache-node-modules.outputs.cache-hit }}" ]; then
+                    npm ci
+                  fi
+            - name: Build cache
+              uses: actions/cache@v3
+              id: cache-build
+              with:
+                  path: public/build
+                  key: ${{ runner.os }}-build-${{ hashFiles('src/**') }}-${{ hashFiles('*.js') }}
+                  restore-keys: ${{ runner.os }}-build-
+            - name: Build
+              run: |
+                  # Run npm run build only if the cache is not found or restored
+                  if [ -z "${{ steps.cache-build.outputs.cache-hit }}" ]; then
+                    npx eslint --max-warnings 0 .
+                    npm run build
+                  fi
+
             - name: Start server
               run: |
-                  npm install -g @wordpress/env
-                  wp-env start --update
+                  npx wp-env start
+
             - name: Cypress run
               uses: cypress-io/github-action@v4
               with:
-                spec: cypress/e2e/${{ matrix.spec }}.cy.js
+                  spec: cypress/e2e/${{ matrix.spec }}.cy.js
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - uses: actions/upload-artifact@v3
               if: failure()
               with:

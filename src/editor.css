@@ -42,7 +42,7 @@
     --tw-backdrop-invert: ;
     --tw-backdrop-opacity: ;
     --tw-backdrop-saturate: ;
-    --tw-backdrop-sepia:
+    --tw-backdrop-sepia: ;
 }
 
 .unlimited-photos-editor ::-webkit-backdrop {
@@ -89,7 +89,7 @@
     --tw-backdrop-invert: ;
     --tw-backdrop-opacity: ;
     --tw-backdrop-saturate: ;
-    --tw-backdrop-sepia:
+    --tw-backdrop-sepia: ;
 }
 
 .unlimited-photos-editor ::backdrop {
@@ -136,7 +136,7 @@
     --tw-backdrop-invert: ;
     --tw-backdrop-opacity: ;
     --tw-backdrop-saturate: ;
-    --tw-backdrop-sepia:
+    --tw-backdrop-sepia: ;
 }
 .unlimited-photos-editor *,
 .unlimited-photos-editor *:after,
@@ -165,23 +165,34 @@
 }
 
 .unlimited-photos-editor.unlimited-photos-modal
-input[type='radio']:checked::before {
+    input[type='radio']:checked::before {
     @apply bg-main-blue;
 }
 
-#unlimited-photos-modal-inner.theme-midnight .components-form-toggle.is-checked .components-form-toggle__track {
+#unlimited-photos-modal-inner.theme-midnight
+    .components-form-toggle.is-checked
+    .components-form-toggle__track {
     @apply bg-main-magenta;
 }
-#unlimited-photos-modal-inner.theme-midnight .components-form-toggle .components-form-toggle__input:focus+.components-form-toggle__track {
+#unlimited-photos-modal-inner.theme-midnight
+    .components-form-toggle
+    .components-form-toggle__input:focus
+    + .components-form-toggle__track {
     @apply ring-2 ring-white ring-offset-2 ring-offset-main-midnight;
 }
-#unlimited-photos-modal-inner.theme-midnight .components-form-toggle .components-form-toggle__thumb {
+#unlimited-photos-modal-inner.theme-midnight
+    .components-form-toggle
+    .components-form-toggle__thumb {
     @apply bg-main-midnight;
 }
-#unlimited-photos-modal-inner.theme-midnight .components-form-toggle.is-checked .components-form-toggle__thumb {
+#unlimited-photos-modal-inner.theme-midnight
+    .components-form-toggle.is-checked
+    .components-form-toggle__thumb {
     @apply bg-white;
 }
-#unlimited-photos-modal-inner.theme-midnight  input[type="search"]::-webkit-search-cancel-button {
+#unlimited-photos-modal-inner.theme-midnight
+    input[type='search']::-webkit-search-cancel-button {
     @apply appearance-none w-2 h-2 transition-all duration-200 ease-in-out text-main-midnight cursor-pointer;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 10 10'><path fill='%23fff' d='M5 4.586L1.707 1.293 0.293 2.707 3.586 6 0.293 9.293 1.707 10.707 5 7.414 8.293 10.707 9.707 9.293 6.414 6 9.707 2.707 8.293 1.293 5 4.586z'/></svg>") no-repeat center;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 10 10'><path fill='%23fff' d='M5 4.586L1.707 1.293 0.293 2.707 3.586 6 0.293 9.293 1.707 10.707 5 7.414 8.293 10.707 9.707 9.293 6.414 6 9.707 2.707 8.293 1.293 5 4.586z'/></svg>")
+        no-repeat center;
 }
