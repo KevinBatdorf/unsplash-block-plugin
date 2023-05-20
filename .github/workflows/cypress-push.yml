@@ -11,6 +11,8 @@ jobs:
     outputs:
       spec: ${{ steps.list_files.outputs.spec }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: List Files
         id: list_files
         run: |
