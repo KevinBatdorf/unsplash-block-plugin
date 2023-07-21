@@ -84,7 +84,7 @@ jobs:
               if: ${{ matrix.wp-version }}
               with:
                   name: '.wp-env.json'
-                  json: '{"core": "WordPress/WordPress#${{ env.branch }}", "plugins":["."], "mappings": { "wp-content/plugins/prismatic": "https://downloads.wordpress.org/plugin/prismatic.zip" }}'
+                  json: '{"core": "WordPress/WordPress#${{ env.branch }}", "plugins":["."]}}'
             - name: Start server
               run: |
                   npx wp-env start
