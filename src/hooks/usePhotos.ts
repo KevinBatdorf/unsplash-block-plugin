@@ -29,7 +29,7 @@ export const usePhotos = (params: ListPhotosParams) => {
         : `photos?${queryParams.toString()}`
 
     const url = `${API_URL}/api/${endpoint}`
-    const { data, error, isValidating } = useSWR<ImageResponse>(url, fetcher, {
+    const { data, error, isValidating } = useSWR<ImageResponse>(url, imageFetcher, {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
@@ -53,7 +53,7 @@ export const usePhotos = (params: ListPhotosParams) => {
         isValidating,
     }
 }
-const fetcher = async (url: string) => {
+export const imageFetcher = async (url: string) => {
     const res = await fetch(url)
     if (!res.ok) throw new Error((await res.json())?.message || res.statusText)
     return await res.json()

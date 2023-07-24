@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, ai, stock photos, photography, news, politics, people, wallpaper, google images
 Tested up to:      6.3
-Stable tag:        1.4.1
+Stable tag:        1.5.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ Search from millions of stock photos, AI-generated imagry, textures, wallpapers,
 Unlimited Photos is a Gutenberg block plugin that integrates into the core image block, providing a way to view, search, and import over 3 million free-to-use* photos, images, and digital art.
 
 To use it, when adding a block, search for 'unlimited photos' or add an image block and press the blue camera icon.
+
+NEW: Search for images from the media tab (WordPress 6.3+).
 
 Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free*.
 
@@ -69,9 +71,13 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 1. An example of searching for wallpapers
 2. A search for animal stock images
-1. An AI search for a particular artist
+3. An AI search for a particular artist
+4. Search and insert from the block interter media tab
 
 == Changelog ==
+
+= 1.5.0 - 2023-07-23 =
+- Feature: Added block inserter media tab category
 
 = 1.4.1 - 2023-05-03 =
 - Tweak: Remove gradient bg colors as they don't work very wel with gaps now
