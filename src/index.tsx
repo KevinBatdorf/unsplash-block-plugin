@@ -32,11 +32,13 @@ addFilter(
 
 const unsubscribe = subscribe(() => {
     const { inserterMediaCategories = [] } = select(editorStore)
+        // eslint-disable-next-line
         // @ts-ignore
         .getSettings()
     const maybeRegistered = inserterMediaCategories.some(
-        ({ name }: any) => name === unsplash.name,
+        ({ name }: { name: string }) => name === unsplash.name,
     )
+    // eslint-disable-next-line
     // @ts-ignore
     const { registerInserterMediaCategory } = dispatch(editorStore)
     if (!registerInserterMediaCategory) return unsubscribe()
