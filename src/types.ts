@@ -7,7 +7,7 @@ export type UnsplashImage = {
     width: number
     alt_description: null | string
     urls: {
-        [T in 'raw' | 'full' | 'regular' | 'small']: string
+        [T in 'raw' | 'full' | 'regular' | 'small' | 'small_s3' | 'thumb']: string
     }
     links: {
         download_location: string
