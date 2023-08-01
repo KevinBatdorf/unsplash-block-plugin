@@ -53,6 +53,6 @@
         "@wordpress/i18n": "^4.38.0",
         "framer-motion": "^10.13.0",
         "swr": "^2.2.0",
-        "zustand": "^4.3.9"
+        "zustand": "^4.4.0"
     }
 }
