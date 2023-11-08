@@ -1,7 +1,7 @@
 === Unlimited Photos - Stock photo and AI image search ===
 Contributors:      kbat82
 Tags:              block, ai, stock photos, photography, news, politics, people, wallpaper, google images
-Tested up to:      6.3
+Tested up to:      6.4
 Stable tag:        1.5.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
