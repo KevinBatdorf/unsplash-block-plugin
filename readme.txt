@@ -1,4 +1,4 @@
-=== Unlimited Photos - Stock photo and AI image search ===
+=== Unlimited Photos - Unsplash and Lexica images ===
 Contributors:      kbat82
 Tags:              block, ai, stock photos, photography, news, politics, people, wallpaper, google images
 Tested up to:      6.4
