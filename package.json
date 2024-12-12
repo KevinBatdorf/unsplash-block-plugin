@@ -21,7 +21,7 @@
         "@types/wordpress__block-editor": "^11.5.1",
         "@types/wordpress__blocks": "^12.5.0",
         "@typescript-eslint/eslint-plugin": "^6.1.0",
-        "@typescript-eslint/parser": "^6.1.0",
+        "@typescript-eslint/parser": "^6.2.1",
         "@wordpress/block-editor": "^12.6.0",
         "@wordpress/env": "^8.4.0",
         "@wordpress/scripts": "^26.9.0",
