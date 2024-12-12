@@ -45,7 +45,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@headlessui/react": "1.7.15",
+        "@headlessui/react": "1.7.16",
         "@wordpress/api-fetch": "^6.35.0",
         "@wordpress/block-editor": "^12.6.0",
         "@wordpress/blocks": "^12.15.0",
