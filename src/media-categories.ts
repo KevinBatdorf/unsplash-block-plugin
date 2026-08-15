@@ -1,41 +1,41 @@
-import { __, sprintf } from '@wordpress/i18n'
-import { API_URL } from './config'
-import { imageFetcher } from './hooks/usePhotos'
-import { UnsplashImage } from './types'
+import { __, sprintf } from "@wordpress/i18n";
+import { API_URL } from "./config";
+import { imageFetcher } from "./hooks/usePhotos";
+import type { UnsplashImage } from "./types";
 
-type MediaCategoryQuery = { search: string; per_page: number }
+type MediaCategoryQuery = { search: string; per_page: number };
 
 const buildUrl = (query: { search: string; per_page: number }) => {
-    const { search, per_page } = query
-    const queryParams = new URLSearchParams(`per_page=${per_page}`)
-    const endpoint = search
-        ? `search/photos?query=${search}&${queryParams.toString()}`
-        : `photos?${queryParams.toString()}`
-    return `${API_URL}/api/${endpoint}`
-}
+	const { search, per_page } = query;
+	const queryParams = new URLSearchParams(`per_page=${per_page}`);
+	const endpoint = search
+		? `search/photos?query=${search}&${queryParams.toString()}`
+		: `photos?${queryParams.toString()}`;
+	return `${API_URL}/api/${endpoint}`;
+};
 const unsplashCaption = (image: UnsplashImage) =>
-    image?.user?.username && image?.user?.name
-        ? sprintf(
-              __('Photo by %1$s on %2$s', 'unlimited-photos'),
-              `<a href="https://unsplash.com/@${image.user.username}?utm_source=Unlimited%20Photos&utm_medium=referral">${image.user.name}</a>`,
-              '<a href="https://unsplash.com/?utm_source=Unlimited%20Photos&utm_medium=referral">Unsplash</a>',
-          )
-        : image?.alt_description ?? ''
+	image?.user?.username && image?.user?.name
+		? sprintf(
+				__("Photo by %1$s on %2$s", "unlimited-photos"),
+				`<a href="https://unsplash.com/@${image.user.username}?utm_source=Unlimited%20Photos&utm_medium=referral">${image.user.name}</a>`,
+				'<a href="https://unsplash.com/?utm_source=Unlimited%20Photos&utm_medium=referral">Unsplash</a>',
+			)
+		: (image?.alt_description ?? "");
 
 export const unsplash = {
-    name: 'unlimited-photos-unsplash',
-    labels: { name: 'Unsplash', search_items: 'Search Unsplash.com' },
-    mediaType: 'image',
-    isExternalResource: true,
-    async fetch({ search, per_page }: MediaCategoryQuery) {
-        const url = buildUrl({ search, per_page })
-        const { photos } = await imageFetcher(url)
-        return photos.map((image: UnsplashImage) => ({
-            ...image,
-            title: image.alt_description,
-            caption: unsplashCaption(image),
-            previewUrl: image.urls.small_s3,
-            url: image.urls.full,
-        }))
-    },
-}
+	name: "unlimited-photos-unsplash",
+	labels: { name: "Unsplash", search_items: "Search Unsplash.com" },
+	mediaType: "image",
+	isExternalResource: true,
+	async fetch({ search, per_page }: MediaCategoryQuery) {
+		const url = buildUrl({ search, per_page });
+		const { photos } = await imageFetcher(url);
+		return photos.map((image: UnsplashImage) => ({
+			...image,
+			title: image.alt_description,
+			caption: unsplashCaption(image),
+			previewUrl: image.urls.small_s3,
+			url: image.urls.full,
+		}));
+	},
+};

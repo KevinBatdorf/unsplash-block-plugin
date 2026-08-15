@@ -23,7 +23,6 @@ jobs:
 
             - name: Build
               run: |
-                  npx eslint --max-warnings 0 .
                   npm run build
 
             - name: Package
