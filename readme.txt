@@ -1,8 +1,8 @@
 === Unlimited Photos - Unsplash images ===
 Contributors:      kbat82
 Tags:              block, stock photos, photography, news, politics, people, wallpaper, google images
-Tested up to:      6.4
-Stable tag:        1.5.0
+Tested up to:      7.1
+Stable tag:        1.6.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,9 +67,11 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 1. An example of searching for wallpapers
 2. A search for animal stock images
-3. Search and insert from the block interter media tab
 
 == Changelog ==
+
+= 1.6.0 - 2026-08-15 =
+- Remove: AI image search, as the Lexica API is no longer available
 
 = 1.5.0 - 2023-07-23 =
 - Feature: Added block inserter media tab category
