@@ -1,17 +1,17 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "kevinbatdorf/unlimited-photos",
-    "version": "1.0.0",
-    "title": "Unlimited Photos",
-    "category": "media",
-    "description": "Stock photo and AI image search",
-    "attributes": {},
-    "supports": {
-        "html": false
-    },
-    "textdomain": "unlimited-photos",
-    "editorScript": "file:./index.js",
-    "editorStyle": "file:./index.css",
-    "style": "file:./style-index.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "kevinbatdorf/unlimited-photos",
+	"version": "1.0.0",
+	"title": "Unlimited Photos",
+	"category": "media",
+	"description": "Stock photo and AI image search",
+	"attributes": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "unlimited-photos",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
 }

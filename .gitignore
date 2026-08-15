@@ -3,9 +3,5 @@ build
 /target
 Cargo.lock
 
-cypress/screenshots/**/*
-!cypress/screenshots/**/.gitkeep
-cypress/videos/**/*
-!cypress/videos/**/.gitkeep
-cypress/downloads/**/*
-cypress/downloads/**/.gitkeep
+playwright-report
+test-results
