@@ -5,4 +5,7 @@
 /assets
 /scripts
 /package-lock.json
-/cypress
+/tests
+/playwright.config.ts
+/playwright-report
+/test-results

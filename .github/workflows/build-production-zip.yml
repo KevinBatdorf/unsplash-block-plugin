@@ -34,7 +34,9 @@ jobs:
                   path: |
                       ${{ github.workspace }}/
                       !${{ github.workspace }}/node_modules/
-                      !${{ github.workspace }}/cypress/
+                      !${{ github.workspace }}/tests/
+                      !${{ github.workspace }}/playwright-report/
+                      !${{ github.workspace }}/test-results/
                       !${{ github.workspace }}/target/
                       !${{ github.workspace }}/scripts/
                       !${{ github.workspace }}/.git/

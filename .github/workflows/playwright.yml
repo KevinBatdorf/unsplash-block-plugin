@@ -1,0 +1,81 @@
+name: Playwright Tests
+permissions:
+  contents: write
+on:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  discover:
+    name: Discover test suites
+    runs-on: ubuntu-latest
+    outputs:
+      suites: ${{ steps.find.outputs.suites }}
+    steps:
+    - uses: actions/checkout@v4
+    - id: find
+      run: |
+        suites=$(find . -name '*.spec.ts' -not -path '*/node_modules/*' | while read spec; do
+          dir=$(dirname "$spec")
+          if [ -f "$dir/blueprint.json" ]; then
+            basename "$spec" .spec.ts
+          fi
+        done | jq -R -s -c 'split("\n") | map(select(length > 0))')
+        echo "suites=$suites" >> "$GITHUB_OUTPUT"
+
+  test:
+    name: ${{ matrix.suite }}
+    needs: discover
+    concurrency:
+      group: ${{ github.workflow }} - ${{ matrix.suite }} - ${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: ${{ fromJson(needs.discover.outputs.suites) }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: 'npm'
+
+    - run: npm ci --prefer-offline --no-audit --no-fund
+
+    - name: Get Playwright version
+      id: pw-version
+      run: echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      id: pw-cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ steps.pw-version.outputs.version }}
+
+    - name: Install Playwright Browsers
+      if: steps.pw-cache.outputs.cache-hit != 'true'
+      run: npx playwright install --with-deps
+
+    - name: Install Playwright deps only
+      if: steps.pw-cache.outputs.cache-hit == 'true'
+      run: npx playwright install-deps
+
+    - name: Build project
+      run: npm run build
+      env:
+        CI: true
+
+    - name: Run Playwright tests
+      run: RUN_PROJECT="${{ matrix.suite }}" npx playwright test --project="${{ matrix.suite }}"
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: pw-${{ matrix.suite }}
+        path: playwright-report/
+        retention-days: 30
