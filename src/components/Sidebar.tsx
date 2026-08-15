@@ -1,10 +1,10 @@
-import { Icon, ToggleControl } from '@wordpress/components'
+import { Icon } from '@wordpress/components'
 import { useEffect, useRef, useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
 import classnames from 'classnames'
 import { blockIconThin } from '../icons'
 import { useGlobalState } from '../state/global'
-import { artistTerms, defaultTerms } from '../suggested-search'
+import { defaultTerms } from '../suggested-search'
 import { PhpMaxFileSizeWarning } from './Errors'
 import { SearchSuggestions } from './SearchSuggestions'
 import { SettingsModal } from './SettingsModal'
@@ -25,8 +25,6 @@ export const Sidebar = ({
         recent,
         setRecent,
         deleteRecent,
-        imageSource,
-        setImageSource,
     } = useGlobalState()
     const [search, setSearch] = useState('')
     const [showImportWarning, setShowImportWarning] = useState(false)
@@ -159,24 +157,6 @@ export const Sidebar = ({
                         )}
                     </p>
                 </form>
-                <div data-cy-up="ai-images-toggle">
-                    <ToggleControl
-                        label={__('Search AI Images', 'unlimited-photos')}
-                        className={classnames({
-                            'text-main-grayish': currentTheme === 'midnight',
-                            'text-gray-800': currentTheme !== 'midnight',
-                        })}
-                        checked={imageSource === 'lexica'}
-                        onChange={() => {
-                            setPage(1)
-                            setImageSource(
-                                imageSource === 'lexica'
-                                    ? 'unsplash'
-                                    : 'lexica',
-                            )
-                        }}
-                    />
-                </div>
                 {showImportWarning && (
                     <PhpMaxFileSizeWarning
                         // eslint-disable-next-line
@@ -231,11 +211,7 @@ export const Sidebar = ({
                 </h2>
                 <div className="px-4 overflow-y-auto">
                     <SearchSuggestions
-                        terms={
-                            imageSource === 'unsplash'
-                                ? defaultTerms
-                                : artistTerms
-                        }
+                        terms={defaultTerms}
                         handlePress={(term: string) => {
                             touched.current = true
                             setPage(1)

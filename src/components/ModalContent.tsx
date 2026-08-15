@@ -19,12 +19,12 @@ type MondalContentProps = {
 }
 
 export const ModalContent = ({ setImage }: MondalContentProps) => {
-    const { page, loading, currentTheme, imageSource } = useGlobalState()
+    const { page, loading, currentTheme } = useGlobalState()
     const {
         data: images,
         error,
         cacheId,
-    } = usePhotos({ per_page: 30, page, imageSource })
+    } = usePhotos({ per_page: 30, page })
     const [gridWidth, setGridWidth] = useState<number>()
     const [columns, setColumns] = useState<number>(3)
     const [imagePositions, setImagePositions] = useState<ImagePosition[]>([])

@@ -11,7 +11,6 @@ type ImageResponse = {
 }
 
 type ListPhotosParams = {
-    imageSource: 'unsplash' | 'lexica'
     page?: number
     per_page?: number
     order_by?: string

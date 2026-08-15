@@ -5,11 +5,10 @@ beforeEach(() => {
     cy.visitNewPageEditor()
 })
 
-context('Image source checks', () => {
-    it('Image sources can be switched from Unsplash to lexica', () => {
+context('Sidebar checks', () => {
+    it('Recent searches persist and can be removed', () => {
         cy.addBlock('kevinbatdorf/unlimited-photos')
 
-        // Search something that exists on Lexica, but not Unsplash
         cy.get('#unlimited-photos-recent-searches li').should('have.length', 0)
         cy.get('#unlimited-photos-search').type('zzzzzzzzzzzzz')
         cy.get('#unlimited-photos-recent-searches li').should('have.length', 1)

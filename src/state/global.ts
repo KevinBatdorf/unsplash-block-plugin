@@ -9,13 +9,9 @@ type GlobalState = {
     loading: boolean | undefined
     imageSize: 'full' | 'raw' | 'regular'
     currentTheme: 'default' | 'midnight' | 'light'
-    blurNSFW: boolean
-    imageSource: 'unsplash' | 'lexica'
     recent: string[]
     setRecent: (recent: string) => void
     deleteRecent: (recent: string) => void
-    setImageSource: (imageSource: 'unsplash' | 'lexica') => void
-    setBlurNSFW: (blurNSFW: boolean) => void
     setImporting: (loading: string | boolean) => void
     setLoading: (loading: boolean) => void
     setSearchTerm: (searchTerm: string) => void
@@ -38,8 +34,6 @@ export const useGlobalState = create<GlobalState>()(
                 totalPages: undefined,
                 loading: undefined,
                 currentTheme: 'default',
-                blurNSFW: true,
-                imageSource: 'unsplash',
                 recent: [],
                 setRecent: (recent: string) => {
                     // Remove recent if it exists
@@ -59,12 +53,6 @@ export const useGlobalState = create<GlobalState>()(
                         ...state,
                         recent: state.recent.filter((r) => r !== recent),
                     }))
-                },
-                setImageSource: (imageSource: 'unsplash' | 'lexica') => {
-                    set((state) => ({ ...state, imageSource }))
-                },
-                setBlurNSFW: (blurNSFW: boolean) => {
-                    set((state) => ({ ...state, blurNSFW }))
                 },
                 setSearchTerm: (searchTerm: string) => {
                     set(() => ({ searchTerm }))
@@ -121,8 +109,6 @@ export const useGlobalState = create<GlobalState>()(
                     searchTerm: state.searchTerm ? state.searchTerm : undefined,
                     currentTheme: state.currentTheme,
                     imageSize: state.imageSize,
-                    blurNSFW: state.blurNSFW,
-                    imageSource: state.imageSource,
                     recent: state.recent,
                 }),
             },

@@ -1,19 +1,13 @@
 import { __, sprintf } from '@wordpress/i18n'
 import { API_URL } from './config'
 import { imageFetcher } from './hooks/usePhotos'
-import { LexicaImage, UnsplashImage } from './types'
+import { UnsplashImage } from './types'
 
 type MediaCategoryQuery = { search: string; per_page: number }
 
-const buildUrl = (query: {
-    search: string
-    per_page: number
-    type: string
-}) => {
-    const { search, per_page, type } = query
-    const queryParams = new URLSearchParams(
-        `per_page=${per_page}&imageSource=${type}`,
-    )
+const buildUrl = (query: { search: string; per_page: number }) => {
+    const { search, per_page } = query
+    const queryParams = new URLSearchParams(`per_page=${per_page}`)
     const endpoint = search
         ? `search/photos?query=${search}&${queryParams.toString()}`
         : `photos?${queryParams.toString()}`
@@ -34,7 +28,7 @@ export const unsplash = {
     mediaType: 'image',
     isExternalResource: true,
     async fetch({ search, per_page }: MediaCategoryQuery) {
-        const url = buildUrl({ search, per_page, type: 'unsplash' })
+        const url = buildUrl({ search, per_page })
         const { photos } = await imageFetcher(url)
         return photos.map((image: UnsplashImage) => ({
             ...image,
@@ -42,25 +36,6 @@ export const unsplash = {
             caption: unsplashCaption(image),
             previewUrl: image.urls.small_s3,
             url: image.urls.full,
-        }))
-    },
-}
-
-export const lexica = {
-    name: 'unlimited-photos-lexica',
-    labels: { name: 'Lexica', search_items: 'Search Lexica.art' },
-    mediaType: 'image',
-    isExternalResource: true,
-    async fetch({ search, per_page }: MediaCategoryQuery) {
-        const url = buildUrl({ search, per_page, type: 'lexica' })
-        const { photos } = await imageFetcher(url)
-        // Slice since Lexia doesn't support pagination
-        return photos.slice(0, Number(per_page)).map((image: LexicaImage) => ({
-            ...image,
-            title: image.prompt,
-            caption: image.prompt,
-            previewUrl: image.srcSmall,
-            url: image.src,
         }))
     },
 }

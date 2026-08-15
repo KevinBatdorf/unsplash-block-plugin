@@ -1,4 +1,4 @@
-export type ExternalImage = UnsplashImage | LexicaImage
+export type ExternalImage = UnsplashImage
 
 export type UnsplashImage = {
     id: string
@@ -16,23 +16,6 @@ export type UnsplashImage = {
         username: string
         name: string
     }
-}
-
-export type LexicaImage = {
-    id: number
-    source: 'lexica'
-    gallery: string
-    src: string
-    srcSmall: string
-    prompt: string
-    width: number
-    height: number
-    seed: string
-    grid: boolean
-    model: string
-    guidance: number
-    promptid: string
-    nsfw: boolean
 }
 
 export type ImageLike = {

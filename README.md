@@ -1,4 +1,4 @@
-A Gutenberg block that interfaces with image APIs (Unsplash and Lexica) and imports images directly into the Gutenberg core image block.
+A Gutenberg block that interfaces with the Unsplash API and imports images directly into the Gutenberg core image block.
 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kevinbatdorf.svg?style=social&label=Follow%20%40kevinbatdorf)](https://twitter.com/kevinbatdorf)
 

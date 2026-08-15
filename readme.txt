@@ -1,12 +1,12 @@
-=== Unlimited Photos - Unsplash and Lexica images ===
+=== Unlimited Photos - Unsplash images ===
 Contributors:      kbat82
-Tags:              block, ai, stock photos, photography, news, politics, people, wallpaper, google images
+Tags:              block, stock photos, photography, news, politics, people, wallpaper, google images
 Tested up to:      6.4
 Stable tag:        1.5.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Search from millions of stock photos, AI-generated imagry, textures, wallpapers, and more.
+Search from millions of stock photos, textures, wallpapers, and more.
 
 == Description ==
 
@@ -18,16 +18,14 @@ NEW: Search for images from the media tab (WordPress 6.3+).
 
 Looking for that stock photo that perfectly matches your recipe, blog post, or news article? Or the perfect current event pic that describes exactly the intensity your story conveys? Writing a blog post for your business? Unlimited photos has exactly what you are looking for, for free*.
 
-Search AI-generated images built from platforms like stable diffusion, Dall-E, Midjourney, and more.
-
-* See the FAQ section for specific license info. AI-generated images are free for personal use but may require a license for commercial use.
+* See the FAQ section for specific license info.
 
 = More info =
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
 - View on [GitHub](https://github.com/KevinBatdorf/unsplash-block-plugin)
 
 = Features =
-- Search millions of photos, AI-generated images, textures, wallpapers, and more.
+- Search millions of photos, textures, wallpapers, and more.
 - Always view the latest photos
 - Your search is saved so you can always pick up where you left off.
 - Import photos right into the core image block (and the media library too)
@@ -35,8 +33,7 @@ Search AI-generated images built from platforms like stable diffusion, Dall-E, M
 - No lock-in, delete at any time and nothing changes
 
 = Note =
-- Image search uses the Unsplash AI at unsplash.com
-- AI search uses the Lexica API at lexica.com
+- Image search uses the Unsplash API at unsplash.com
 
 = Terms of Use & Privacy =
 
@@ -56,8 +53,7 @@ The server is hosted on [Vercel](https://vercel.com/), and by connecting to thei
 
 = What license do the images have? =
 
-- Unsplash images (non-AI) license information can be found here: https://unsplash.com/license
-- Lexica images (AI generated) license information can be found here: https://lexica.art/license
+- Unsplash images license information can be found here: https://unsplash.com/license
 
 = What happens when I deactivate this plugin? =
 
@@ -71,8 +67,7 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 
 1. An example of searching for wallpapers
 2. A search for animal stock images
-3. An AI search for a particular artist
-4. Search and insert from the block interter media tab
+3. Search and insert from the block interter media tab
 
 == Changelog ==
 

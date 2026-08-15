@@ -8,7 +8,7 @@ import { BlockFilter } from './components/BlockFilter'
 import { BlockReplacer } from './components/BlockReplacer'
 import './editor.css'
 import { blockIcon } from './icons'
-import { lexica, unsplash } from './media-categories'
+import { unsplash } from './media-categories'
 
 registerBlockType('kevinbatdorf/unlimited-photos', {
     ...blockConfig,
@@ -45,5 +45,4 @@ const unsubscribe = subscribe(() => {
     // Can't unsub here as it gets removed.
     if (maybeRegistered) return
     registerInserterMediaCategory(unsplash)
-    registerInserterMediaCategory(lexica)
 }, editorStore)

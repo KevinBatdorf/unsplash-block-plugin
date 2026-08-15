@@ -49,25 +49,21 @@ export const Loader = ({
 
     const setImage = async (image: ExternalImage) => {
         if (importing) return
-        const unsplash = image.source === 'unsplash'
         const caption =
-            unsplash && image?.user?.username && image?.user?.name
+            image?.user?.username && image?.user?.name
                 ? sprintf(
                       __('Photo by %1$s on %2$s', 'unlimited-photos'),
                       `<a href="https://unsplash.com/@${image.user.username}?utm_source=Unlimited%20Photos&utm_medium=referral">${image.user.name}</a>`,
                       '<a href="https://unsplash.com/?utm_source=Unlimited%20Photos&utm_medium=referral">Unsplash</a>',
                   )
-                : !unsplash
-                ? image?.prompt
                 : ''
 
-        // Record download to Unsplash only
-        unsplash &&
-            (await fetch(`${API_URL}/api/download`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'multipart/form-data' },
-                body: image?.links?.download_location,
-            }))
+        // Record download to Unsplash
+        await fetch(`${API_URL}/api/download`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            body: image?.links?.download_location,
+        })
 
         // If the user cannot import large images, lower the quality
         const imageSizeChecked =
@@ -77,7 +73,7 @@ export const Loader = ({
                 ? 'regular'
                 : imageSize
 
-        const url = unsplash ? image.urls[imageSizeChecked] : image.src
+        const url = image.urls[imageSizeChecked]
         const newImage: WpImage | undefined = await importImage(url, {
             alt: '',
             filename: `up-${image.id}.jpg`,

@@ -23,26 +23,3 @@ export const defaultTerms = [
     // 'History',
     'Athletics',
 ]
-
-export const artistTerms = [
-    'Alfred Sisley',
-    'Atey Ghailan',
-    'Brandon Woelfel',
-    'Chris Moore',
-    'David Chipperfield',
-    'Edward Ruscha',
-    'Enki Bilal',
-    'Erin Hanson',
-    'George Birrell',
-    'Graham Sutherland',
-    'Harold Edgerton',
-    'Henry Moret',
-    'Hiroshi Nagai',
-    'Joel Meyerowitz',
-    'John Dyer Baizley',
-    'Jean Giraud',
-    'Mary Blair',
-    'Michael Kaluta',
-    'Robert McCall',
-    'Wong Kar-wai',
-]
