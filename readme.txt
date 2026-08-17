@@ -2,7 +2,7 @@
 Contributors:      kbat82
 Tags:              block, stock photos, photography, news, politics, people, wallpaper, google images
 Tested up to:      7.1
-Stable tag:        1.6.0
+Stable tag:        1.6.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,9 @@ This warning shows when your server has a restriction lower than 3MB. Many image
 2. A search for animal stock images
 
 == Changelog ==
+
+= 1.6.1 - 2026-08-17 =
+- Update block to API version 3 for iframed editor compatibility
 
 = 1.6.0 - 2026-08-15 =
 - Remove: AI image search, as the Lexica API is no longer available
