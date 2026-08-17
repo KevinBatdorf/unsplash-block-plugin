@@ -24,6 +24,17 @@ test("The toolbar button opens the modal and focuses search", async ({
 	await admin.createNewPost();
 	await editor.insertBlock({ name: BLOCK });
 
+	// Dismiss the auto-opened modal so the toolbar click is what opens it
+	const search = page.locator("#unlimited-photos-search");
+	const autoOpened = await search
+		.waitFor({ timeout: 5000 })
+		.then(() => true)
+		.catch(() => false);
+	if (autoOpened) {
+		await page.keyboard.press("Escape");
+		await expect(search).toBeHidden();
+	}
+
 	const toolbarButton = page.locator(".unlimited-photos-toolbar-button");
 	await expect(toolbarButton).toBeVisible();
 	await toolbarButton.click();
